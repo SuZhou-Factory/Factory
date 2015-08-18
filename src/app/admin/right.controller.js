@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function RightController($scope, $http, $modal, $log, Tools) {
-        $scope.tableHead = ['名称11', 'value值', '父名称', '操作'];
+        $scope.tableHead = ['名称', 'value值', '父名称', '操作'];
         $scope.searchInfo = {
             right: {
                 name: '',
