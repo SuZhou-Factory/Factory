@@ -96,20 +96,20 @@
                 templateUrl: 'app/admin/admin.html',
                 controller: 'AdminController',
             })
-            .state('admin.right', {
-                url: '',
-                templateUrl: 'app/admin/right.html',
-                controller: 'RightController',
-            })
             .state('admin.backend', {
                 url: '',
                 templateUrl: 'app/admin/backend.html',
-                controller: 'AdminController',
+                controller: 'BackendController',
             })
             .state('admin.role', {
                 url: '',
                 templateUrl: 'app/admin/role.html',
                 controller: 'AdminController',
+            })
+            .state('admin.right', {
+                url: '',
+                templateUrl: 'app/admin/right.html',
+                controller: 'RightController',
             })
             .state('server-test', {
                 url: '/server-test',

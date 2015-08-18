@@ -3,11 +3,11 @@
 		<div class="title">
 			<h3>苏创平台登录</h3>
 		</div>
-		<div class="content">
+		<form class="content" id='loginForm'>
 			<div class="err-info">
 			</div>
 			<div class="input">
-				<input id="username" name="username" type="text" placeholder="用户名" ng-model=user.username required autocomplete="on">
+				<input name="username" type="text" placeholder="用户名" ng-model=user.username required autocomplete="on">
 				<i class="fi-torso"></i>
 			</div>
 			<div class="input">
@@ -16,6 +16,6 @@
 			</div>
 			<div class="button" ng-click=Post()>登录</div>
 			<a class="pass-link" href="">忘记密码？</a>
-		</div>
+		</form>
 	</section>
 </div>

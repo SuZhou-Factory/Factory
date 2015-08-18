@@ -7,10 +7,7 @@
 
     /** @ngInject */
     function LoginController($rootScope, $scope, $http, $state, Tools) {
-        $('.content').validate({
-            submitHandler: function(form) {
-                $(form).ajaxSubmit();
-            },
+        $('#loginForm').validate({
             rules: {
                 username: {
                     required: true,
@@ -38,6 +35,9 @@
         };
 
         $scope.Post = function() {
+            if (!$('#loginForm').valid()) {
+                return;
+            }
             $http.post(Setting.host + Setting.login.url, {user: $scope.user})
                 .success(successCallback)
                 .error(errorCallback);

@@ -1,11 +1,11 @@
 <h4 ng-bind="modal.title"></h4>
-<div class="modal-content">
+<from class="modal-content" id="modalForm">
     <div class="modal-content-left">
         <label>名称：
-            <input type="text" ng-model="modal.right.name">
+            <input name="rightname" type="text" ng-model="modal.right.name">
         </label>
         <label>Value值：
-            <input type="text" ng-model="modal.right.value">
+            <input name="value" type="text" ng-model="modal.right.value">
         </label>
     </div>
     <div class="modal-content-right">
@@ -37,7 +37,7 @@
             </ul>
         </div>
     </div>
-</div>
+</from>
 <p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
 <button class="button" ng-click="ok()">OK</button>
 <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
