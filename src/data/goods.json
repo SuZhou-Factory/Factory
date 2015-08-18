@@ -1,0 +1,25 @@
+[{
+    "goodsId":"1",
+    "index": "1",
+    "name": "彩板",
+    "pubTime": "2014-01-01",
+    "price":"135"
+}, {
+    "goodsId":"2",
+    "index": "2",
+    "name": "钢架",
+    "pubTime": "2014-01-01",
+    "price":"208"
+}, {
+    "goodsId":"3",
+    "index": "3",
+    "name": "三角架",
+    "pubTime": "2014-01-01",
+    "price":"75"
+}, {
+    "goodsId":"4",
+    "index": "4",
+    "name": "木板",
+    "pubTime": "2014-01-01",
+    "price":"96"
+}]

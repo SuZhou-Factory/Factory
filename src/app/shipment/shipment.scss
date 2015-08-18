@@ -1,0 +1,23 @@
+.shipment {
+	height: 100%;
+	padding: 1rem 0 0 0;
+	ul {
+		display: none;
+		margin: 0;
+		padding: 1rem;
+		list-style: none;
+		border: 1px solid #aaa;
+
+		li {
+
+		}
+	}
+	p {
+		border: 1px solid #aaa;
+		padding: 10px;
+
+	}
+	textarea {
+		height: 200px;
+	}
+}

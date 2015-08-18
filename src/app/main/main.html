@@ -1,0 +1,17 @@
+<div class="app">
+    <div ng-controller="MainController">
+        <navb></navb>
+        <div class="container row">
+            <e-menu class="e-menu small-3 large-2 columns"></e-menu>
+            <div class="content small-9 large-10 columns">
+            	<div class="pagetab" ng-if="pages.length">
+            		<div ng-class="page.active?['tabhead', 'active']:'tabhead'" ng-repeat="page in pages" ui-sref="{{page.state}}">
+            			<span ng-bind="page.name"></span>
+            			<i class="foundicon-remove" ng-click="closePage()"></i>
+            		</div>
+            	</div>
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>

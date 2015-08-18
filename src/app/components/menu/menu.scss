@@ -1,0 +1,38 @@
+@function randomHsl($s, $l) {
+	@return hsl(random(360), $s, $l);
+}
+
+menu {
+	margin: 0;
+	padding: 0;
+}
+
+.accordion {
+	dd {
+		>a {
+			border-bottom: 1px solid #ccc;
+			position: relative;
+			color: #FFF;
+		}
+		.content {
+			padding: 0;
+			ul {
+				margin: 0;
+				list-style: none;
+				li {
+					border-bottom: 1px solid #5C8D9E;
+					a {
+						display: block;
+						padding: 1rem;
+						color: #666;
+					}
+				}
+				li:last-child {
+					border: none;
+				}
+			}
+		}
+
+	}
+
+}

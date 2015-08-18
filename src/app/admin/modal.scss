@@ -1,0 +1,49 @@
+.reveal-modal {
+	max-width: 960px;
+	padding: 2rem;
+
+	.modal-content {
+		display: flex;
+		border: 1px solid #999;
+		padding: 1rem;
+		margin-bottom: 1.5rem;
+		>div {
+			margin: 0 0.8rem;
+		}
+		.modal-content-left {
+			flex: 2;
+		}
+		.modal-content-right {
+			flex: 3;
+		}
+	}
+	.tree-container {
+		max-height: 15rem;
+		border: 1px solid #ddd;
+		padding: 1rem 0;
+		overflow: auto;
+		ul {
+			list-style: none;
+			margin-left: 2rem;
+		}
+		label {
+			display: inline-block;
+		}
+		i {
+			vertical-align: sub;
+			margin-right: 1rem;
+		}
+		input[type="radio"] {
+			width: 1rem;
+			height: 1rem;
+			margin: 0;
+			vertical-align: sub;
+		}
+	}
+	.successmsg {
+		color: #0F0;
+	}
+	.errormsg {
+		color: #F00;
+	}
+}

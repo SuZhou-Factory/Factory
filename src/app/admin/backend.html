@@ -1,0 +1,32 @@
+<section class="employee">
+    <table>
+        <!--caption>Most Expensive Sandwiches by City</caption-->
+        <thead>
+            <tr>
+            	<th ng-repeat="empH in users.employeeHead" ng-bind="empH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="emp in users.employee" ng-init="emp.editable=true">
+                <td>
+                	<input type="text" ng-model="emp.id" ng-disabled="emp.editable" pattern="[0-9]">
+                </td>
+                <td>
+                	<input type="text" ng-model="emp.name" ng-disabled="emp.editable">
+                </td>
+                <td>
+                	<input type="text" ng-model="emp.phone" ng-disabled="emp.editable">
+                </td>
+                <td >
+                	<div class="button tiny" ng-click="edit()">编辑</div><div class="button tiny" ng-click="delete()">删除</div>
+                </td>
+            </tr>
+            <tr>
+            	<td><input type="text" ng-model="addEmployee.id"></td>
+            	<td><input type="text" ng-model="addEmployee.name"></td>
+            	<td><input type="text" ng-model="addEmployee.phone"></td>
+            	<td><div class="button tiny add" ng-click="add()">添加</div></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

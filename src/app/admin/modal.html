@@ -1,0 +1,43 @@
+<h4 ng-bind="modal.title"></h4>
+<div class="modal-content">
+    <div class="modal-content-left">
+        <label>名称：
+            <input type="text" ng-model="modal.right.name">
+        </label>
+        <label>Value值：
+            <input type="text" ng-model="modal.right.value">
+        </label>
+    </div>
+    <div class="modal-content-right">
+        <label for="modal-tree">父名称</label>
+        <div id="modal-tree" class="tree-container">
+            <script type="text/ng-template" id="treeitem.html">
+                <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.right.parentid == node.id? node.selected = true : null">
+                    <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
+                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
+                    </a>
+                    <label>
+                        <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id">
+                        <span ng-bind="node.name"></span>
+                    </label>
+                    <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="node.collapse"></ul>
+                </li>
+            </script>
+            <ul class="node">
+                <li ng-repeat="node in modal.tree">
+                    <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
+                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
+                    </a>
+                    <label>
+                        <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id"/>
+                        <span ng-bind="node.name"></span>
+                    </label>
+                    <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="!node.collapse"></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">OK</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

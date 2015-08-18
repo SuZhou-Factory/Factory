@@ -1,0 +1,50 @@
+<div class="server-test">
+	<form>
+	  <fieldset>
+	    <legend>前后台对接测试</legend>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+	        <label>URL</label>
+	        <input type="text" placeholder="../data/goods.json" ng-model=config.url>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+	        <label>请求Data</label>
+	        <input type="text" placeholder='{"username":"wangte","password":"123456"}' ng-model=info>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+	        <label>Data键值</label>
+	        <input type="text" placeholder='dataJson' ng-model=keyName>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+			  <a href="#" class="button" ng-click=Get()>GET</a>
+			  <a href="#" class="button" ng-click=Post()>POST</a>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+	        <label>请求发送数据</label>
+	        <textarea placeholder="默认JSON格式" ng-model=sendInfo></textarea>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="large-12 columns">
+	        <label>请求返回数据</label>
+	        <textarea placeholder="默认JSON格式" ng-model=response></textarea>
+	      </div>
+	    </div>
+
+	  </fieldset>
+	</form>
+</div>
