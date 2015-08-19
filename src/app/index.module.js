@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('suzhou', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'mm.foundation']);
+    .module('suzhou', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'mm.foundation', 'ui.date']);
 
 })();

@@ -1,27 +1,41 @@
 .admin {
 	.search {
-		display: flex;
 		margin: 10px 0 0 0;
-		padding: 15px;
+		padding: 15px 10px 1px;
 		border: solid 1px #DDD;
 		border-bottom: none;
+		> div {
+			display: flex;
+			margin-bottom: 0.8rem;
+		}
 		label {
 			flex: 2;
 			display: flex;
-			line-height: 2.3125rem;
-			margin-left: 30px;
+			line-height: 2rem;
+			margin-left: 20px;
+			span {
+				width: 4em;
+			}
 		}
 		input {
 			width: auto;
-			margin: 0 10px 0;
+			height: 2rem;
+			margin: 0 0 0 10px;
 			flex: 1;
 		}
 		.button-container {
-			text-align: center;
+			display: block;
+			text-align: right;
 			flex: 1;
 		}
 	}
 	table {
+		td {
+			padding: 0;
+			span {
+				padding: 0.5rem;
+			}
+		}
 		width: 100%;
 		input {
 			margin: 0;
@@ -39,7 +53,7 @@
 		}
 	}
 	.button.tiny {
-		margin: 0 0.3rem 0 0;
+		margin: 0 0 0 0.3rem;
 	}
 	.button.add {
 		background: #5C8D9E;

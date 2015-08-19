@@ -1,15 +1,28 @@
-<div ng-controller="RoleController">
-    <script type="text/ng-template" id="myModalContent.html">
-        <h3>I'm a modal!</h3>
-        <ul>
-            <li ng-repeat="item in items">
-                <a ng-click="selected.item = item">{{ item }}</a>
-            </li>
-        </ul>
-        <p>Selected: <b>{{ selected.item }}</b></p>
-        <button class="button" ng-click="ok()">OK</button>
-        <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
-    </script>
-    <button class="button" ng-click="open()">Open me!</button>
-    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+<div>
+    <div>
+        <h4>Default</h4>
+        <pagination total-items="totalItems" page="currentPage"></pagination>
+        <pagination boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        <pagination direction-links="false" boundary-links="true" total-items="totalItems" page="currentPage"></pagination>
+        <pagination direction-links="false" total-items="totalItems" page="currentPage" num-pages="smallnumPages"></pagination>
+        <pre>The selected page no: {{currentPage}}</pre>
+        <button class="button secondary" ng-click="setPage(3)">Set current page to: 3</button>
+        <hr />
+
+
+
+
+        
+        <h4>Pager</h4>
+        <pager total-items="totalItems" page="currentPage"></pager>
+        <hr />
+
+
+
+
+        <h4>Limit the maximum visible buttons</h4>
+        <pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></pagination>
+        <pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+        <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
+    </div>
 </div>

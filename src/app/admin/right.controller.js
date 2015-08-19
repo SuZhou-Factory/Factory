@@ -103,7 +103,7 @@
 
         function openModal(data, success, error) {
             var modalInstance = $modal.open({
-                templateUrl: 'app/admin/modal.html',
+                templateUrl: 'app/admin/right-modal.html',
                 controller: 'ModalInstanceCtrl',
                 backdrop: false,
                 resolve: {

@@ -104,7 +104,7 @@
             .state('admin.role', {
                 url: '',
                 templateUrl: 'app/admin/role.html',
-                controller: 'AdminController',
+                controller: 'RoleController',
             })
             .state('admin.right', {
                 url: '',

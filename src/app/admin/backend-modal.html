@@ -1,0 +1,31 @@
+<h4 ng-bind="modal.title"></h4>
+<from class="modal-content row" id="backendModalForm">
+    <div class="small-6">
+        <label><span><i>*</i>姓名</span>
+            <input name="name" type="text" ng-model="modal.user.name">
+        </label>
+        <label><span><i>*</i>用户名</span>
+            <input name="username" type="text" ng-model="modal.user.username">
+        </label>
+        <label><span><i>*</i>密码</span>
+            <input name="password" type="text" ng-model="modal.user.password">
+        </label>
+    </div>
+    <div class="small-6">
+        <label><span><i>*</i>工厂名</span>
+            <input name="factoryname" type="text" ng-model="modal.user.factoryname">
+        </label>
+        <label><span><i>*</i>截止时间</span>
+            <input name="deadtime" type="text" ui-date="modal.dateOptions" ng-model="modal.user.deadtime">
+        </label>
+        <label><span><i>*</i>角色</span>
+            <select name="roleid" ng-model="modal.user.roleid">
+                <option value="">-- 请选择 --</option>
+                <option value="{{role.id}}" ng-repeat="role in modal.roles" ng-bind="role.name"></option>
+            </select>
+        </label>
+    </div>
+</from>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
