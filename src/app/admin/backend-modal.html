@@ -21,7 +21,7 @@
         <label><span><i>*</i>角色</span>
             <select name="roleid" ng-model="modal.user.roleid">
                 <option value="">-- 请选择 --</option>
-                <option value="{{role.id}}" ng-repeat="role in modal.roles" ng-bind="role.name"></option>
+                <option ng-value="role.id" ng-repeat="role in modal.roles" ng-bind="role.name" ng-selected="modal.user.roleid==role.id?'selected':''"></option>
             </select>
         </label>
     </div>

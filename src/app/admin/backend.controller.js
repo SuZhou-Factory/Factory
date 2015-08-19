@@ -86,7 +86,7 @@
 
         $scope.add = function() {
             var addUser = {
-                userid: '',
+                id: '',
             	username: '',
             	password: '',
                 name: '',
@@ -117,8 +117,8 @@
 
         $scope.delete = function() {
             var deleteInfo = {
-                right: {
-                    id: this.right.id
+                user: {
+                    id: this.user.id
                 }
             };
 
@@ -180,15 +180,6 @@
     function BackendModalController($scope, $modalInstance, $http, modal) {
         $('#backendModalForm').validate({
             rules: {
-
-             //    userid: '',
-            	// username: '',
-            	// password: '',
-             //    name: '',
-             //    factoryname: '',
-             //    deadtime: '',
-             //    roleid: '',
-
                 username: {
                     required: true,
                 },
@@ -209,9 +200,8 @@
                 },
             },
             messages: {
-                rightname: {
+                username: {
                     required: "请输入用户名",
-                    minlength: "用户名太短，必须两位以上"
                 }
             }
         });
@@ -221,17 +211,17 @@
         };
         $scope.modal = modal;
 
-        // $scope.modal.user.deadtime = Date.parse($scope.modal.user.deadtime);
         $scope.ok = function() {
             // if (!$('#modalForm').valid()) {
             //     return;
             // }
             
-            // $scope.modal.user.deadtime = Date.parse($scope.modal.user.deadtime);
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-           	
+           	if (!_.isString($scope.modal.user.deadtime)) {
+           		$scope.modal.user.deadtime = $scope.modal.user.deadtime.toString();
+           	}
             update({user: modal.user}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
