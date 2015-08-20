@@ -123,7 +123,7 @@
             var modalInstance = $modal.open({
                 templateUrl: 'app/admin/right-modal.html',
                 controller: 'ModalInstanceCtrl',
-                backdrop: false,
+                backdrop: 'static',
                 resolve: {
                     modal: function() {
                         return data;

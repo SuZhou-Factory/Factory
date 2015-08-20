@@ -58,7 +58,7 @@
             var modalInstance = $modal.open({
                 templateUrl: 'app/admin/role-modal.html',
                 controller: 'RoleModalController',
-                backdrop: false,
+                backdrop: 'static',
                 windowClass: 'backend-modal',
                 resolve: {
                     modal: function() {
