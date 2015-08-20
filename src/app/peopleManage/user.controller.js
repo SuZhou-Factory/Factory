@@ -8,6 +8,7 @@
     /** @ngInject */
     function UserController($scope, $http, $state, DataService, Tools) {
         $scope.testt = 'Thu Jul 30 16:30:42 CST 2015';
+        $scope.userHead = ['用户名', '姓名', '操作'];
     	var initData = {
  			employeeHead: ['员工编号', '姓名', '电话', '操作'],
  			employee: [{
@@ -32,24 +33,18 @@
         // -- 网络请求相关定义
         $scope.searchInfo = {
             user: {
-                name: "nihao",
+                name: '',
             }
         };
-        $scope.search = function(callback) {
+        $scope.search = function() {
             $http.post(Setting.host + 'user/index', $scope.searchInfo).success(function(data){
                 if (data.rights && !(data.rights instanceof Array)) {
                     data.rights = [data.rights];
                 }
                 $scope.data = data;
-                if (callback) {
-                    callback();
-                }
             }).error(function(data) {
                 if (TestData.debug) {
                     $scope.data = TestData.right.index;
-                    if (callback) {
-                        callback();
-                    }
                 }
             });
         };

@@ -6,27 +6,27 @@
         </label>
     </div>
     <div class="modal-content-right">
-        <label for="modal-tree">父名称</label>
+        <label for="modal-tree">权限：</label>
         <div id="modal-tree" class="tree-container">
             <script type="text/ng-template" id="treeitem.html">
-                <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.role.parentid == node.id? node.selected = true : null">
+                <li ng-repeat="node in node.children" ng-init="fillBackRight(modal.role.roleRight, node)">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
                         <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
                     </a>
                     <label>
-                        <input type="checkbox" name="parentid" ng-model="modal.role.parentid" ng-value="node.id">
+                        <input type="checkbox" name="parentid" ng-model="node.selected" ng-value="node.id" ng-change="forward(node, node.selected);backward(node, node.selected)">
                         <span ng-bind="node.name"></span>
                     </label>
                     <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="node.collapse"></ul>
                 </li>
             </script>
             <ul class="node">
-                <li ng-repeat="node in modal.tree">
+                <li ng-repeat="node in modal.tree" ng-init="fillBackRight(modal.role.roleRight, node)">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
                         <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
                     </a>
                     <label>
-                        <input type="checkbox" name="parentid" ng-model="modal.role.parentid" ng-value="node.id"/>
+                        <input type="checkbox" name="parentid" ng-model="node.selected" ng-value="node.id" ng-change="forward(node, node.selected);backward(node, node.selected)">
                         <span ng-bind="node.name"></span>
                     </label>
                     <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="!node.collapse"></ul>

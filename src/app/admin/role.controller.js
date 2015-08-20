@@ -9,18 +9,14 @@
 
     /** @ngInject */
     function RoleController($scope, $http, $modal, $log, Tools) {
-            $scope.totalItems = 64;
-            $scope.currentPage = 4;
-            $scope.maxSize = 5;
+        $scope.maxSize = 5;
 
-            $scope.setPage = function(pageNo) {
-                $scope.currentPage = pageNo;
-            };
-
-            $scope.bigTotalItems = 175;
-            $scope.bigCurrentPage = 1;
+        $scope.setPage = function(pageNo) {
+            $scope.searchInfo.page.pageNo = pageNo;
+            $scope.search();
+        };
             
-            $scope.tableHead = ['角色名', '操作'];
+        $scope.tableHead = ['角色名', '操作'];
 
 		$scope.searchInfo = {
             role: {
@@ -31,7 +27,6 @@
             	pageSize: 10,
             }
         };
-        
         
         $scope.search = function() {
             $scope.msg = {
@@ -97,17 +92,15 @@
         
         
         $scope.add = function() {
-            var addRight = {
+            var addRole = {
                 id: '',
                 name: '',
-                value: '',
-                parentid: '',
-                parentname: ''
+                rights: '',
             };
 
             var modal = {
                 title: '添加',
-                right: addRight,
+                role: addRole,
                 tree: $scope.tree
             };
 
@@ -119,26 +112,26 @@
             });
         };
         
-        
-        
     }
 
 
     function RoleModalController($scope, $modalInstance, $http, $timeout, modal) {
-        $timeout(function() {
-//          $('#modalForm').validate({
-//              rules: {
-//                  rightname: {
-//                      required: true,
-//                  }
-//              },
-//              messages: {
-//                  rightname: {
-//                      required: "请输入用户名",
-//                  }
-//              }
-//          });
-        }, 10);
+        // $timeout(function() {
+        //     $('#roleModalForm').validate({
+        //         rules: {
+        //             rightname: {
+        //                 required: true,
+        //             }
+        //         },
+        //         messages: {
+        //             rightname: {
+        //                 required: "请输入用户名",
+        //             }
+        //         }
+        //     });
+
+        // }, 10);
+
         $scope.msg = {
             message: '',
             success: true
@@ -146,24 +139,22 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            if (!$('#roleModalForm').valid()) {
-                return;
-            }
+            // if (!$('#roleModalForm').valid()) {
+            //     return;
+            // }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
+            modal.role.roleRight = '';
+            $scope.getRightListStr(modal.tree, modal.role);
+            modal.role.roleRight = modal.role.roleRight.substr(0, modal.role.roleRight.length-1);
             
             update({role: modal.role}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-                    setTimeout((function(){
-                        var instance = $modalInstance;
-                        return function() {
-                            instance.close();
-                        };
-                    })(), 100);
-                    // $modalInstance.close();
+
+                    $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
@@ -185,6 +176,81 @@
                 if (error) error(data);
             });
         }
+
+        // -------------------------------------------------
+        this.addParent = function(nodes) {
+            for (var index in nodes) {
+                if (nodes[index].children && nodes[index].children.length > 0) {
+                    for (var _index in nodes[index].children) {
+                        nodes[index].children[_index].parent = nodes[index];
+                    }
+                    this.addParent(nodes[index].children);
+                }
+            }
+        };
+        this.addParent(modal.tree);
+        $scope.forward = function(node, selected) {
+            //上层节点被选中，下层节点全被选中
+            if (node === undefined) {
+                return;
+            }
+
+            for (var index in node.children) {
+                node.children[index].selected = selected;
+
+                if (node.children !== undefined) {
+                    $scope.forward(node.children[index], node.children[index].selected);
+                }
+            }
+        };
+
+        $scope.backward = function(node, selected) {
+            //下层节点被选或取消选中，修改相对应的上层节点
+            if (node === undefined || node.value === null) {
+                return;
+            }
+            var parent = node.parent;
+            if (!parent) return
+            var parentSelected = selected;
+
+            if (selected === true) {
+                for (var index in parent.children) {
+                    if (parent.children[index].selected === false) {
+                        parentSelected = false;
+                        break
+                    }
+                }
+            }
+            if (parent.parent) {
+                parent.selected = parentSelected;
+            }
+            if (node.parent !== undefined) {
+                $scope.backward(parent, parentSelected);
+            };
+
+        };
+
+        $scope.getRightListStr = function(nodes, obj) {
+            if (nodes === undefined) {
+                return;
+            }
+            if (!obj.roleRight) {
+                obj.roleRight = '';
+            }
+
+            for (var index in nodes) {
+                if (nodes[index].selected) {
+                    obj.roleRight += nodes[index].id + '-';
+                }
+
+                if (nodes[index].children !== undefined) {
+                    $scope.getRightListStr(nodes[index].children, obj);
+                }
+            }
+        };
+        $scope.fillBackRight = function(rightsStr, node){
+            node.selected = (_.indexOf(rightsStr.split('-'), node.id+'') != -1);
+        };
     }
 
 })();

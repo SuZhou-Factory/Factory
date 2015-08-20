@@ -12,7 +12,7 @@
         <label for="modal-tree">父名称</label>
         <div id="modal-tree" class="tree-container">
             <script type="text/ng-template" id="treeitem.html">
-                <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.right.parentid == node.id? node.selected = true : null">
+                <li ng-repeat="node in node.children">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
                         <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
                     </a>

@@ -8,14 +8,11 @@
 
     /** @ngInject */
     function RightController($scope, $http, $modal, Tools) {
-    	
-//  	$scope.totalItems = 64;
         $scope.maxSize = 4;
 
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;
         	$scope.search();
-        	console.log(pageNo);
         };
         
         $scope.tableHead = ['名称', 'value值', '父名称', '操作'];

@@ -37,5 +37,11 @@
             return Date.parse(input);
         }
     });
+    // .filter("fillBackRight",function(){
+    //     return function(input, rightsStr, id){
+    //         input = (_.indexOf(rightsStr.split('-'), id) != -1)
+    //         return input;
+    //     }
+    // });
 
 })();
