@@ -53,7 +53,7 @@
 
         $scope.add = function() {
             var addRight = {
-                id: -1,
+                id: '',
                 name: '',
                 value: '',
                 parentid: '',
@@ -147,9 +147,9 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            if (!$('#modalForm').valid()) {
-                return;
-            }
+//          if (!$('#modalForm').valid()) {
+//              return;
+//          }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证

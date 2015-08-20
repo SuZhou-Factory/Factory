@@ -1,5 +1,5 @@
 <h4 ng-bind="modal.title"></h4>
-<form class="modal-content" id="modalForm">
+<from class="modal-content" id="modalForm">
     <div class="modal-content-left">
         <label>名称：
             <input name="rightname" type="text" ng-model="modal.right.name">
@@ -14,7 +14,7 @@
             <script type="text/ng-template" id="treeitem.html">
                 <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.right.parentid == node.id? node.selected = true : null">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
-                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
+                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
                     </a>
                     <label>
                         <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id">
@@ -26,7 +26,7 @@
             <ul class="node">
                 <li ng-repeat="node in modal.tree">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
-                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
+                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
                     </a>
                     <label>
                         <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id"/>
@@ -37,7 +37,7 @@
             </ul>
         </div>
     </div>
-</form>
+</from>
 <p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
 <button class="button" ng-click="ok()">保存</button>
 <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
