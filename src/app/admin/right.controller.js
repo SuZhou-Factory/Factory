@@ -7,12 +7,26 @@
         .controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
     /** @ngInject */
-    function RightController($scope, $http, $modal, $log, Tools) {
+    function RightController($scope, $http, $modal, Tools) {
+    	
+//  	$scope.totalItems = 64;
+        $scope.maxSize = 4;
+
+        $scope.setPage = function(pageNo) {
+        	$scope.searchInfo.page.pageNo = pageNo;
+        	$scope.search();
+        	console.log(pageNo);
+        };
+        
         $scope.tableHead = ['名称', 'value值', '父名称', '操作'];
         $scope.searchInfo = {
             right: {
                 name: '',
                 value: ''
+            },
+            page: {
+            	pageNo: 1,
+            	pageSize: 10,
             }
         };
 
@@ -25,8 +39,12 @@
                 if (data.rights && !(data.rights instanceof Array)) {
                     data.rights = [data.rights];
                 }
+                if (data.allRights && !(data.allRights instanceof Array)) {
+                    data.allRights = [data.allRights];
+                }
                 $scope.data = data;
-                $scope.tree = Tools.clone($scope.data).rights;
+                $scope.totalItems = $scope.data.totalNum;
+                $scope.tree = Tools.clone($scope.data.allRights);
                 $scope.tree = Tools.transtoTree($scope.tree);
 
             }).error(function(data) {
