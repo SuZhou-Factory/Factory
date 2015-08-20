@@ -7,7 +7,7 @@
             	<div class="pagetab" ng-if="pages.length">
             		<div ng-class="page.active?['tabhead', 'active']:'tabhead'" ng-repeat="page in pages" ui-sref="{{page.state}}">
             			<span ng-bind="page.name"></span>
-            			<i class="foundicon-remove" ng-click="closePage()"></i>
+            			<i class="fa fa-times-circle" ng-click="closePage()"></i>
             		</div>
             	</div>
                 <div ui-view></div>

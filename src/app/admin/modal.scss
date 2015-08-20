@@ -25,19 +25,22 @@
 		ul {
 			list-style: none;
 			margin-left: 2rem;
+			line-height: 1.5rem;
+			a {
+				vertical-align: middle;
+			}
+			i {
+				font-size: 1.1rem;
+				padding: 0.3rem 1rem 0 0;
+			}
 		}
 		label {
 			display: inline-block;
 		}
-		i {
-			vertical-align: sub;
-			margin-right: 1rem;
-		}
 		input[type="radio"] {
 			width: 1rem;
-			height: 1rem;
+			height: 0.95rem;
 			margin: 0;
-			vertical-align: sub;
 		}
 	}
 	.successmsg {

@@ -1,0 +1,10 @@
+<h4 ng-bind="modal.title" ng-init="modal.title?null:modal.title='提示'"></h4>
+<p class="message">
+    <i class="fa  fa-exclamation-circle"></i>
+    <span ng-bind="modal.message"></span>
+</p>
+<div class="buttons">
+    <button class="button tiny" ng-click="ok()">确认</button>
+    <button class="button tiny" ng-click="cancel()">取消</button>
+</div>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

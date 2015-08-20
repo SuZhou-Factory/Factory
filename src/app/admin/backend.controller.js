@@ -56,8 +56,6 @@
                     data.users = [data.users];
                 }
                 $scope.data = data;
-                // $scope.tree = Tools.clone($scope.data).rights;
-                // $scope.tree = Tools.transtoTree($scope.tree);
                 $scope.totalItems = $scope.data.totalNum;
             }).error(function(data) {
                 if (TestData.debug) {
@@ -121,21 +119,30 @@
                     id: this.user.id
                 }
             };
-
-            $http.post(Setting.host + 'backend/delete', deleteInfo).success(function(data) {
-                if (data.result.code = "000000") {
-                    $scope.msg.success = true;
-                    $scope.msg.message = data.result.message;
-                    //刷新页面
-                    $scope.search();
-                } else {
-                    $scope.msg.success = false;
-                    $scope.msg.message = data.result.message;
+            Tools.alert({
+                data: {
+                    // title: '提示',
+                    message: '确认删除用户名为 '+this.user.username+' 的人员?'
+                },
+                success: function() {
+                    $http.post(Setting.host + 'backend/delete', deleteInfo).success(function(data) {
+                        if (data.result.code = "000000") {
+                            $scope.msg.success = true;
+                            $scope.msg.message = data.result.message;
+                            //刷新页面
+                            $scope.search();
+                        } else {
+                            $scope.msg.success = false;
+                            $scope.msg.message = data.result.message;
+                        }
+                    }).error(function(data) {
+                        $scope.msg.success = false;
+                        $scope.msg.message = "网络异常，修改失败";
+                    });
                 }
-            }).error(function(data) {
-                $scope.msg.success = false;
-                $scope.msg.message = "网络异常，修改失败";
             });
+
+
         };
 
         function getRolesName() {
@@ -145,9 +152,7 @@
                 }
                 $scope.roles = data.roles;
             }).error(function(data) {
-                if (TestData.debug) {
-                    // $scope.roles = TestData.right.index;
-                }
+
             });
         }
 		getRolesName();
@@ -155,7 +160,7 @@
             var modalInstance = $modal.open({
                 templateUrl: 'app/admin/backend-modal.html',
                 controller: 'BackendModalController',
-                backdrop: false,
+                backdrop: 'static',
                 windowClass: 'backend-modal',
                 resolve: {
                     modal: function() {
@@ -212,7 +217,7 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#modalForm').valid()) {
+            // if (!$('#backendModalForm').valid()) {
             //     return;
             // }
             

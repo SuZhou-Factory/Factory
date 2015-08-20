@@ -68,7 +68,7 @@
 
         };
     })
-    .factory('Tools', function(){
+    .factory('Tools', function($modal){
         return {
             clone: function(obj) {
                 return JSON.parse(JSON.stringify(obj));
@@ -92,6 +92,41 @@
                     }
                 }
                 return tree;
+            },
+            alert: function(conf) {
+                /** config detail **/
+                var config = {
+                    data: '', // 传递给页面的数据
+                    success: function() {}, // 点击确认键返回时执行
+                    error: function() {}, //  点击取消键返回时执行
+                    templateUrl: 'app/alert/alert.html', // 模板路径
+                    controller: 'AlertController', // 模板控制器
+                    windowClass: 'alert-modal', // 弹出框Class
+                }
+                // config = angular.extend(config, conf);
+                angular.extend(config, conf);
+                
+                var modalInstance = $modal.open({
+                    templateUrl: config.templateUrl,
+                    controller: config.controller,
+                    backdrop: 'static',
+                    windowClass: config.windowClass,
+                    resolve: {
+                        modal: function() {
+                            return config.data;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(data) {
+                    if (config.success) {
+                        config.success(data);
+                    }
+                }, function(data) {
+                    if (config.error) {
+                        config.error(data);
+                    }
+                });
             }
         };
     });
