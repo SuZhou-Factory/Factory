@@ -1,23 +1,20 @@
 <h4 ng-bind="modal.title"></h4>
-<from class="modal-content" id="modalForm">
+<from class="modal-content" id="roleModalForm">
     <div class="modal-content-left">
         <label>名称：
-            <input name="rightname" type="text" ng-model="modal.right.name">
-        </label>
-        <label>Value值：
-            <input name="value" type="text" ng-model="modal.right.value">
+            <input name="rightname" type="text" ng-model="modal.role.name">
         </label>
     </div>
     <div class="modal-content-right">
         <label for="modal-tree">父名称</label>
         <div id="modal-tree" class="tree-container">
             <script type="text/ng-template" id="treeitem.html">
-                <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.right.parentid == node.id? node.selected = true : null">
+                <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.role.parentid == node.id? node.selected = true : null">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
-                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
+                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
                     </a>
                     <label>
-                        <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id">
+                        <input type="checkbox" name="parentid" ng-model="modal.role.parentid" ng-value="node.id">
                         <span ng-bind="node.name"></span>
                     </label>
                     <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="node.collapse"></ul>
@@ -26,10 +23,10 @@
             <ul class="node">
                 <li ng-repeat="node in modal.tree">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
-                        <i ng-class="node.children === undefined ? 'foundicon-page' : (node.collapse ? 'foundicon-plus' : 'foundicon-minus')"></i>
+                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
                     </a>
                     <label>
-                        <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id"/>
+                        <input type="checkbox" name="parentid" ng-model="modal.role.parentid" ng-value="node.id"/>
                         <span ng-bind="node.name"></span>
                     </label>
                     <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="!node.collapse"></ul>

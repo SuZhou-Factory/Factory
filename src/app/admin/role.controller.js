@@ -4,11 +4,11 @@
     angular
         .module('suzhou')
         .controller('RoleController', RoleController)
-        .controller('ModalInstanceCtrl', function($scope, $modalInstance, items) {});
+        .controller('RoleModalController', RoleModalController);
         
 
     /** @ngInject */
-    function RoleController($scope, $http, $modal, $log) {
+    function RoleController($scope, $http, $modal, $log, Tools) {
             $scope.totalItems = 64;
             $scope.currentPage = 4;
             $scope.maxSize = 5;
@@ -47,6 +47,8 @@
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
+                $scope.tree = Tools.clone($scope.data.allRights);
+                $scope.tree = Tools.transtoTree($scope.tree);
             }).error(function(data) {});
         };
         
@@ -59,7 +61,7 @@
                 templateUrl: 'app/admin/role-modal.html',
                 controller: 'RoleModalController',
                 backdrop: 'static',
-                windowClass: 'backend-modal',
+                windowClass: 'role-modal',
                 resolve: {
                     modal: function() {
                         return data;
@@ -81,10 +83,32 @@
         $scope.edit = function() {
             var modal = {
                 title: '编辑',
-                user: Tools.clone(this.user),
-                tree: $scope.tree,
-                roles: $scope.roles,
-                dateOptions: $scope.dateOptions,
+                role: Tools.clone(this.role),
+                tree: $scope.tree
+            };
+
+            openModal(modal, function(data) {
+                //刷新页面
+                $scope.search();
+            }, function(data) {
+
+            });
+        };
+        
+        
+        $scope.add = function() {
+            var addRight = {
+                id: '',
+                name: '',
+                value: '',
+                parentid: '',
+                parentname: ''
+            };
+
+            var modal = {
+                title: '添加',
+                right: addRight,
+                tree: $scope.tree
             };
 
             openModal(modal, function(data) {
@@ -100,34 +124,21 @@
     }
 
 
-	function BackendModalController($scope, $modalInstance, $http, modal) {
-        $('#backendModalForm').validate({
-            rules: {
-                username: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                },
-                name: {
-                    required: true,
-                },
-                factoryname: {
-                    required: true,
-                },
-                deadtime: {
-                    required: true,
-                },
-                roleid: {
-                    required: true,
-                },
-            },
-            messages: {
-                username: {
-                    required: "请输入用户名",
-                }
-            }
-        });
+    function RoleModalController($scope, $modalInstance, $http, $timeout, modal) {
+        $timeout(function() {
+//          $('#modalForm').validate({
+//              rules: {
+//                  rightname: {
+//                      required: true,
+//                  }
+//              },
+//              messages: {
+//                  rightname: {
+//                      required: "请输入用户名",
+//                  }
+//              }
+//          });
+        }, 10);
         $scope.msg = {
             message: '',
             success: true
@@ -135,17 +146,14 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#modalForm').valid()) {
-            //     return;
-            // }
-            
+            if (!$('#roleModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-           	if (!_.isString($scope.modal.user.deadtime)) {
-           		$scope.modal.user.deadtime = $scope.modal.user.deadtime.toString();
-           	}
-            update({user: modal.user}, function (data) {
+            
+            update({role: modal.role}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
@@ -171,7 +179,7 @@
         };
 
         function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'backend/update', updateInfo).success(function(data) {
+            $http.post(Setting.host + 'role/update', updateInfo).success(function(data) {
                 if (success) success(data);
             }).error(function(data) {
                 if (error) error(data);
