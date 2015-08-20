@@ -14,7 +14,7 @@
             <script type="text/ng-template" id="treeitem.html">
                 <li ng-repeat="node in node.children | limitTo: 200" ng-init="modal.right.parentid == node.id? node.selected = true : null">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
-                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
+                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
                     </a>
                     <label>
                         <input type="radio" name="parentid" ng-model="modal.right.parentid" ng-value="node.id">
