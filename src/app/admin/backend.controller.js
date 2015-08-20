@@ -67,7 +67,7 @@
         $scope.edit = function() {
             var modal = {
                 title: '编辑',
-                user: this.user,
+                user: Tools.clone(this.user),
                 tree: $scope.tree,
                 roles: $scope.roles,
                 dateOptions: $scope.dateOptions,

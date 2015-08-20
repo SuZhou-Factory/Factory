@@ -57,7 +57,7 @@
         $scope.edit = function() {
             var modal = {
                 title: '编辑',
-                right: this.right,
+                right: Tools.clone(this.right),
                 tree: $scope.tree
             };
 
