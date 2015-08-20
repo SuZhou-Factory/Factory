@@ -8,7 +8,6 @@
 
     /** @ngInject */
     function BackendController($scope, $http, $modal, Tools) {
-        $scope.totalItems = 64;
         $scope.maxSize = 4;
 
         $scope.setPage = function(pageNo) {
@@ -182,34 +181,66 @@
 
     }
 
-    function BackendModalController($scope, $modalInstance, $http, modal) {
-        $('#backendModalForm').validate({
-            rules: {
-                username: {
-                    required: true,
+    function BackendModalController($scope, $modalInstance, $http, $timeout, modal) {
+        $timeout(function() {
+            $('#backendModalForm').validate({
+                debug: true,
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 1,
+                    },
+                    password: {
+                        required: modal.title=='添加'?true:false,
+                        minlength: 1,
+                    },
+                    name: {
+                        required: true,
+                        minlength: 1,
+                    },
+                    factoryname: {
+                        required: true,
+                        minlength: 1,
+                    },
+                    deadtime: {
+                        required: true,
+                    },
+                    roleid: {
+                        required: true,
+                        minlength: 1,
+                    },
                 },
-                password: {
-                    required: true,
-                },
-                name: {
-                    required: true,
-                },
-                factoryname: {
-                    required: true,
-                },
-                deadtime: {
-                    required: true,
-                },
-                roleid: {
-                    required: true,
-                },
-            },
-            messages: {
-                username: {
-                    required: "请输入用户名",
+                messages: {
+                    usernamde: {
+                        required: '请输入用户名',
+                        minlength: '长度必须超过两位',
+                    },
+
+
+                    username: {
+                        required: '请输入用户名',
+                    },
+                    password: {
+                        required: '请输入密码',
+                    },
+                    name: {
+                        required: '请输入姓名',
+                    },
+                    factoryname: {
+                        required: '请输入工厂名',
+                    },
+                    deadtime: {
+                        required: '请输入截止时间',
+                    },
+                    roleid: {
+                        required: '请选择角色',
+                    },
                 }
-            }
-        });
+            });
+        }, 10);
         $scope.msg = {
             message: '',
             success: true
@@ -217,9 +248,9 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#backendModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#backendModalForm').valid()) {
+                return;
+            }
             
             $scope.msg.success = true;
             $scope.msg.message = '......';

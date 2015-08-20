@@ -49,4 +49,11 @@
 	.errormsg {
 		color: #F00;
 	}
+	input.invalid, select.invalid {
+		border-color: #f04124;
+	}
+	label.invalid {
+		color: #f04124;
+		line-height: 1.5rem;
+	}
 }
