@@ -143,21 +143,21 @@
         }
     }
 
-    function ModalInstanceCtrl($scope, $modalInstance, $http, modal) {
-        $('#modalForm').validate({
-            rules: {
-                rightname: {
-                    required: true,
-                    minlength: 2
+    function ModalInstanceCtrl($scope, $modalInstance, $http, $timeout, modal) {
+        $timeout(function() {
+            $('#modalForm').validate({
+                rules: {
+                    rightname: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    rightname: {
+                        required: "请输入用户名",
+                    }
                 }
-            },
-            messages: {
-                rightname: {
-                    required: "请输入用户名",
-                    minlength: "用户名太短，必须两位以上"
-                }
-            }
-        });
+            });
+        }, 10);
         $scope.msg = {
             message: '',
             success: true
@@ -165,9 +165,9 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-//          if (!$('#modalForm').valid()) {
-//              return;
-//          }
+            if (!$('#modalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
