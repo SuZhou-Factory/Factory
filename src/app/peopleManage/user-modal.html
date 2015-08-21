@@ -1,0 +1,46 @@
+<h4 ng-bind="modal.title"></h4>
+<from class="modal-content" id="roleModalForm">
+    <div class="modal-content-left">
+        <label>用户名：
+            <input name="username" type="text" ng-model="modal.user.username">
+        </label>
+        <label>密码：
+            <input name="password" type="text" ng-model="modal.user.password">
+        </label>
+        <label>姓名：
+            <input name="name" type="text" ng-model="modal.user.name">
+        </label>
+    </div>
+    <div class="modal-content-right">
+        <label for="modal-tree">权限：</label>
+        <div id="modal-tree" class="tree-container">
+            <script type="text/ng-template" id="treeitem.html">
+                <li ng-repeat="node in node.children">
+                    <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
+                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
+                    </a>
+                    <label>
+                        <input type="checkbox" name="parentid" ng-model="node.selected" ng-value="node.id" ng-change="forward(node, node.selected);backward(node, node.selected)">
+                        <span ng-bind="node.name"></span>
+                    </label>
+                    <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="node.collapse"></ul>
+                </li>
+            </script>
+            <ul class="node">
+                <li ng-repeat="node in modal.tree">
+                    <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
+                        <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
+                    </a>
+                    <label>
+                        <input type="checkbox" name="parentid" ng-model="node.selected" ng-value="node.id" ng-change="forward(node, node.selected);backward(node, node.selected)">
+                        <span ng-bind="node.name"></span>
+                    </label>
+                    <ul class="hierarchy-dropdown" ng-include="'treeitem.html'" ng-if="!node.collapse"></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</from>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

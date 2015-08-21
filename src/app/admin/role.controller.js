@@ -77,9 +77,9 @@
         
         $scope.edit = function() {
             var modal = {
-                title: '编辑',
+                title: '编辑角色',
                 role: Tools.clone(this.role),
-                tree: $scope.tree
+                tree: Tools.clone($scope.tree)
             };
 
             openModal(modal, function(data) {
@@ -99,9 +99,9 @@
             };
 
             var modal = {
-                title: '添加',
+                title: '添加角色',
                 role: addRole,
-                tree: $scope.tree
+                tree: Tools.clone($scope.tree)
             };
 
             openModal(modal, function(data) {
@@ -116,21 +116,21 @@
 
 
     function RoleModalController($scope, $modalInstance, $http, $timeout, modal) {
-        // $timeout(function() {
-        //     $('#roleModalForm').validate({
-        //         rules: {
-        //             rightname: {
-        //                 required: true,
-        //             }
-        //         },
-        //         messages: {
-        //             rightname: {
-        //                 required: "请输入用户名",
-        //             }
-        //         }
-        //     });
+        $timeout(function() {
+            $('#roleModalForm').validate({
+                rules: {
+                    rightname: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    rightname: {
+                        required: "请输入用户名",
+                    }
+                }
+            });
 
-        // }, 10);
+        }, 10);
 
         $scope.msg = {
             message: '',
@@ -139,9 +139,9 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#roleModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证

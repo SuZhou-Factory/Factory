@@ -53,9 +53,9 @@
 
         $scope.edit = function() {
             var modal = {
-                title: '编辑',
+                title: '编辑权限',
                 right: Tools.clone(this.right),
-                tree: $scope.tree
+                tree: Tools.clone($scope.tree)
             };
 
             openModal(modal, function(data) {
@@ -76,9 +76,9 @@
             };
 
             var modal = {
-                title: '添加',
+                title: '添加权限',
                 right: addRight,
-                tree: $scope.tree
+                tree: Tools.clone($scope.tree)
             };
 
             openModal(modal, function(data) {

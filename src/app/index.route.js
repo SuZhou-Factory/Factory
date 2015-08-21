@@ -40,7 +40,7 @@
             .state('main.client', {
                 url: '',
                 templateUrl: 'app/peopleManage/client.html',
-                controller: 'PeopleManageController',
+                controller: 'ClientController',
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
