@@ -1,0 +1,23 @@
+.goods-modal {
+	width: 650px;
+	label {
+		display: flex;
+		line-height: 2.3125rem;
+		margin: 0 1rem;
+		span {
+			width: 4em;
+			i {
+				color: red;
+				position: absolute;
+				margin-left: -0.5rem;
+				line-height: 2.3125rem;
+			}
+		}
+		input, select {
+			width: auto;
+			flex: 1;
+			margin-left: 0.2rem;
+			margin-bottom: 0;
+		}
+	}
+}

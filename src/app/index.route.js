@@ -85,6 +85,30 @@
                     active: true
                 },
             })
+            .state('main.goods', {
+                url: '',
+                templateUrl: 'app/peopleManage/goods.html',
+                controller: 'GoodsController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    data: function() {
+                        return {};
+                    },
+                    pageInfo: function(){
+                        return {
+                            name: '材料',
+                            state: 'main.goods',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '材料',
+                    state: 'main.goods',
+                    active: true
+                },
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',

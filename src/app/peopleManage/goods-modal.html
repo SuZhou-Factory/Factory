@@ -1,0 +1,13 @@
+<h4 ng-bind="modal.title"></h4>
+<form class="modal-content" id="goodsModalForm">
+    <label><span><i>*</i>名称</span>
+        <input name="name" type="text" ng-model="modal.goods.name">
+    </label>
+    <label><span>价格</span>
+        <input name="mobile" type="text" ng-model="modal.goods.price">
+    </label>
+</form>
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
