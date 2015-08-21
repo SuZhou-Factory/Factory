@@ -46,9 +46,13 @@
         return;
 
         function successCallback(data, status, headers, config) {
-            data.user.rights = Tools.transtoTree(data.user.rights);
-            sessionStorage.user = JSON.stringify(data.user);
-            $state.go('main');
+            // data.user.rights = Tools.transtoTree(data.user.rights);
+            if ($state.current.data.userText) {
+                sessionStorage[$state.current.data.userText] = JSON.stringify(data.user);
+            } else {
+                sessionStorage.user = JSON.stringify(data.user);
+            }
+            $state.go($state.current.data.mainPage);
             // $httpProvider.defaults.headers.common.Cookie = getSessionId();
             // console.log(getSessionId());
         }

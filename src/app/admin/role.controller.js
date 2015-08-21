@@ -95,7 +95,7 @@
             var addRole = {
                 id: '',
                 name: '',
-                rights: '',
+                roleRight: '',
             };
 
             var modal = {
@@ -189,6 +189,21 @@
             }
         };
         this.addParent(modal.tree);
+
+
+        this.fillBackRight = function(nodes, arr) {
+            for (var index in nodes) {
+                if (_.indexOf(arr, nodes[index].id+'') != -1) {
+                    nodes[index].selected = true;
+                }
+
+                if (nodes[index].children && nodes[index].children.length > 0) {
+                    this.fillBackRight(nodes[index].children, arr);
+                }
+            }
+        };
+        this.fillBackRight(modal.tree, modal.role.roleRight.split('-'));
+
         $scope.forward = function(node, selected) {
             //上层节点被选中，下层节点全被选中
             if (node === undefined) {
@@ -206,7 +221,7 @@
 
         $scope.backward = function(node, selected) {
             //下层节点被选或取消选中，修改相对应的上层节点
-            if (node === undefined || node.value === null) {
+            if (node === undefined) {
                 return;
             }
             var parent = node.parent;
@@ -214,20 +229,12 @@
             var parentSelected = selected;
 
             if (selected === true) {
-                for (var index in parent.children) {
-                    if (parent.children[index].selected === false) {
-                        parentSelected = false;
-                        break
-                    }
-                }
+                parent.selected = true;
             }
-            if (parent.parent) {
-                parent.selected = parentSelected;
-            }
+
             if (node.parent !== undefined) {
                 $scope.backward(parent, parentSelected);
             };
-
         };
 
         $scope.getRightListStr = function(nodes, obj) {
@@ -247,9 +254,6 @@
                     $scope.getRightListStr(nodes[index].children, obj);
                 }
             }
-        };
-        $scope.fillBackRight = function(rightsStr, node){
-            node.selected = (_.indexOf(rightsStr.split('-'), node.id+'') != -1);
         };
     }
 

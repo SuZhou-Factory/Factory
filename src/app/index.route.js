@@ -89,6 +89,18 @@
                 url: '/login',
                 templateUrl: 'app/login/login.html',
                 controller: 'LoginController',
+                data: {
+                    mainPage: "main",
+                } 
+            })
+            .state('adminlogin', {
+                url: '/login/admin',
+                templateUrl: 'app/login/login.html',
+                controller: 'LoginController',
+                data: {
+                    mainPage: "admin.backend",
+                    userText: 'adminuser' 
+                } 
             })
             .state('admin', {
                 url: '/admin',
@@ -96,15 +108,15 @@
                 templateUrl: 'app/admin/admin.html',
                 controller: 'AdminController',
             })
-            .state('admin.role', {
-                url: '',
-                templateUrl: 'app/admin/role.html',
-                controller: 'RoleController',
-            })
             .state('admin.backend', {
                 url: '',
                 templateUrl: 'app/admin/backend.html',
                 controller: 'BackendController',
+            })
+            .state('admin.role', {
+                url: '',
+                templateUrl: 'app/admin/role.html',
+                controller: 'RoleController',
             })
             .state('admin.right', {
                 url: '',

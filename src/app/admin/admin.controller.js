@@ -6,8 +6,15 @@
         .controller('AdminController', AdminController);
 
     /** @ngInject */
-    function AdminController($scope) {
+    function AdminController($scope, $state) {
         $scope.statename = 'admin';
+        if (sessionStorage.adminuser) {
+            $scope.user = JSON.parse(sessionStorage.adminuser);
+        } else {
+            $state.go('adminlogin');
+            return;
+        }
+
         $scope.menus = [{
             children: [{
                 "id": 1,

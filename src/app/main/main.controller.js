@@ -5,7 +5,7 @@
         .module('suzhou')
         .controller('MainController', MainController);
 
-    function MainController($rootScope, $scope, $state, DataService) {
+    function MainController($rootScope, $scope, $http, $state, DataService, Tools) {
         $scope.statename = 'main';
         if (sessionStorage.user) {
             $scope.user = JSON.parse(sessionStorage.user);
@@ -13,7 +13,7 @@
             $state.go('login');
             return;
         }
-        $scope.menus = $scope.user.rights;
+        // $scope.menus = $scope.user.rights;
         $scope.pages = DataService.main.pages.list || {};
 
         $scope.closePage = function() {
@@ -35,6 +35,20 @@
             }
             DataService.unmout(this.page.state);
         };
+
+        function getMenu() {
+            $http.get(Setting.host + 'right/fetchRights').success(function(data) {
+                if (data.rights && !(data.rights instanceof Array)) {
+                    data.rights = [data.rights];
+                }
+                $scope.menus = Tools.transtoTree(data.rights);
+                $scope.menus[0].open = true
+            }).error(function(data) {
+                // Tools.transtoTree(
+            });
+        }
+        getMenu();
+
     }
 
 })();

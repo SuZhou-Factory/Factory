@@ -9,7 +9,7 @@
         <label for="modal-tree">权限：</label>
         <div id="modal-tree" class="tree-container">
             <script type="text/ng-template" id="treeitem.html">
-                <li ng-repeat="node in node.children" ng-init="fillBackRight(modal.role.roleRight, node)">
+                <li ng-repeat="node in node.children">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
                         <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-minus' : 'fa fa-plus')"></i>
                     </a>
@@ -21,7 +21,7 @@
                 </li>
             </script>
             <ul class="node">
-                <li ng-repeat="node in modal.tree" ng-init="fillBackRight(modal.role.roleRight, node)">
+                <li ng-repeat="node in modal.tree">
                     <a style="cursor: pointer" ng-click="node.collapse = !node.collapse">
                         <i ng-class="node.children === undefined ? 'fa fa-file-text-o' : (node.collapse ? 'fa fa-plus' : 'fa fa-minus')"></i>
                     </a>
