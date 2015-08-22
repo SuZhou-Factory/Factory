@@ -1,1 +1,33 @@
-supplier.html
+<section class="user">
+    <div class="search">
+        <div>
+            <label>名称<input type="text" ng-model="searchInfo.supplier.name"></label>   
+            <label>电话<input type="text" ng-model="searchInfo.supplier.mobile"></label>
+            <div class="button-container">
+                <div class="button tiny" ng-click='search()'>查询</div>
+                <div class="button tiny add" ng-click='add()'>添加</div>
+            </div>
+        </div>
+    </div>
+    <table class="content-list">
+        <thead>
+            <tr>
+            	<th ng-repeat="supplierH in supplierHead" ng-bind="supplierH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="supplier in data.suppliers" ng-init="supplier.editable=true">
+                <td width="150px">
+                	<input type="text" ng-model="supplier.name" ng-disabled="supplier.editable">
+                </td>
+                <td>
+                	<input type="text" ng-model="supplier.goods" ng-disabled="supplier.editable">
+                </td>
+                <td >
+                	<div class="button tiny" ng-click="edit()">编辑</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination total-items="totalItems" items-per-page="searchInfo.page.pageSize" page="searchInfo.page.pageNo" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" on-select-page="setPage(page)"></pagination>
+</section>

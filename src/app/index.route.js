@@ -64,7 +64,7 @@
             .state('main.supplier', {
                 url: '',
                 templateUrl: 'app/peopleManage/supplier.html',
-                controller: 'PeopleManageController',
+                controller: 'SupplierController',
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {

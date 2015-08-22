@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function BackendController($scope, $http, $modal, Tools) {
-        $scope.maxSize = 4;
+        $scope.maxSize = 5;
 
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;

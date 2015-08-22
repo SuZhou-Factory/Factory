@@ -3,25 +3,22 @@
 
     angular
         .module('suzhou')
-        .controller('ClientController', ClientController)
-        .controller('ClientModalController', ClientModalController);
+        .controller('SupplierController', SupplierController)
+        .controller('SupplierModalController', SupplierModalController);
 
     /** @ngInject */
-    function ClientController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.clientHead = ['姓名', '电话号码', '操作'];
-
+    function SupplierController($scope, $http, $state, $modal, DataService, Tools) {
+        $scope.supplierHead = ['供应商', '材料', '操作'];
         $scope.maxSize = 5;
 
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
-            console.log(pageNo);
         };
         // -- 网络请求相关定义
         $scope.searchInfo = {
-            client: {
+            supplier: {
                 name: '',
-                mobile: '',
             },
             page: {
                 pageNo: 1,
@@ -29,16 +26,34 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'client/index', $scope.searchInfo).success(function(data){
-                if (data.clients && !(data.clients instanceof Array)) {
-                    data.clients = [data.clients];
+            $http.post(Setting.host + 'supplier/index', $scope.searchInfo).success(function(data){
+                if (data.suppliers && !(data.suppliers instanceof Array)) {
+                    data.suppliers = [data.suppliers];
+                }
+                if (data.goods && !(data.goods instanceof Array)) {
+                    data.goods = [data.goods];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
+                buildGoodsText(data);
             }).error(function(data) {
 
             });
         };
+
+        function buildGoodsText(data) {
+            for (var i = 0; i < data.suppliers.length; i++) {
+                var sup = data.suppliers[i];
+                var list = sup.supplierGoods.split('-');
+                sup.goods = '';
+                for (var j = 0; j < data.goods.length; j++) {
+                    if (_.indexOf(list, data.goods[j].id+'') != -1) {
+                        sup.goods += data.goods[j].name + '、';
+                    }
+                }
+                sup.goods = sup.goods.substr(0, sup.goods.length-1);
+            }
+        }
 
         // 将挂载在数据服务上的数据取回，若为空，则请求网络数据，并挂载.
         $scope.data = DataService.fetch($state.current.name);
@@ -49,15 +64,20 @@
         }
 
         // -- 页面相关数据以及控制
+        $scope.tree = Tools.clone($scope.$parent.menus);
         $scope.add = function() {
-            var addClient = {
+            var addSupplier = {
                 id: '',
+                username: '',
                 name: '',
-                mobile: ''
+                supplierGoods: '',
+                password: '',
             };
+
             var modal = {
-                title: '添加客户',
-                client: addClient,
+                title: '添加供应商',
+                supplier: addSupplier,
+                tree: Tools.clone($scope.data.goods)
             };
 
             openModal(modal, function(data) {
@@ -69,12 +89,14 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑客户',
-                client: Tools.clone(this.client),
+                title: '编辑',
+                supplier: Tools.clone(this.supplier),
+                tree: Tools.clone($scope.data.goods)
             };
 
             openModal(modal, function(data) {
-                $scope.search(); // 刷新页面
+                //刷新页面
+                $scope.search();
             }, function(data) {
 
             });
@@ -82,10 +104,10 @@
 
         function openModal(data, success, error) {
             var modalInstance = $modal.open({
-                templateUrl: 'app/peopleManage/client-modal.html',
-                controller: 'ClientModalController',
+                templateUrl: 'app/peopleManage/supplier-modal.html',
+                controller: 'SupplierModalController',
                 backdrop: 'static',
-                windowClass: 'client-modal',
+                // windowClass: 'role-modal',
                 resolve: {
                     modal: function() {
                         return data;
@@ -105,7 +127,7 @@
         }
     }
 
-    function ClientModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function SupplierModalController($scope, $modalInstance, $http, $timeout, modal) {
         $timeout(function() {
             // $('#roleModalForm').validate({
             //     rules: {
@@ -135,8 +157,11 @@
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
+            modal.supplier.supplierGoods = '';
+            $scope.getRightListStr(modal.tree, modal.supplier);
+            modal.supplier.supplierGoods = modal.supplier.supplierGoods.substr(0, modal.supplier.supplierGoods.length-1);
             
-            update({client: modal.client}, function (data) {
+            update({supplier: modal.supplier}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
@@ -157,12 +182,43 @@
         };
 
         function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'client/update', updateInfo).success(function(data) {
+            $http.post(Setting.host + 'supplier/update', updateInfo).success(function(data) {
                 if (success) success(data);
             }).error(function(data) {
                 if (error) error(data);
             });
         }
+
+        this.fillBackRight = function(goods, arr) {
+            for (var index in goods) {
+                if (_.indexOf(arr, goods[index].id+'') != -1) {
+                    goods[index].selected = true;
+                }
+            }
+        };
+        if (modal.supplier.supplierGoods) {
+            this.fillBackRight(modal.tree, modal.supplier.supplierGoods.split('-'));
+        }
+
+
+        $scope.getRightListStr = function(nodes, obj) {
+            if (nodes === undefined) {
+                return;
+            }
+            if (!obj.supplierGoods) {
+                obj.supplierGoods = '';
+            }
+            obj.supplierGoods = '';
+            for (var index in nodes) {
+                if (nodes[index].selected) {
+                    obj.supplierGoods += nodes[index].id + '-';
+                }
+
+                if (nodes[index].children !== undefined) {
+                    $scope.getRightListStr(nodes[index].children, obj);
+                }
+            }
+        };
 
     }
 })();
