@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="buy in addBuys">
-            <td width="90px">
+            <td>
             	<select ng-model="buy.supplierid" ng-change="supplierChange(buy)">
                     <option value="">-- 请选择 --</option>
             		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==buy.supplierid"></option>
@@ -32,7 +32,7 @@
             <td>
                 <input type="text" ng-model="buy.totalmoney">
             </td>
-            <td width="80px">
+            <td>
                 <select type="text" ng-model="buy.ispaid">
                     <option ng-value="0" ng-selected="buy.ispaid==0">否</option>
                     <option ng-value="1" ng-selected="buy.ispaid==1">是</option>
@@ -41,16 +41,16 @@
             <td>
                 <input type="text" ng-model="buy.note">
             </td>
-            <td width="80px">
+            <td>
             	<!-- <div class="button tiny" ng-click="edit()">编辑</div> -->
             	<div class="button tiny" ng-click="delete()">删除</div>
             </td>
         </tr>
         <tr>
-            <td width="90px">
+            <td>
             	<select ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)">
                     <option ng-value="">-- 请选择 --</option>
-            		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name"></option>
+            		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==addBuy.supplierid"></option>
             	</select>
             </td>
             <td>
