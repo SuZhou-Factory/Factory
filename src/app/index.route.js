@@ -109,6 +109,30 @@
                     active: true
                 },
             })
+            .state('main.buy', {
+                url: '',
+                templateUrl: 'app/peopleManage/buy.html',
+                controller: 'BuyController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    data: function() {
+                        return {};
+                    },
+                    pageInfo: function(){
+                        return {
+                            name: '进货清单',
+                            state: 'main.buy',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '进货清单',
+                    state: 'main.buy',
+                    active: true
+                },
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',

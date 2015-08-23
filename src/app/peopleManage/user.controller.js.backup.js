@@ -43,9 +43,7 @@
                 }
                 $scope.data = data;
             }).error(function(data) {
-                if (TestData.debug) {
-                    $scope.data = TestData.right.index;
-                }
+                
             });
         };
 

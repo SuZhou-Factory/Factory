@@ -1,0 +1,49 @@
+<section class="user">
+    <div class="search">
+        <div>
+            <label>名称<input type="text" ng-model="searchInfo.buy.name"></label>   
+            <label>电话<input type="text" ng-model="searchInfo.buy.mobile"></label>
+            <div class="button-container">
+                <div class="button tiny" ng-click='search()'>查询</div>
+                <div class="button tiny add" ng-click='add()'>添加</div>
+            </div>
+        </div>
+    </div>
+    <table class="content-list">
+        <thead>
+            <tr>
+            	<th ng-repeat="buyH in buyHead" ng-bind="buyH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="buy in data.buys" ng-init="buy.editable=true">
+                <td width="90px">
+                	<span type="text" ng-bind="buy.createtime | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                </td>
+                <td>
+                    <input type="text" ng-model="buy.supplierName" ng-disabled="buy.editable">
+                </td>
+                <td>
+                    <input type="text" ng-model="buy.goodsname" ng-disabled="buy.editable">
+                </td>
+                <td>
+                    <input type="text" ng-model="buy.count" ng-disabled="buy.editable">
+                </td>
+                <td>
+                    <input type="text" ng-model="buy.totalmoney" ng-disabled="buy.editable">
+                </td>
+                <td width="80px">
+                    <span type="text" ng-bind="buy.ispaid?'是':'否'" ng-disabled="buy.editable"></span>
+                </td>
+                <td>
+                    <input type="text" ng-model="buy.note" ng-disabled="buy.editable">
+                </td>
+                <td width="80px">
+                	<div class="button tiny" ng-click="edit()">编辑</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <pagination total-items="totalItems" items-per-page="searchInfo.page.pageSize" page="searchInfo.page.pageNo" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" on-select-page="setPage(page)"></pagination>
+</section>
