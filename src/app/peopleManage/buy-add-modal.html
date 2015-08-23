@@ -15,7 +15,7 @@
     <tbody>
         <tr ng-repeat="buy in addBuys">
             <td>
-            	<select ng-model="buy.supplierid" ng-change="supplierChange(buy)">
+            	<select type="text" ng-model="buy.supplierid" ng-change="supplierChange(buy)">
                     <option value="">-- 请选择 --</option>
             		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==buy.supplierid"></option>
             	</select>
@@ -48,8 +48,8 @@
         </tr>
         <tr>
             <td>
-            	<select ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)">
-                    <option ng-value="">-- 请选择 --</option>
+            	<select type="text" ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)">
+                    <option value="">-- 请选择 --</option>
             		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==addBuy.supplierid"></option>
             	</select>
             </td>
