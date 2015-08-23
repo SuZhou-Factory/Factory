@@ -88,11 +88,11 @@
         $scope.add = function() {
             var addBuy = {
                 supplierid: '',
-                goodsname: '12321',
-                count: '21',
-                totalmoney: '32121',
-                ispaid: '0',
-                note: '12321'
+                goodsname: '',
+                count: '',
+                totalmoney: '',
+                ispaid: 0,
+                note: ''
             };
             var modal = {
                 title: '添加客户',
@@ -111,7 +111,7 @@
  		$scope.edit = function() {
             var modal = {
                 title: '编辑客户',
-                client: Tools.clone(this.client),
+                buy: Tools.clone(this.buy),
                 templateUrl: 'app/peopleManage/buy-edit-modal.html',
             };
 
@@ -226,8 +226,14 @@
             $scope.addBuys.push($scope.addBuy);
             $scope.addBuy = Tools.clone($scope.modal.buy);
         };
-        $scope.change = function() {
-            console.log(this);
+        $scope.supplierChange = function(buy) {
+            buy.supplier = '';
+            var sups = $scope.modal.supplierInfo.suppliers;
+            for (var i = 0; i < sups.length; i++) {
+                if (sups[i].id == buy.supplierid) {
+                    buy.supplier = sups[i];
+                }
+            }
         };
         function update(updateInfo, success, error) {
             $http.post(Setting.host + 'buy/update', updateInfo).success(function(data) {

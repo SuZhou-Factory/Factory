@@ -13,60 +13,67 @@
         </tr>
     </thead>
     <tbody>
-<!--         <tr ng-repeat="buy in data.buys" ng-init="buy.editable=true">
+        <tr ng-repeat="buy in addBuys">
             <td width="90px">
-            	<select ng-model="buy.supplierName" ng-disabled="buy.editable">
-            		 <option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name"></option>
+            	<select ng-model="buy.supplierid" ng-change="supplierChange(buy)">
+                    <option value="">-- 请选择 --</option>
+            		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==buy.supplierid"></option>
             	</select>
             </td>
             <td>
-                <select type="text" ng-model="buy.supplierName" ng-disabled="buy.editable">
-                	<option value=""></option>
+                <select type="text" ng-model="buy.supplierName">
+                    <option value="">-- 请选择 --</option>
+                    <option ng-repeat="goods in buy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-bind="supplier.name" ng-selected="goods.name==buy.supplierName"></option>
                 </select>
             </td>
             <td>
-                <input type="text" ng-model="buy.goodsname" ng-disabled="buy.editable">
+                <input type="text" ng-model="buy.count">
             </td>
             <td>
-                <input type="text" ng-model="buy.count" ng-disabled="buy.editable">
-            </td>
-            <td>
-                <input type="text" ng-model="buy.totalmoney" ng-disabled="buy.editable">
+                <input type="text" ng-model="buy.totalmoney">
             </td>
             <td width="80px">
-                <span type="text" ng-bind="buy.ispaid?'是':'否'" ng-disabled="buy.editable"></span>
+                <select type="text" ng-model="buy.ispaid">
+                    <option ng-value="0" ng-selected="buy.ispaid==0">否</option>
+                    <option ng-value="1" ng-selected="buy.ispaid==1">是</option>
+                </select>
             </td>
             <td>
-                <input type="text" ng-model="buy.note" ng-disabled="buy.editable">
+                <input type="text" ng-model="buy.note">
             </td>
             <td width="80px">
-            	<div class="button tiny" ng-click="edit()">编辑</div>
+            	<!-- <div class="button tiny" ng-click="edit()">编辑</div> -->
             	<div class="button tiny" ng-click="delete()">删除</div>
             </td>
-        </tr> -->
-        <tr ng-init="addBuy.editable=true">
+        </tr>
+        <tr>
             <td width="90px">
-            	<select ng-modal="addBuy.supplierid" name="supplie">
-            		 <option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="false"></option>
+            	<select ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)">
+                    <option ng-value="">-- 请选择 --</option>
+            		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name"></option>
             	</select>
             </td>
-<!--             <td>
-                <select type="text" ng-model="addBuy.supplierName" ng-disabled="addBuy.editable">
+            <td>
+                <select type="text" ng-model="addBuy.supplierName">
+                    <option value="">-- 请选择 --</option>
                 	<option ng-repeat="goods in addBuy.supplier.list" ng-value="goods.name" ng-bind="goods.name"></option>
                 </select>
             </td>
-            <td>
-                <input type="text" ng-model="addBuy.count" ng-disabled="addBuy.editable">
+            <td width="60px">
+                <input type="text" ng-model="addBuy.count">
             </td>
             <td>
-                <input type="text" ng-model="addBuy.totalmoney" ng-disabled="addBuy.editable">
+                <input type="text" ng-model="addBuy.totalmoney">
             </td>
             <td width="80px">
-                <span type="text" ng-model="addBuy.ispaid" ng-disabled="addBuy.editable"></span>
+                <select type="text" ng-model="addBuy.ispaid">
+                    <option ng-value="0" ng-selected="addBuy.ispaid==0">否</option>
+                    <option ng-value="1" ng-selected="addBuy.ispaid==1">是</option>
+                </select>
             </td>
             <td>
-                <input type="text" ng-model="addBuy.note" ng-disabled="addBuy.editable">
-            </td> -->
+                <input type="text" ng-model="addBuy.note">
+            </td>
             <td width="80px">
             	<div class="button tiny" ng-click="add()">添加</div>
             </td>
