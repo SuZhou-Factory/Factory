@@ -69,8 +69,8 @@
             var sups = $scope.supplierInfo.suppliers;
             for (var i = 0; i < $scope.data.buys.length; i++) {
                 for (var j = 0; j < sups.length; j++) {
-                    if (sups[i].id == $scope.data.buys[i].supplierid) {
-                        $scope.data.buys[i].supplierName = sups[i].name;
+                    if (sups[i].id == $scope.data.buys[j].supplierid) {
+                        $scope.data.buys[j].supplierName = sups[i].name;
                     }
                 }
             }
@@ -90,12 +90,12 @@
                 supplierid: '',
                 goodsname: '',
                 count: '',
-                totalmoney: '',
+                totalmoney: 0,
                 ispaid: 0,
                 note: ''
             };
             var modal = {
-                title: '添加客户',
+                title: '添加进货清单',
                 buy: addBuy,
                 templateUrl: 'app/peopleManage/buy-add-modal.html',
                 supplierInfo: $scope.supplierInfo
@@ -110,7 +110,7 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑客户',
+                title: '编辑清单',
                 buy: Tools.clone(this.buy),
                 templateUrl: 'app/peopleManage/buy-edit-modal.html',
             };
@@ -191,7 +191,16 @@
             success: true
         };
         $scope.modal = modal;
-
+        $scope.clearError = function() {
+            $scope.msg = {
+                message: '',
+                success: true
+            };
+            $scope.addBuy.supplieridError = false;
+            for (var i = 0; i < $scope.addBuys.length; i++) {
+                $scope.addBuys[i].totalmoneyError = false;
+            }
+        };
         $scope.ok = function() {
             // if (!$('#roleModalForm').valid()) {
             //     return;
@@ -200,7 +209,62 @@
             $scope.msg.message = '......';
             // 验证
             
-            update({client: modal.client}, function (data) {
+            update('buy/update', {client: modal.client}, function (data) {
+                if (data.result.code == '000000') {
+                    $scope.msg.success = true;
+                    $scope.msg.message = $scope.modal.title + data.result.message;
+
+                    $modalInstance.close();
+                } else {
+                    $scope.msg.success = false;
+                    $scope.msg.message = data.result.message;
+                }
+            }, function (data) {
+                $scope.msg.success = false;
+                $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
+            });
+        };
+
+        $scope.commit = function() {
+            if ($scope.addBuys.length == 0) {
+                $scope.msg.success = false;
+                $scope.msg.message = '请添加清单';
+                return;
+            }
+            var error = false;
+            for (var i = 0; i < $scope.addBuys.length; i++) {
+                if ($scope.addBuys[i].totalmoney == 0) {
+                    $scope.addBuys[i].totalmoneyError = true;
+                    error = true;
+                }
+            }
+            if (error) {
+                $scope.msg.success = false;
+                $scope.msg.message = '存在金额为0的项，是否保存？';
+
+
+                Tools.alert({
+                    data: {
+                        // title: '提示',
+                        message: '存在金额为0的项，是否保存？'
+                    },
+                    success: function() {
+                    },
+                    error: function() {
+                        return;
+                    }
+                });
+
+            }
+
+            for (var i = 0; i < $scope.addBuys.length; i++) {
+                delete $scope.addBuys[i].supplier;
+                delete $scope.addBuys[i].supplierName;
+                delete $scope.addBuys[i].supplieridError;
+                delete $scope.addBuys[i].totalmoneyError;
+            }
+
+            update('buy/new', {buy: $scope.addBuys, total: {totalNum: $scope.addBuys.length}}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
@@ -222,9 +286,19 @@
 
         $scope.addBuy = Tools.clone($scope.modal.buy);
         $scope.addBuys = [];
-        $scope.add = function() {
+        $scope.add = function($event) {
+            $event.stopPropagation();
+            if ($scope.addBuy.supplierid == '') {
+                $scope.addBuy.supplieridError = true;
+                $scope.msg.success = false;
+                $scope.msg.message = '请选择供应商';
+                return;
+            }
             $scope.addBuys.push($scope.addBuy);
             $scope.addBuy = Tools.clone($scope.modal.buy);
+        };
+        $scope.delete = function() {
+            $scope.addBuys = _.without($scope.addBuys, this.buy);
         };
         $scope.supplierChange = function(buy) {
             buy.supplier = '';
@@ -235,13 +309,17 @@
                 }
             }
         };
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'buy/update', updateInfo).success(function(data) {
+
+        function update(url, updateInfo, success, error) {
+            $http.post(Setting.host + url, updateInfo).success(function(data) {
                 if (success) success(data);
             }).error(function(data) {
                 if (error) error(data);
             });
         }
+
+        $scope.dynamicPopover = "Hello, World!";
+        $scope.dynamicPopoverTitle = "Title";
 
     }
 })();

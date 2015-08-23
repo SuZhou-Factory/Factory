@@ -1,6 +1,6 @@
 <h4 ng-bind="modal.title"></h4>
 
-<table class="content-list">
+<table class="content-list" ng-click="clearError()">
     <thead>
         <tr>
         	<th>供应商</th>
@@ -27,10 +27,10 @@
                 </select>
             </td>
             <td>
-                <input type="text" ng-model="buy.count">
+                <input type="number" ng-model="buy.count">
             </td>
             <td>
-                <input type="text" ng-model="buy.totalmoney">
+                <input type="number" ng-model="buy.totalmoney" ng-class="buy.totalmoneyError?'error':''">
             </td>
             <td>
                 <select ng-model="buy.ispaid">
@@ -48,7 +48,7 @@
         </tr>
         <tr>
             <td>
-            	<select value="{{addBuy.supplierid}}" ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)" >
+            	<select value="{{addBuy.supplierid}}" ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)" ng-class="addBuy.supplieridError?'error':''">
                     <option value="" ng-selected="''==addBuy.supplierid">-- 请选择 --</option>
             		<option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==addBuy.supplierid"></option>
             	</select>
@@ -60,10 +60,10 @@
                 </select>
             </td>
             <td width="60px">
-                <input type="text" ng-model="addBuy.count">
+                <input type="number" ng-model="addBuy.count">
             </td>
             <td>
-                <input type="text" ng-model="addBuy.totalmoney">
+                <input type="number" ng-model="addBuy.totalmoney">
             </td>
             <td width="80px">
                 <select ng-model="addBuy.ispaid">
@@ -75,7 +75,7 @@
                 <input type="text" ng-model="addBuy.note">
             </td>
             <td width="80px">
-            	<div class="button tiny" ng-click="add()">添加</div>
+            	<div class="button tiny" ng-click="add($event)">添加</div>
             </td>
         </tr>
     </tbody>
@@ -83,5 +83,5 @@
 
 <p class="validate-msg"></p>
 <p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
-<button class="button" ng-click="ok()">保存</button>
+<button class="button" ng-click="commit()">保存</button>
 <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
