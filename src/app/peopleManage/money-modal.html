@@ -1,0 +1,29 @@
+<h4 ng-bind="modal.title"></h4>
+<form class="modal-content row" id="backendModalForm">
+    <div class="small-6">
+        <label><span><i>*</i>名称</span>
+            <input name="name" type="text" ng-model="modal.money.name">
+        </label>
+        <label><span><i>*</i>金额</span>
+            <input name="money" type="number" min="0" ng-model="modal.money.money">
+        </label>
+        <label><span><i>*</i>支付方式</span>
+            <input name="paymethod" type="text" ng-model="modal.money.paymethod">
+        </label>
+    </div>
+    <div class="small-6">
+        <label><span><i>*</i>用途</span>
+            <input name="reason" type="text" ng-model="modal.money.reason">
+        </label>
+        <label><span><i>*</i>时间</span>
+            <input name="time" type="text" ui-date="modal.dateOptions" ng-model="modal.money.time">
+        </label>
+        <label><span>备注</span>
+            <input name="note" type="text" ng-model="modal.money.note">
+        </label>
+    </div>
+</form>
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

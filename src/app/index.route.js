@@ -133,6 +133,54 @@
                     active: true
                 },
             })
+            .state('main.moneyIn', {
+                url: '',
+                templateUrl: 'app/peopleManage/money-in.html',
+                controller: 'MoneyController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    data: function() {
+                        return {};
+                    },
+                    pageInfo: function(){
+                        return {
+                            name: '实收款项',
+                            state: 'main.moneyIn',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '实收款项',
+                    state: 'main.moneyIn',
+                    active: true
+                },
+            })
+            .state('main.moneyOut', {
+                url: '',
+                templateUrl: 'app/peopleManage/money-out.html',
+                controller: 'MoneyController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    data: function() {
+                        return {};
+                    },
+                    pageInfo: function(){
+                        return {
+                            name: '实付款项',
+                            state: 'main.moneyOut',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '实付款项',
+                    state: 'main.moneyOut',
+                    active: true
+                },
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',

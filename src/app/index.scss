@@ -98,7 +98,7 @@
       width: 4em;
     }
   }
-  input {
+  input, select {
     width: auto;
     height: 2rem;
     margin: 0 0 0 10px;
@@ -107,7 +107,7 @@
   .button-container {
     display: block;
     text-align: right;
-    flex: 1;
+    flex: 2;
   }
 }
 table.content-list {

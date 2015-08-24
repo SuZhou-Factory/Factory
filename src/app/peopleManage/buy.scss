@@ -1,0 +1,19 @@
+.buy-modal {
+	.table-content {
+		max-height: 200px;
+		overflow: auto;
+		table {
+			margin-bottom: 0.2rem;
+		}
+	}
+	.add {
+		background: #5C8D9E;
+	}
+}
+.buy {
+	.search {
+		>div {
+			margin: 0;
+		}
+	}
+}

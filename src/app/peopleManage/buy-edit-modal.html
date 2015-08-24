@@ -1,0 +1,55 @@
+<h4 ng-bind="modal.title"></h4>
+<div class="table-content">
+    <table class="content-list" ng-click="clearError()">
+        <thead>
+            <tr>
+                <th>供应商</th>
+                <th>材料</th>
+                <th>数量</th>
+                <th>金额（元）</th>
+                <th>是否付款</th>
+                <th>时间</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select ng-model="modal.buy.supplierid" ng-change="supplierChange(modal.buy)" ng-class="modal.buy.supplieridError?'error':''" ng-init="supplierChange(modal.buy)">
+                        <option value="" ng-selected="''==modal.buy.supplierid">-- 请选择 --</option>
+                        <option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==modal.buy.supplierid"></option>
+                    </select>
+                </td>
+                <td>
+                    <select type="text" ng-model="modal.buy.goodsname">
+                        <option value=""  ng-selected="''==modal.buy.goodsname">-- 请选择 --</option>
+                        <option ng-repeat="goods in modal.buy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-selected="goods.name==modal.buy.goodsname"></option>
+                    </select>
+                </td>
+                <td width="60px">
+                    <input type="number" min="0"  ng-model="modal.buy.count">
+                </td>
+                <td>
+                    <input type="number" min="0"  ng-model="modal.buy.totalmoney" ng-class="modal.buy.totalmoneyError?'error':''">
+                </td>
+                <td width="80px">
+                    <select ng-model="modal.buy.ispaid">
+                        <option ng-value="0" ng-selected="modal.buy.ispaid==0">否</option>
+                        <option ng-value="1" ng-selected="modal.buy.ispaid==1">是</option>
+                    </select>
+                </td>
+                <td>
+                    <input name="deadtime" type="text" ui-date="modal.dateOptions" ng-model="modal.buy.time">
+                </td>
+                <td>
+                    <input type="text" ng-model="modal.buy.note">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

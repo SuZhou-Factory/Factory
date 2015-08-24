@@ -6,8 +6,13 @@
         .controller('AlertController', AlertController);
 
     /** @ngInject */
-    function AlertController($scope, $modalInstance, $http, modal) {
+    function AlertController($scope, $modalInstance, $http, $timeout, modal) {
         $scope.modal = modal;
+        if (modal.auroClose) {
+            $timeout(function() {
+                $modalInstance.close();
+            }, 1000);
+        }
 
         $scope.ok = function() {
             $modalInstance.close();
@@ -16,7 +21,6 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
 
     }
 })();
