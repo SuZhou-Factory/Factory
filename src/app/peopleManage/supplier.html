@@ -15,12 +15,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="supplier in data.suppliers" ng-init="supplier.editable=true">
+            <tr ng-repeat="supplier in data.suppliers">
                 <td width="150px">
-                	<input type="text" ng-model="supplier.name" ng-disabled="supplier.editable">
+                	<span ng-bind="supplier.name"></span>
                 </td>
                 <td>
-                	<input type="text" ng-model="supplier.goods" ng-disabled="supplier.editable">
+                	<span ng-bind="supplier.goods"></span>
                 </td>
                 <td >
                 	<div class="button tiny" ng-click="edit()">修改</div>

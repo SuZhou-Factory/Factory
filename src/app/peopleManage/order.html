@@ -18,7 +18,13 @@
                 <input type="text" ng-model="searchInfo.order.ordername">
             </label>
             <label><span>状态</span>
-                <input type="text" ng-model="searchInfo.order.orderstatus">
+                <select ng-model="searchInfo.order.orderstatus">
+                    <option value="">全选</option>
+                    <option value="0">待发货</option>
+                    <option value="1">待付款</option>
+                    <option value="2">已完成</option>
+                    <option value="3">推迟处理</option>
+                </select>
             </label>
             <label><span>起始时间</span>
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.startTime">
@@ -39,27 +45,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="order in data.orders" ng-init="order.editable=true">
+            <tr ng-repeat="order in data.orders" ng-init="statusList = ['待发货', '待付款', '已完成', '推迟处理']">
                 <td>
-                    <span type="text" ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'" ng-disabled="order.editable"></span>
+                    <span ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="order.peoplename" ng-disabled="order.editable">
+                    <span ng-bind="order.peoplename"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="order.ordername" ng-disabled="order.editable">
+                    <span ng-bind="order.ordername"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="order.orderamount" ng-disabled="order.editable">
-                </td>
-                <td ng-init="statusList = ['待发货', '待付款', '已完成', '推迟处理']">
-                    <span type="text" ng-bind="statusList[order.orderstatus]" ng-disabled="order.editable"></span>
+                    <span ng-bind="order.orderamount"></span>
                 </td>
                 <td>
+                    <span ng-bind="statusList[order.orderstatus]"></span>
+                </td>
+                <td class="td-button-container" style="width:5.5rem;">
                     <div class="button tiny" ng-click="edit()">查看明细</div>
                     <!-- <input type="text" ng-model="order.note" ng-disabled="order.editable"> -->
                 </td>
-                <td>
+                <td style="width:7.5rem;">
                     <div class="button tiny" ng-click="edit()">修改</div>
                     <div class="button tiny" ng-click="delete()">删除</div>
                 </td>

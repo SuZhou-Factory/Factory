@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function GoodsController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.goodsHead = ['名称', '价格', '类型', '操作'];
+        $scope.goodsHead = ['名称', '价格', '单位', '类型', '操作'];
 
         // -- 网络请求相关定义
         $scope.searchInfo = {

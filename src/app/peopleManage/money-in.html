@@ -33,26 +33,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="money in data.moneys" ng-init="money.editable=true">
+            <tr ng-repeat="money in data.moneys">
+                <td style="min-width:5.8rem;">
+                    <span ng-bind="money.time | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                </td>
+                <td>
+                    <span ng-bind="money.name"></span>
+                </td>
                 <td width="90px">
-                    <span type="text" ng-bind="money.time | getDataFromStr | date:'yyyy-MM-dd'" ng-disabled="money.editable"></span>
+                    <span ng-bind="money.money"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="money.name" ng-disabled="money.editable">
-                </td>
-                <td width="90px">
-                    <input type="text" ng-model="money.money" ng-disabled="money.editable">
+                    <span ng-bind="money.paymethod"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="money.paymethod" ng-disabled="money.editable">
+                    <span ng-bind="money.reason"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="money.reason" ng-disabled="money.editable">
+                    <span ng-bind="money.note"></span>
                 </td>
-                <td>
-                    <input type="text" ng-model="money.note" ng-disabled="money.editable">
-                </td>
-                <td>
+                <td style="min-width:8.5rem;">
                     <div class="button tiny" ng-click="edit()">修改</div>
                     <div class="button tiny" ng-click="delete()">删除</div>
                 </td>

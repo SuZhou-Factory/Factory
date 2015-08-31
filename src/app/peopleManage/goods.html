@@ -21,15 +21,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="goods in data.goods" ng-init="goods.editable=true;typeList = ['不显示', '多规格', '单规格']" >
+            <tr ng-repeat="goods in data.goods" ng-init="typeList = ['不显示', '多规格', '单规格']" >
                 <td>
-                	<input type="text" ng-model="goods.name" ng-disabled="goods.editable">
+                	<span ng-bind="goods.name"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="goods.price" ng-disabled="goods.editable">
+                    <span ng-bind="goods.price"></span>
                 </td>
                 <td>
-                    <span type="text" ng-bind="typeList[goods.goodstype]" ng-disabled="goods.editable"></span>
+                    <span ng-bind="goods.unit"></span>
+                </td>
+                <td>
+                    <span ng-bind="typeList[goods.goodstype]"></span>
                 </td>
                 <td >
                 	<div class="button tiny" ng-click="edit()">修改</div>

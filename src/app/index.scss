@@ -78,7 +78,10 @@
     }
   }
 }
-
+.button.tiny {
+  margin: 0;
+  padding: 0.55rem 1rem;
+}
 
 .search {
   margin: 5px 0 0 0;
@@ -107,9 +110,8 @@
     display: block;
     padding: 0 0.5rem;
     text-align: right;
-    .button {
-      margin: 0;
-      padding: 0.55rem 1.25rem 0.55rem 1.25rem;
+    .add {
+      background: $primary-color;
     }
   }
 }
@@ -132,7 +134,7 @@ table.content-list {
   .button {
     margin-bottom: 0;
   }
-  td:last-child {
+  td:last-child, .td-button-container {
     text-align: right;
   }
 }

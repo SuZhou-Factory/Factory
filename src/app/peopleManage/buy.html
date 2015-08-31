@@ -28,27 +28,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="buy in data.buys" ng-init="buy.editable=true">
+            <tr ng-repeat="buy in data.buys">
                 <td width="90px">
-                	<span type="text" ng-bind="buy.createtime | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                	<span ng-bind="buy.createtime | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="buy.supplierName" ng-disabled="buy.editable">
+                    <span ng-bind="buy.supplierName"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="buy.goodsname" ng-disabled="buy.editable">
+                    <span ng-bind="buy.goodsname"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="buy.count" ng-disabled="buy.editable">
+                    <span ng-bind="buy.count"></span>
                 </td>
                 <td>
-                    <input type="text" ng-model="buy.totalmoney" ng-disabled="buy.editable">
+                    <span ng-bind="buy.totalmoney"></span>
                 </td>
                 <td width="80px">
-                    <span type="text" ng-bind="buy.ispaid?'是':'否'" ng-disabled="buy.editable"></span>
+                    <span ng-bind="buy.ispaid?'是':'否'"></span>
                 </td>
                 <td>
-                    <span type="text" ng-bind="buy.note" ng-disabled="buy.editable" popover="{{buy.note}}" popover-trigger="mouseenter" popover-placement="left"></span>
+                    <span ng-bind="buy.note" popover="{{buy.note}}" popover-trigger="mouseenter" popover-placement="left"></span>
                 </td>
                 <td width="150px">
                     <div class="button tiny" ng-click="edit()">修改</div>

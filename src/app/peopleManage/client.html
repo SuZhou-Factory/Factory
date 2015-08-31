@@ -16,12 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="client in data.clients" ng-init="client.editable=true">
+            <tr ng-repeat="client in data.clients">
                 <td>
-                	<input type="text" ng-model="client.name" ng-disabled="client.editable">
+                	<span ng-bind="client.name"></span>
                 </td>
                 <td>
-                	<input type="text" ng-model="client.mobile" ng-disabled="client.editable">
+                	<span ng-bind="client.mobile"></span>
                 </td>
                 <td >
                 	<div class="button tiny" ng-click="edit()">修改</div>
