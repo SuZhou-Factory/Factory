@@ -1,16 +1,16 @@
 <h4 ng-bind="modal.title"></h4>
-<form class="modal-content row" id="moneyModalForm">
+<form class="modal-content row" id="orderModalForm">
     <div class="small-6">
         <label><span><i>*</i>名称</span>
-            <input name="name" type="text" ng-model="modal.money.name">
+            <input name="name" type="text" ng-model="modal.order.name">
         </label>
         <label><span><i>*</i>金额</span>
-            <input name="money" type="number" min="0" ng-model="modal.money.money">
+            <input name="order" type="number" min="0" ng-model="modal.order.order">
         </label>
         <label><span>支付方式</span>
             <div class="select">
-                <input name="paymethod" type="select" ng-model="modal.money.paymethod">
-                <select name="" id="" ng-model="modal.money.paymethod">
+                <input name="paymethod" type="select" ng-model="modal.order.paymethod">
+                <select name="" id="" ng-model="modal.order.paymethod">
                     <option value="现金">现金</option>
                     <option value="转卡">转卡</option>
                     <option value="承兑">承兑</option>
@@ -22,13 +22,13 @@
     </div>
     <div class="small-6">
         <label><span>用途</span>
-            <input name="reason" type="text" ng-model="modal.money.reason">
+            <input name="reason" type="text" ng-model="modal.order.reason">
         </label>
         <label><span><i>*</i>时间</span>
-            <input name="time" type="text" ui-date="modal.dateOptions" ng-model="modal.money.time">
+            <input name="time" type="text" ui-date="modal.dateOptions" ng-model="modal.order.time">
         </label>
         <label><span>备注</span>
-            <input name="note" type="text" ng-model="modal.money.note">
+            <input name="note" type="text" ng-model="modal.order.note">
         </label>
     </div>
 </form>

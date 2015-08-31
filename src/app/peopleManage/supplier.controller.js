@@ -89,7 +89,7 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑',
+                title: '修改',
                 supplier: Tools.clone(this.supplier),
                 tree: Tools.clone($scope.data.goods)
             };

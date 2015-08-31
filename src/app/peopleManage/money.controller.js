@@ -16,19 +16,6 @@
         	$scope.search();
         	console.log(pageNo);
         };
-        $scope.dateOptions = {
-	        changeYear: true,
-	        changeMonth: true,
-	        yearRange: '1900:+100',
-	        dateFormat: 'yy-mm-dd',
-	        prevText: '<',
-	        nextText: '>',
-	        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-	        monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-	        dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-	        dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
-	        dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-	    };
 
         $scope.moneyInHead = ['时间', '名称', '金额', '进账方式', '用途', '备注', '操作'];
         $scope.moneyOutHead = ['时间', '名称', '金额', '出账方式', '用途', '备注', '操作'];
@@ -67,11 +54,11 @@
 
         $scope.edit = function() {
             var modal = {
-                title: '编辑',
+                title: '修改',
                 money: Tools.clone(this.money),
                 tree: $scope.tree,
                 roles: $scope.roles,
-                dateOptions: $scope.dateOptions,
+                dateOptions: $scope.$parent.dateOptions,
                 route: route
             };
 
@@ -99,7 +86,7 @@
                 money: addMoney,
                 tree: $scope.tree,
                 roles: $scope.roles,
-                dateOptions: $scope.dateOptions,
+                dateOptions: $scope.$parent.dateOptions,
                 route: route
             };
 
@@ -124,7 +111,7 @@
             Tools.alert({
                 data: {
                     // title: '提示',
-                    message: '确认删除用户名为 '+this.money.moneyname+' 的人员?'
+                    message: '确认删除?'
                 },
                 success: function() {
                     $http.post(Setting.host + route + '/delete', deleteInfo).success(function(data) {
@@ -139,7 +126,7 @@
                         }
                     }).error(function(data) {
                         $scope.msg.success = false;
-                        $scope.msg.message = "网络异常，修改失败";
+                        $scope.msg.message = "网络异常，删除失败";
                     });
                 }
             });
@@ -186,60 +173,33 @@
 
     function MoneyModalController($scope, $modalInstance, $http, $timeout, modal) {
         $timeout(function() {
-            $('#backendModalForm').validate({
-                debug: true,
+            $('#moneyModalForm').validate({
                 errorLabelContainer: $(".validate-msg"),
                 focusCleanup: true,
                 errorClass: 'invalid',
                 rules: {
-                    moneyname: {
-                        required: true,
-                        minlength: 1,
-                    },
-                    password: {
-                        required: modal.title=='添加'?true:false,
-                        minlength: 1,
-                    },
                     name: {
                         required: true,
                         minlength: 1,
                     },
-                    factoryname: {
+                    money: {
                         required: true,
                         minlength: 1,
                     },
-                    deadtime: {
-                        required: true,
-                    },
-                    roleid: {
+                    time: {
                         required: true,
                         minlength: 1,
                     },
                 },
                 messages: {
-                    moneynamde: {
-                        required: '请输入用户名',
-                        minlength: '长度必须超过两位',
-                    },
-
-
-                    moneyname: {
-                        required: '请输入用户名',
-                    },
-                    password: {
-                        required: '请输入密码',
-                    },
                     name: {
-                        required: '请输入姓名',
+                        required: '请输入用名称',
                     },
-                    factoryname: {
-                        required: '请输入工厂名',
+                    money: {
+                        required: '请输入用金额',
                     },
-                    deadtime: {
-                        required: '请输入截止时间',
-                    },
-                    roleid: {
-                        required: '请选择角色',
+                    time: {
+                        required: '请输入时间',
                     },
                 }
             });
@@ -251,7 +211,7 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            if (!$('#backendModalForm').valid()) {
+            if (!$('#moneyModalForm').valid()) {
                 return;
             }
             
@@ -265,13 +225,13 @@
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-                    setTimeout((function(){
-                        var instance = $modalInstance;
-                        return function() {
-                            instance.close();
-                        };
-                    })(), 100);
-                    // $modalInstance.close();
+                    // setTimeout((function(){
+                    //     var instance = $modalInstance;
+                    //     return function() {
+                    //         instance.close();
+                    //     };
+                    // })(), 100);
+                    $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;

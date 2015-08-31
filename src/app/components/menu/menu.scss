@@ -13,6 +13,10 @@ menu {
 			border-bottom: 1px solid #ccc;
 			position: relative;
 			color: #FFF;
+			padding: 0.8rem;
+		}
+		i {
+			line-height: 1.5rem;
 		}
 		.content {
 			padding: 0;
@@ -20,10 +24,10 @@ menu {
 				margin: 0;
 				list-style: none;
 				li {
-					border-bottom: 1px solid #5C8D9E;
+					border-bottom: 1px solid $primary-color;
 					a {
 						display: block;
-						padding: 1rem;
+						padding: 0.8rem;
 						color: #666;
 					}
 				}

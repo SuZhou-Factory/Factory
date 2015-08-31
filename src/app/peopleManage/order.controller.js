@@ -3,38 +3,33 @@
 
     angular
         .module('suzhou')
-        .controller('ClientController', ClientController)
-        .controller('ClientModalController', ClientModalController);
+        .controller('OrderController', OrderController)
+        .controller('OrderModalController', OrderModalController);
 
     /** @ngInject */
-    function ClientController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.clientHead = ['姓名', '电话号码', '操作'];
+    function OrderController($scope, $http, $state, $modal, DataService, Tools) {
+        $scope.orderHead = ['时间', '名称', '产品', '金额', '状态', '明细', '操作'];
 
-        $scope.maxSize = 5;
-
-        $scope.setPage = function(pageNo) {
-            $scope.searchInfo.page.pageNo = pageNo;
-            $scope.search();
-            console.log(pageNo);
-        };
         // -- 网络请求相关定义
         $scope.searchInfo = {
-            client: {
-                name: '',
-                mobile: '',
+            order: {
+                peoplename: '',
+                ordername: '',
+                orderstatus: '',
+                startTime: '',
+                endTime: ''
             },
             page: {
-                pageNo: 1,
-                pageSize: 10,
+            	pageNo: 1,
+            	pageSize: 10,
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'client/index', $scope.searchInfo).success(function(data){
-                if (data.clients && !(data.clients instanceof Array)) {
-                    data.clients = [data.clients];
+            $http.post(Setting.host + 'order/index', $scope.searchInfo).success(function(data){
+                if (data.orders && !(data.orders instanceof Array)) {
+                    data.orders = [data.orders];
                 }
                 $scope.data = data;
-                $scope.totalItems = $scope.data.totalNum;
             }).error(function(data) {
 
             });
@@ -50,14 +45,15 @@
 
         // -- 页面相关数据以及控制
         $scope.add = function() {
-            var addClient = {
+            var addorder = {
                 id: '',
                 name: '',
-                mobile: ''
+                price: '',
+                ordertype: '0'
             };
             var modal = {
-                title: '添加客户',
-                client: addClient,
+                title: '添加材料',
+                order: addorder,
             };
 
             openModal(modal, function(data) {
@@ -69,8 +65,8 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '修改客户',
-                client: Tools.clone(this.client),
+                title: '修改材料',
+                order: Tools.clone(this.order),
             };
 
             openModal(modal, function(data) {
@@ -82,10 +78,10 @@
 
         function openModal(data, success, error) {
             var modalInstance = $modal.open({
-                templateUrl: 'app/peopleManage/client-modal.html',
-                controller: 'ClientModalController',
+                templateUrl: 'app/peopleManage/order-modal.html',
+                controller: 'GoodsModalController',
                 backdrop: 'static',
-                windowClass: 'client-modal',
+                windowClass: 'backend-modal',
                 resolve: {
                     modal: function() {
                         return data;
@@ -105,20 +101,29 @@
         }
     }
 
-    function ClientModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function OrderModalController($scope, $modalInstance, $http, $timeout, modal) {
         $timeout(function() {
-            // $('#roleModalForm').validate({
-            //     rules: {
-            //         rightname: {
-            //             required: true,
-            //         }
-            //     },
-            //     messages: {
-            //         rightname: {
-            //             required: "请输入用户名",
-            //         }
-            //     }
-            // });
+            $('#orderModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    ordertype: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "请输入材料名称",
+                    },
+                    ordertype: {
+                        required: "请选择材料类型",
+                    },
+                }
+            });
 
         }, 10);
 
@@ -129,14 +134,14 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#orderModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
             
-            update({client: modal.client}, function (data) {
+            update({order: modal.order}, function (data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
@@ -157,7 +162,7 @@
         };
 
         function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'client/update', updateInfo).success(function(data) {
+            $http.post(Setting.host + 'order/update', updateInfo).success(function(data) {
                 if (success) success(data);
             }).error(function(data) {
                 if (error) error(data);

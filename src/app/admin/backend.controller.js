@@ -15,19 +15,6 @@
         	$scope.search();
         	console.log(pageNo);
         };
-        $scope.dateOptions = {
-	        changeYear: true,
-	        changeMonth: true,
-	        yearRange: '1900:+100',
-	        dateFormat: 'yy-mm-dd',
-	        prevText: '<',
-	        nextText: '>',
-	        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-	        monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-	        dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-	        dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
-	        dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-	    };
 
         $scope.tableHead = ['姓名', '用户名', '工厂名', '截止时间', '操作'];
 
@@ -66,7 +53,7 @@
 
         $scope.edit = function() {
             var modal = {
-                title: '编辑人员',
+                title: '修改人员',
                 user: Tools.clone(this.user),
                 tree: $scope.tree,
                 roles: $scope.roles,

@@ -1,11 +1,50 @@
 <h4 ng-bind="modal.title"></h4>
-<form class="modal-content" id="goodsModalForm">
-    <label><span><i>*</i>名称</span>
-        <input name="name" type="text" ng-model="modal.goods.name">
-    </label>
-    <label><span>价格</span>
-        <input name="mobile" type="text" ng-model="modal.goods.price">
-    </label>
+<form class="" id="goodsModalForm">
+    <div class="line-input">
+        <label><span><i>*</i>名称</span>
+            <input name="name" type="text" ng-model="modal.goods.name">
+        </label>
+        <label><span><i>*</i>类型</span>
+            <select name="goodstype" ng-model="modal.goods.goodstype">
+                <option value="0" ng-selected="modal.goods.goodstype==0">不显示</option>
+                <option value="2" ng-selected="modal.goods.goodstype==2">单规格</option>
+                <option value="1" ng-selected="modal.goods.goodstype==1">多规格</option>
+            </select>
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>价格</span>
+            <input name="price" type="number" min="0" ng-model="modal.goods.price">
+        </label>
+        <label><span>单位</span>
+            <input name="unit" type="text" ng-model="modal.goods.unit">
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>备注1</span>
+            <input name="" id="" ng-model="modal.goods.note[0]">
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>备注2</span>
+            <input name="" id="" ng-model="modal.goods.note[1]">
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>备注3</span>
+            <input name="" id="" ng-model="modal.goods.note[2]">
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>备注4</span>
+            <input name="" id="" ng-model="modal.goods.note[3]">
+        </label>
+    </div>
+    <div class="line-input">
+        <label><span>备注5</span>
+            <input name="" id="" ng-model="modal.goods.note[4]">
+        </label>
+    </div>
 </form>
 <p class="validate-msg"></p>
 <p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>

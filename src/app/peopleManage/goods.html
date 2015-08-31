@@ -2,6 +2,12 @@
     <div class="search">
         <div>
             <label>名称<input type="text" ng-model="searchInfo.goods.name"></label>   
+            <label>类型<select ng-model="searchInfo.goods.goodstype">
+                <option value="">全选</option>
+                <option value="0">不显示</option>
+                <option value="2">单规格</option>
+                <option value="1">多规格</option>
+            </select></label>   
             <div class="button-container">
                 <div class="button tiny" ng-click='search()'>查询</div>
                 <div class="button tiny add" ng-click='add()'>添加</div>
@@ -15,15 +21,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="goods in data.goods" ng-init="goods.editable=true">
+            <tr ng-repeat="goods in data.goods" ng-init="goods.editable=true;typeList = ['不显示', '多规格', '单规格']" >
                 <td>
                 	<input type="text" ng-model="goods.name" ng-disabled="goods.editable">
                 </td>
                 <td>
-                	<input type="text" ng-model="goods.price" ng-disabled="goods.editable">
+                    <input type="text" ng-model="goods.price" ng-disabled="goods.editable">
+                </td>
+                <td>
+                    <span type="text" ng-bind="typeList[goods.goodstype]" ng-disabled="goods.editable"></span>
                 </td>
                 <td >
-                	<div class="button tiny" ng-click="edit()">编辑</div>
+                	<div class="button tiny" ng-click="edit()">修改</div>
                 </td>
             </tr>
         </tbody>

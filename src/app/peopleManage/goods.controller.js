@@ -8,12 +8,13 @@
 
     /** @ngInject */
     function GoodsController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.goodsHead = ['名称', '价格', '操作'];
+        $scope.goodsHead = ['名称', '价格', '类型', '操作'];
 
         // -- 网络请求相关定义
         $scope.searchInfo = {
             goods: {
-                name: ''
+                name: '',
+                goodstype: ''
             },
             page: {
             	pageNo: 1,
@@ -44,10 +45,13 @@
             var addgoods = {
                 id: '',
                 name: '',
-                mobile: ''
+                price: '',
+                goodstype: '0',
+                unit: '',
+                note: [],
             };
             var modal = {
-                title: '添加客户',
+                title: '添加材料',
                 goods: addgoods,
             };
 
@@ -60,7 +64,7 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑客户',
+                title: '修改材料',
                 goods: Tools.clone(this.goods),
             };
 
@@ -98,18 +102,27 @@
 
     function GoodsModalController($scope, $modalInstance, $http, $timeout, modal) {
         $timeout(function() {
-            // $('#roleModalForm').validate({
-            //     rules: {
-            //         rightname: {
-            //             required: true,
-            //         }
-            //     },
-            //     messages: {
-            //         rightname: {
-            //             required: "请输入用户名",
-            //         }
-            //     }
-            // });
+            $('#goodsModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    goodstype: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "请输入材料名称",
+                    },
+                    goodstype: {
+                        required: "请选择材料类型",
+                    },
+                }
+            });
 
         }, 10);
 
@@ -119,10 +132,16 @@
         };
         $scope.modal = modal;
 
+        if (modal.goods.note && modal.goods.note.length && modal.goods.note.length > 0) {
+            modal.goods.note = modal.goods.note.split('&');
+        }
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#goodsModalForm').valid()) {
+                return;
+            }
+            if (modal.goods.note) {
+                modal.goods.note = modal.goods.note.join('&');
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
@@ -134,10 +153,12 @@
 
                     $modalInstance.close();
                 } else {
+                    modal.goods.note = modal.goods.note.split('&');
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
             }, function (data) {
+                modal.goods.note = modal.goods.note.split('&');
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });

@@ -4,9 +4,16 @@
             <label><span>名称</span>
                 <input type="text" ng-model="searchInfo.money.name">
             </label>
-            <label><span>进账方式</span>
-                <input type="text" ng-model="searchInfo.money.moneytype">
-            </label>
+            <!-- <label><span>进账方式</span>
+                <select ng-model="searchInfo.money.moneytype">
+                    <option value="">-- 请选择 --</option>
+                    <option value="现金">现金</option>
+                    <option value="转卡">转卡</option>
+                    <option value="承兑">承兑</option>
+                    <option value="支票">支票</option>
+                    <option value="其他">其他</option>
+                </select>
+            </label> -->
             <label><span>起始时间</span>
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.money.startTime">
             </label>
@@ -27,13 +34,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="money in data.moneys" ng-init="money.editable=true">
-                <td>
+                <td width="90px">
                     <span type="text" ng-bind="money.time | getDataFromStr | date:'yyyy-MM-dd'" ng-disabled="money.editable"></span>
                 </td>
                 <td>
                     <input type="text" ng-model="money.name" ng-disabled="money.editable">
                 </td>
-                <td>
+                <td width="90px">
                     <input type="text" ng-model="money.money" ng-disabled="money.editable">
                 </td>
                 <td>
@@ -46,7 +53,7 @@
                     <input type="text" ng-model="money.note" ng-disabled="money.editable">
                 </td>
                 <td>
-                    <div class="button tiny" ng-click="edit()">编辑</div>
+                    <div class="button tiny" ng-click="edit()">修改</div>
                     <div class="button tiny" ng-click="delete()">删除</div>
                 </td>
             </tr>

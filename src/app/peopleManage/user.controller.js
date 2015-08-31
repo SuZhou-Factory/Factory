@@ -49,7 +49,7 @@
             };
 
             var modal = {
-                title: '添加人员',
+                title: '添加人员信息',
                 user: addUser,
                 tree: Tools.clone($scope.tree)
             };
@@ -63,7 +63,7 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑人员',
+                title: '修改人员信息',
                 user: Tools.clone(this.user),
                 tree: Tools.clone($scope.tree)
             };

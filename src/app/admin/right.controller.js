@@ -53,7 +53,7 @@
 
         $scope.edit = function() {
             var modal = {
-                title: '编辑权限',
+                title: '修改权限',
                 right: Tools.clone(this.right),
                 tree: Tools.clone($scope.tree)
             };

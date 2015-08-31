@@ -77,7 +77,7 @@
         
         $scope.edit = function() {
             var modal = {
-                title: '编辑角色',
+                title: '修改角色',
                 role: Tools.clone(this.role),
                 tree: Tools.clone($scope.tree)
             };

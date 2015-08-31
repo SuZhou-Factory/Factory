@@ -27,8 +27,8 @@
     height: 100%;
     overflow: auto;
     .pagetab {
-        border-bottom: 2px solid #5C8D9E;
-        margin-top: 5px;
+        border-bottom: 2px solid $oil;
+        margin-top: 3px;
         display: flex;
         .tabhead {
             display: flex;
@@ -52,7 +52,7 @@
                 }
             }
             &.active {
-                background: linear-gradient(top, #97C9DA, #3D7C92 100%);
+                background: linear-gradient(top, scale-color($oil,$lightness:38%), $oil 100%);//#2067CC,
             }
             span {
                 overflow:hidden;

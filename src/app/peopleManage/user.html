@@ -1,10 +1,8 @@
 <section class="user">
     <div class="search">
-        <div>
             <div class="button-container">
                 <div class="button tiny add" ng-click='add()'>添加</div>
             </div>
-        </div>
     </div>
     <table class="content-list">
         <thead>
@@ -21,7 +19,7 @@
                 	<input type="text" ng-model="user.name" ng-disabled="user.editable">
                 </td>
                 <td >
-                	<div class="button tiny" ng-click="edit()">编辑</div><div class="button tiny" ng-click="delete()">删除</div>
+                	<div class="button tiny" ng-click="edit()">修改</div><div class="button tiny" ng-click="delete()">删除</div>
                 </td>
             </tr>
         </tbody>

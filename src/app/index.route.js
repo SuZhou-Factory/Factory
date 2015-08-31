@@ -181,6 +181,30 @@
                     active: true
                 },
             })
+            .state('main.order', {
+                url: '',
+                templateUrl: 'app/peopleManage/order.html',
+                controller: 'OrderController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    data: function() {
+                        return {};
+                    },
+                    pageInfo: function(){
+                        return {
+                            name: '订单',
+                            state: 'main.order',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '订单',
+                    state: 'main.order',
+                    active: true
+                },
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',

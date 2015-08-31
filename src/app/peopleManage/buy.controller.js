@@ -10,21 +10,6 @@
     function BuyController($scope, $http, $state, $modal, DataService, Tools) {
         $scope.buyHead = ['时间', '供应商', '材料', '数量', '金额（元）', '是否付款', '备注', '操作'];
 
-        $scope.dateOptions = {
-            changeYear: true,
-            changeMonth: true,
-            yearRange: '1900:+100',
-            dateFormat: 'yy-mm-dd',
-            prevText: '<',
-            nextText: '>',
-            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-            monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
-            dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-            defaultDate: +0,
-        };
-
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
@@ -128,7 +113,7 @@
         };
  		$scope.edit = function() {
             var modal = {
-                title: '编辑清单',
+                title: '修改清单',
                 buy: Tools.clone(this.buy),
                 templateUrl: 'app/peopleManage/buy-edit-modal.html',
                 supplierInfo: $scope.supplierInfo,
@@ -148,25 +133,40 @@
                 }
             };
 
-            $http.post(Setting.host + 'buy/delete', deleteInfo).success(function(data) {
-                if (data.result.code = "000000") {
-                    Tools.alert({
-                        data: {
-                            message: '删除成功',
-                            noCancel: true,
-                            noOk: true,
+
+
+            Tools.alert({
+                data: {
+                    // title: '提示',
+                    message: '确认删除?'
+                },
+                success: function() {
+                    $http.post(Setting.host + 'buy/delete', deleteInfo).success(function(data) {
+                        if (data.result.code = "000000") {
+                            // Tools.alert({
+                            //     data: {
+                            //         message: '删除成功',
+                            //         noCancel: true,
+                            //         noOk: true,
+                            //     }
+                            // });
+                            //刷新页面
+                            $scope.search();
+                        } else {
+                            $scope.msg.success = false;
+                            $scope.msg.message = data.result.message;
                         }
+                    }).error(function(data) {
+                        $scope.msg.success = false;
+                        $scope.msg.message = "网络异常，修改失败";
                     });
-                    //刷新页面
-                    $scope.search();
-                } else {
-                    $scope.msg.success = false;
-                    $scope.msg.message = data.result.message;
                 }
-            }).error(function(data) {
-                $scope.msg.success = false;
-                $scope.msg.message = "网络异常，修改失败";
             });
+
+
+
+
+            
         };
 
         function openModal(data, success, error) {
