@@ -93,6 +93,9 @@
                 }
                 return tree;
             },
+            fixJavaTime: function(timeStr) {
+                return timeStr.replace(/CST/, '');
+            },
             alert: function(conf) {
                 /** config detail **/
                 var config = {
@@ -103,13 +106,12 @@
                     controller: 'AlertController', // 模板控制器
                     windowClass: 'alert-modal', // 弹出框Class
                 }
-                // config = angular.extend(config, conf);
                 angular.extend(config, conf);
                 
                 var modalInstance = $modal.open({
                     templateUrl: config.templateUrl,
                     controller: config.controller,
-                    backdrop: 'static',
+                    backdrop: config.backdrop || 'static',
                     windowClass: config.windowClass,
                     resolve: {
                         modal: function() {

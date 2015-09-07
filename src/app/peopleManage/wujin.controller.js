@@ -3,10 +3,10 @@
 
     angular
         .module('suzhou')
-        .controller('OrderController', OrderController);
+        .controller('WujinController', WujinController);
 
     /** @ngInject */
-    function OrderController($scope, $http, $state, $modal, DataService, Tools) {
+    function WujinController($scope, $http, $state, $modal, DataService, Tools) {
         $scope.updatePageShow = false;
         $scope.viewPageShow = false;
 

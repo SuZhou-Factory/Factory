@@ -6,9 +6,11 @@
         </label>
         <label><span><i>*</i>类型</span>
             <select name="goodstype" ng-model="modal.goods.goodstype">
-                <option value="0" ng-selected="modal.goods.goodstype==0">不显示</option>
-                <option value="2" ng-selected="modal.goods.goodstype==2">单规格</option>
-                <option value="1" ng-selected="modal.goods.goodstype==1">多规格</option>
+                <option value="-1" ng-selected="modal.goods.goodstype==-1">不显示</option>
+                <option value="-3" ng-selected="modal.goods.goodstype==-3">单规格</option>
+                <option value="-2" ng-selected="modal.goods.goodstype==-2">多规格</option>
+                <option value="-4" ng-selected="modal.goods.goodstype==-4">类型</option>
+                <option ng-repeat="op in modal.options" ng-value="op.id" ng-selected="modal.goods.goodstype==op.id" ng-bind="op.name"></option>
             </select>
         </label>
     </div>
@@ -18,6 +20,9 @@
         </label>
         <label><span>单位</span>
             <input name="unit" type="text" ng-model="modal.goods.unit">
+        </label>
+        <label><span>行数</span>
+            <input name="number" type="number" min="0" ng-model="modal.goods.number">
         </label>
     </div>
     <div class="line-input">

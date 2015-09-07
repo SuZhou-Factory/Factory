@@ -1,0 +1,72 @@
+<h4 ng-bind="modal.title"></h4>
+<div class="table-content">
+    <div class="order-head">
+        <label><span ng-click="print()"><i>*</i>名称</span>
+            <input type="text" ng-model="modal.order.peoplename">   
+        </label>
+        <label><span><i>*</i>日期</span>
+            <input type="text" ui-date="modal.dateOptions" ng-model="modal.order.ordertime">
+        </label>
+        <label><span><i>*</i>产品</span>
+            <input type="text" ng-model="modal.order.ordername">   
+        </label>
+        <!-- <label ng-if="!isEdit"><span>状态</span>
+            <select ng-model="modal.order.orderstatus">
+                <option value="0" ng-selected="modal.order.orderstatus==0">待发货</option>
+                <option value="1" ng-selected="modal.order.orderstatus==1">已发货</option>
+                <option value="3" ng-selected="modal.order.orderstatus==2">推迟处理</option>
+            </select>
+        </label> -->
+        <div class="button-container">
+            <div class="button tiny info" ng-click="back()">获取产品</div>
+        </div>
+        <label ng-if="modal.isAdd"><span>类型</span>
+            <select ng-model="modal.order.orderstatus" ng-change="">
+                <option ng-repeat="option in options" ng-value="option.key" ng-bind="option.value" ng-selected="searchInfo.goods.goodstype==option.key"></option>
+                <!-- <option value="0" ng-selected="modal.order.orderstatus==0">待发货</option>
+                <option value="1" ng-selected="modal.order.orderstatus==1">已发货</option>
+                <option value="3" ng-selected="modal.order.orderstatus==2">推迟处理</option> -->
+            </select>
+        </label>
+    </div>
+    <table class="order-detail" ng-click="clearError()">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>数量</th>
+                <th>单位</th>
+                <th>单价（元）</th>
+                <th>总价（元）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="detail in modal.items.itemDetails">
+                <td>
+                    <input type="text" ng-model="detail.detaila">
+                </td>
+                <td>
+                    <input type="number" min="0" ng-model="detail.detaila">
+                </td>
+                <td>
+                    <input type="text" ng-model="detail.detaila">
+                </td>
+                <td>
+                    <input type="number" min="0" ng-model="detail.detaila">
+                </td>
+                <td>
+                    <input type="number" min="0" ng-model="detail.detaila">
+                    <!-- <div class="button tiny" ng-click="delete()">删除</div> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="text-align:right">
+        <div class="button tiny info" ng-click="add($event)">+</div>
+    </div>
+</div>
+
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="commit()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
+

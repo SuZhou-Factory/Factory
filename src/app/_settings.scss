@@ -99,7 +99,7 @@ $row-width: auto;
 // $white       : #FFFFFF;
 // $ghost       : #FAFAFA;
 // $snow        : #F9F9F9;
-// $vapor       : #F6F6F6;
+$vapor       : #F6F6F6;
 // $white-smoke : #F5F5F5;
 // $silver      : #EFEFEF;
 // $smoke       : #EEEEEE;
@@ -1294,7 +1294,7 @@ $accordion-navigation-bg-color: #0D3F74;
 
 // These control the background color for the table and even rows
 // $table-bg: $white;
-// $table-even-row-bg: $snow;
+$table-even-row-bg: #eee;
 
 // These control the table cell border style
 // $table-border-style: solid;
@@ -1302,7 +1302,7 @@ $accordion-navigation-bg-color: #0D3F74;
 // $table-border-color: $gainsboro;
 
 // These control the table head styles
-// $table-head-bg: $white-smoke;
+$table-head-bg: #f0f0f0;
 // $table-head-font-size: rem-calc(14);
 // $table-head-font-color: $jet;
 // $table-head-font-weight: $font-weight-bold;

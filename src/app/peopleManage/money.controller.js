@@ -14,7 +14,6 @@
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;
         	$scope.search();
-        	console.log(pageNo);
         };
 
         $scope.moneyInHead = ['时间', '名称', '金额', '进账方式', '用途', '备注', '操作'];
@@ -29,7 +28,7 @@
             },
             page: {
             	pageNo: 1,
-            	pageSize: 10,
+            	pageSize: 15,
             }
         };
 
@@ -51,8 +50,8 @@
             });
         };
 
-
         $scope.edit = function() {
+            this.money.time = Tools.fixJavaTime(this.money.time);
             var modal = {
                 title: '修改',
                 money: Tools.clone(this.money),

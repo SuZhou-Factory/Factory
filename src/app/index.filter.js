@@ -6,7 +6,6 @@
     .module('suzhou')
     .filter("filterroute",function(){
         return function(input, parent){
-            // console.log(input);
             if (!input) {
                 return '.';
             }
@@ -34,6 +33,7 @@
     })
     .filter("getDataFromStr",function(){
         return function(input){
+            input = input.replace(/CST/, '(CST)');
             return Date.parse(input);
         }
     });

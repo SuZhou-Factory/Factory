@@ -13,7 +13,6 @@
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;
         	$scope.search();
-        	console.log(pageNo);
         };
 
         $scope.tableHead = ['姓名', '用户名', '工厂名', '截止时间', '操作'];
@@ -28,7 +27,7 @@
             },
             page: {
             	pageNo: 1,
-            	pageSize: 10,
+            	pageSize: 15,
             }
         };
 
@@ -52,6 +51,7 @@
 
 
         $scope.edit = function() {
+            this.user.deadtime = Tools.fixJavaTime(this.user.deadtime);
             var modal = {
                 title: '修改人员',
                 user: Tools.clone(this.user),

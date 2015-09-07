@@ -8,7 +8,12 @@
 
     /** @ngInject */
     function GoodsController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.goodsHead = ['名称', '价格', '单位', '类型', '操作'];
+        $scope.goodsHead = ['名称', '价格', '单位', '类型', '默认行数', '操作'];
+        $scope.maxSize = 5;
+        $scope.setPage = function(pageNo) {
+            $scope.searchInfo.page.pageNo = pageNo;
+            $scope.search();
+        };
 
         // -- 网络请求相关定义
         $scope.searchInfo = {
@@ -18,15 +23,63 @@
             },
             page: {
             	pageNo: 1,
-            	pageSize: 10,
+            	pageSize: 15,
             }
         };
+        function getSelectOption() {
+            var info = {
+                goods: {
+                    goodstype: '-4',
+                },
+                page: {
+                    pageNo: 1,
+                    pageSize: 1000
+                }
+            };
+            $http.post(Setting.host + 'goods/index', info).success(function(data){
+                if (data.goods && !(data.goods instanceof Array)) {
+                    data.goods = [data.goods];
+                }
+                // $scope.options = data.goods;
+                $scope.options = [{
+                    key: '',
+                    value: '全选'
+                },{
+                    key: '-4',
+                    value: '类型'
+                },{
+                    key: '-3',
+                    value: '单规格'
+                },{
+                    key: '-2',
+                    value: '多规格'
+                },{
+                    key: '-1',
+                    value: '不显示'
+                }];
+
+                $scope.typeList = {
+                    '-4': '类型',
+                    '-3': '单规格',
+                    '-2': '多规格',
+                    '-1': '不显示',
+                };
+                for (var i = 0; i < data.goods.length; i++) {
+                    $scope.typeList[data.goods[i].id] = data.goods[i].name;
+                    $scope.options.push({key: data.goods[i].id, value: data.goods[i].name});
+                };
+            }).error(function(data) {
+
+            });
+        }
         $scope.search = function() {
             $http.post(Setting.host + 'goods/index', $scope.searchInfo).success(function(data){
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
                 $scope.data = data;
+                $scope.totalItems = $scope.data.totalNum;
+                getSelectOption();
             }).error(function(data) {
 
             });
@@ -53,6 +106,7 @@
             var modal = {
                 title: '添加材料',
                 goods: addgoods,
+                options: $scope.options,
             };
 
             openModal(modal, function(data) {
@@ -66,6 +120,7 @@
             var modal = {
                 title: '修改材料',
                 goods: Tools.clone(this.goods),
+                options: $scope.options,
             };
 
             openModal(modal, function(data) {

@@ -1,0 +1,92 @@
+<div class="order-update">
+    <div class="order-head">
+        <label><span><i>*</i>名称</span>
+            <input type="text" ng-model="data.order.peoplename">   
+        </label>
+        <label><span><i>*</i>产品</span>
+            <input type="text" ng-model="data.order.ordername">   
+        </label>
+        <label ng-if="!isEdit"><span>状态</span>
+            <select ng-model="data.order.orderstatus">
+                <option value="0" ng-selected="data.order.orderstatus==0">待发货</option>
+                <option value="1" ng-selected="data.order.orderstatus==1">已发货</option>
+                <option value="3" ng-selected="data.order.orderstatus==2">推迟处理</option>
+            </select>
+        </label>
+        <label><span>日期</span>
+            <input type="text" ui-date="dateOptions" ng-model="data.order.ordertime">
+        </label>
+        <div class="button-container">
+            <div class="button tiny info add" ng-click="back()">返 回</div>
+            <div class="button tiny add" ng-click="save()">保 存</div>
+        </div>
+    </div>
+    <div class="order-detail row">
+        <div class="small-4 large-4 columns">
+            <table border="0" cellspacing="1" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>规格</th>
+                        <th>数量</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -2" ng-init="good.editable=true;good.itemDetails.length==0?good.itemDetails=[{},{},{}]:{};initNotes(good)">
+                    <tr>
+                        <td colspan="2">
+                            <div class="input-line">
+                            	<span ng-bind="good.name + '(' + (good.unit!=''?good.unit:' ') + ')'"></span>
+                                <i class="fa fa-list" ng-click="isOpen=!isOpen"></i>
+                            	<div class="drop-check">
+                                    <span type="text" ng-bind="good.note!='null'?good.note:''"></span>
+                                    <ul class="drop" ng-style="isOpen? {display:'block'}:{}">
+                                        <li ng-repeat="note in good.allnotes">
+                                            <input type="checkbox" ng-model="note.selected" ng-change="checkbox(good, selected)">
+                                            <span ng-bind="note.text"></span>
+                                        </li>
+                                    </ul>  
+                                </div>
+                                <div class="button tiny info" ng-click="good.itemDetails.push({})">+</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="detail in good.itemDetails">
+                        <td><input type="number" min="0" ng-model="detail.detaila" ng-change="sum(good);sum2(good);sum3(data.order)"></td>
+                        <td><input type="number" min="0" ng-model="detail.detailb" ng-change="sum(good);sum2(good);sum3(data.order)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="small-8 large-8 columns">
+            <table border="0" cellspacing="1" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>品名</th>
+                        <th>数量</th>
+                        <th>单位</th>
+                        <th>单价（元）</th>
+                        <th>总价（元）</th>
+                    </tr>
+                </thead>
+                <tbody  ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -2 || good.goodstype == -3">
+                    <tr>
+                        <td><input type="text" ng-model="good.name" ng-disabled="good.editable" ng-change="change(good)"></td>
+                        <td><input type="number" min="0" ng-model="good.count" ng-change="sum2(good);sum3(data.order)"></td>
+                        <td><input type="text" ng-model="good.unit"></td>
+                        <td><input type="number" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)"></td>
+                        <td><input type="number" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align:right">
+	            <div class="button tiny info" ng-click="addGoods()">+</div>
+            </div>
+            <div class="note">
+            	<strong>备注：</strong>
+            	<textarea cols="30" rows="10" ng-model="data.order.note"></textarea>
+            </div>
+            <div class="gather">
+            	<span ng-click="sum3(data.order)">合计：¥ </span><input type="number" min="0" ng-model="data.order.orderamount">
+            </div>
+        </div>
+    </div>    
+</div>

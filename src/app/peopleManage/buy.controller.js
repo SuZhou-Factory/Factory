@@ -14,7 +14,6 @@
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
-            console.log(pageNo);
         };
 
         // -- 网络请求相关定义
@@ -27,7 +26,7 @@
             },
             page: {
                 pageNo: 1,
-                pageSize: 10,
+                pageSize: 15,
             }
         };
         $scope.search = function() {
@@ -112,6 +111,7 @@
             });
         };
  		$scope.edit = function() {
+            this.buy.time = Tools.fixJavaTime(this.buy.time);
             var modal = {
                 title: '修改清单',
                 buy: Tools.clone(this.buy),
@@ -162,11 +162,6 @@
                     });
                 }
             });
-
-
-
-
-            
         };
 
         function openModal(data, success, error) {

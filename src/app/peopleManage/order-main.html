@@ -1,14 +1,4 @@
-<section>
-	<!-- To be move to order-modal.html -->
-<!-- 	<div class="row">
-		<div class="small-4">
-			fsdafa
-		</div>
-		<div class="small-8">
-			fadfadsf
-		</div>
-	</div> -->
-
+<section class="order-main" ui-view>
     <div class="search">
         <div>
             <label><span>名称</span>
@@ -21,9 +11,8 @@
                 <select ng-model="searchInfo.order.orderstatus">
                     <option value="">全选</option>
                     <option value="0">待发货</option>
-                    <option value="1">待付款</option>
-                    <option value="2">已完成</option>
-                    <option value="3">推迟处理</option>
+                    <option value="1">已发货</option>
+                    <option value="2">推迟处理</option>
                 </select>
             </label>
             <label><span>起始时间</span>
@@ -33,8 +22,8 @@
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.endTime">
             </label>
             <div class="button-container">
-                <div class="button tiny" ng-click='search()'>查询</div>
-                <div class="button tiny add" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click="search()">查询</div>
+                <div class="button tiny" ng-click="add()">添加</div>
             </div>
         </div>
     </div>
@@ -45,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="order in data.orders" ng-init="statusList = ['待发货', '待付款', '已完成', '推迟处理']">
+            <tr ng-repeat="order in data.orders" ng-init="statusList = ['待发货', '已发货', '推迟处理']">
                 <td>
                     <span ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
@@ -59,15 +48,26 @@
                     <span ng-bind="order.orderamount"></span>
                 </td>
                 <td>
-                    <span ng-bind="statusList[order.orderstatus]"></span>
+                    <div class="select-sp">
+                        <i class="fa fa-caret-down"></i>
+                        <select ng-init="order.orderstatus0 = order.orderstatus" ng-model="order.orderstatus" ng-change="updateState(order)" ng-style="order.orderstatus == 0?{color: 'red'}:{}">
+                            <option value="0" ng-selected="order.orderstatus == 0">待发货</option>
+                            <option value="1" ng-selected="order.orderstatus == 1">已发货</option>
+                            <option value="2" ng-selected="order.orderstatus == 2">推迟处理</option>
+                        </select>
+                    </div>
+                    <!-- <span ng-bind="statusList[order.orderstatus]"></span> -->
                 </td>
-                <td class="td-button-container" style="width:5.5rem;">
+                <td>
+                    <span ng-bind="order.edittime | getDataFromStr | date:'MM-dd HH:mm'"></span>
+                </td>
+                <td class="td-button-container" style="width:6rem;">
                     <div class="button tiny" ng-click="edit()">查看明细</div>
                     <!-- <input type="text" ng-model="order.note" ng-disabled="order.editable"> -->
                 </td>
-                <td style="width:7.5rem;">
-                    <div class="button tiny" ng-click="edit()">修改</div>
-                    <div class="button tiny" ng-click="delete()">删除</div>
+                <td style="width:8rem;">
+                    <div class="button tiny" ng-click="edit(order)">修改</div>
+                    <div class="button tiny" ng-click="delete(order)">删除</div>
                 </td>
             </tr>
         </tbody>

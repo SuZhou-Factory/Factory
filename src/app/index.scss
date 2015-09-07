@@ -18,7 +18,11 @@
  */
 // bower:scss
 // endbower
-
+// @media (max-width: 800px) {
+//   html, body {
+//     font-size: 80%;
+//   }
+// }
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -80,7 +84,8 @@
 }
 .button.tiny {
   margin: 0;
-  padding: 0.55rem 1rem;
+  padding: 0.5rem 1rem;
+  color: #FFF;
 }
 
 .search {
@@ -228,6 +233,17 @@ table.content-list {
   }
   .error {
     border: 1px solid #f04124;
+  }
+}
+
+table {
+  tbody {
+    tr.active {
+      // background: 
+    }
+    tr:hover {
+      background: #AAD7FF;
+    }
   }
 }
 

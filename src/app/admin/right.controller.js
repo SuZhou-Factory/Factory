@@ -23,7 +23,7 @@
             },
             page: {
             	pageNo: 1,
-            	pageSize: 10,
+            	pageSize: 15,
             }
         };
 

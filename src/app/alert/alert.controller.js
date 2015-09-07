@@ -8,7 +8,7 @@
     /** @ngInject */
     function AlertController($scope, $modalInstance, $http, $timeout, modal) {
         $scope.modal = modal;
-        if (modal.auroClose) {
+        if (modal.autoClose) {
             $timeout(function() {
                 $modalInstance.close();
             }, 1000);

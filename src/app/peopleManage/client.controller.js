@@ -15,7 +15,6 @@
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
-            console.log(pageNo);
         };
         // -- 网络请求相关定义
         $scope.searchInfo = {
@@ -25,7 +24,7 @@
             },
             page: {
                 pageNo: 1,
-                pageSize: 10,
+                pageSize: 15,
             }
         };
         $scope.search = function() {

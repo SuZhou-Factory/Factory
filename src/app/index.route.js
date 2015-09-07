@@ -205,6 +205,54 @@
                     active: true
                 },
             })
+            // .state('main.order.update', {
+            //     url: '',
+            //     templateUrl: 'app/peopleManage/order-update.html',
+            //     controller: 'OrderUpdateController',
+            //     // onEnter: onEnter,
+            //     // onExit: onExit,
+            //     resolve: {
+            //         data: function() {
+            //             return {};
+            //         },
+            //         pageInfo: function(){
+            //             return {
+            //                 name: '添加订单',
+            //                 state: 'main.orderupdate',
+            //                 active: true
+            //             };
+            //         }
+            //     },
+            //     data: {
+            //         name: '添加订单',
+            //         state: 'main.orderupdate',
+            //         active: true
+            //     },
+            //     params: {
+            //         orderid: null
+            //     },
+            // })
+            .state('main.wujin', {
+                url: '',
+                templateUrl: 'app/peopleManage/wujin.html',
+                controller: 'WujinController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '五金',
+                            state: 'main.wujin',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '五金',
+                    state: 'main.wujin',
+                    active: true
+                }
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',
