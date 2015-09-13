@@ -1,0 +1,28 @@
+<section class="statistics">
+    <div class="search">
+        <label><span>欠款总额 从</span><input type="text" ng-model="searchInfo.order.startMoney"></label>
+        <label><span>至</span>
+            <input type="text" ng-model="searchInfo.order.endMoney">
+        </label>
+        <div class="button tiny info" ng-click='search()'>查询</div>
+    </div>
+    <table class="content-list">
+        <thead>
+            <tr>
+            	<th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="result in data.resultList">
+                <td>
+                    <span ng-bind="result.name"></span>
+                </td>
+                <td>
+                    <span ng-bind="result.money"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <pagination total-items="totalItems" items-per-page="page.pageSize" page="page.pageNo" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" on-select-page="setPage(page)"></pagination>
+</section>

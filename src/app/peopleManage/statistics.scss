@@ -1,0 +1,23 @@
+.statistics {
+	.search {
+		text-align: right;
+		label {
+			display: inline-block;
+			input {
+				display: inherit;
+			}
+		}
+		.button {
+			display: inline;
+			margin-right: 0.5rem;
+		}
+	}
+	table {
+		td {
+			padding: 0.4rem 0;
+		}
+		td:last-child {
+			text-align: left;
+		}
+	}
+}

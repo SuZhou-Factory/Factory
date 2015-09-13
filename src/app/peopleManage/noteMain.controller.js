@@ -57,7 +57,7 @@
                 head1: '日期',
                 head2: '名称',
                 head3: '金额',
-                head4: '支付',
+                head4: '付款',
                 head5: '备注',
                 contents: []
             };

@@ -6,7 +6,7 @@
 			height: 2rem;
 			border: none;
 			background: transparent;
-			z-index: 2;
+			z-index: 1;
 		}
 		i {
 			position: absolute;
@@ -155,126 +155,125 @@
 		}
 	}
 }
-@media print, screen {
-	.print-buttons {
-		text-align: right;
-		margin-top: 0.2rem;
-	}
-	.print {
-		padding: 2rem;
-		caption {
-			input {
-				text-align: center;
-				font-weight: bold;
-				margin-bottom: 0.5rem;
-			}
-			.note-time {
-				text-align: right;
-				input {
-					display: inline-block;
-					width: 10rem;
-				}
-			}
-		}
-		.print-head {
-			display: flex;
-			border-bottom: 1px solid #aaa;
-			p {
-				flex: 1;
-				margin: 0;
-				font-size: 0.875rem;
-				span {
-					font-size: 1rem;
-				}
-			}
-		}
-		.print-head2 {
-			position: relative;
+
+.print-buttons {
+	text-align: right;
+	margin-top: 0.2rem;
+}
+.print {
+	padding: 2rem;
+	caption {
+		input {
 			text-align: center;
-			border-bottom: 1px solid #aaa;
-			p {
-				position: absolute;
-				top: 0;
-				right: 0;
-			}
+			font-weight: bold;
+			margin-bottom: 0.5rem;
 		}
-		.old-bill {
-			display: flex;
-			p {
-				margin: 0;
-				flex: 1;
-				color: red;
-			}
-		}
-		.print-content {
-			display: flex;
-			.print-left {
-				flex: 1;
-			}
-			.print-right {
-				flex: 2;
-				margin-left: 2rem;
-			}
-		}
-		.note {
-			min-height: 5rem;
-			padding: 0.5rem;
-			border: 1px solid #aaa;
-			font-size: 0.875rem;
-		}
-		.gather {
-			border-top: 1px solid #aaa;
+		.note-time {
 			text-align: right;
-			font-size: 0.875rem;
-			padding: 0.5rem;
-			span {
-				font-size: 1.1rem;
-			}
-		}
-		.gather2 {
-			border-top: 1px solid #aaa;
-			display: flex;
-			font-size: 1.2rem;
-			padding: 0.5rem 0;
-			p {
-				flex: 1;
-				display: flex;
-				margin: 0;
-				font-size: 1.2rem;
-				span:first-child {
-					// width: 5.5rem;
-				}
-			}
 			input {
-				font-size: 1.2rem;
-				flex: 1;
+				display: inline-block;
+				width: 10rem;
 			}
-
 		}
 	}
+	.print-head {
+		display: flex;
+		border-bottom: 1px solid #aaa;
+		p {
+			flex: 1;
+			margin: 0;
+			font-size: 0.875rem;
+			span {
+				font-size: 1rem;
+			}
+		}
+	}
+	.print-head2 {
+		position: relative;
+		text-align: center;
+		border-bottom: 1px solid #aaa;
+		p {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
+	.old-bill {
+		display: flex;
+		p {
+			margin: 0;
+			flex: 1;
+			color: red;
+		}
+	}
+	.print-content {
+		display: flex;
+		.print-left {
+			flex: 1;
+		}
+		.print-right {
+			flex: 2;
+			margin-left: 2rem;
+		}
+	}
+	.note {
+		min-height: 5rem;
+		padding: 0.5rem;
+		border: 1px solid #aaa;
+		font-size: 0.875rem;
+	}
+	.gather {
+		border-top: 1px solid #aaa;
+		text-align: right;
+		font-size: 0.875rem;
+		padding: 0.5rem;
+		span {
+			font-size: 1.1rem;
+		}
+	}
+	.gather2 {
+		border-top: 1px solid #aaa;
+		display: flex;
+		font-size: 1.2rem;
+		padding: 0.5rem 0;
+		p {
+			flex: 1;
+			display: flex;
+			margin: 0;
+			font-size: 1.2rem;
+			span:first-child {
+				// width: 5.5rem;
+			}
+		}
+		input {
+			font-size: 1.2rem;
+			flex: 1;
+		}
 
-	/* ----------------------------------- 表格 ----------------------------------- */
-	table.dataintable {
-		margin-top:10px;
-		border-collapse:collapse;
-		border:1px solid #aaa;
-		width:100%;
 	}
+}
 
-	table.dataintable th {
-		vertical-align:baseline;
-		padding:5px 15px 5px 6px;
-		background-color:#FFF;
-		border:1px solid #aaa;
-		text-align:left;
-	}
-	table.dataintable tr {
-		background: #FFF;
-	}
-	table.dataintable td {
-		vertical-align:text-top;
-		padding:6px     15px 6px 6px;
-		// background-color:#efefef;
-		border:1px solid #aaa;
-	}
+/* ----------------------------------- 表格 ----------------------------------- */
+table.dataintable {
+	margin-top:10px;
+	border-collapse:collapse;
+	border:1px solid #aaa;
+	width:100%;
+}
+
+table.dataintable th {
+	vertical-align:baseline;
+	padding:5px 15px 5px 6px;
+	background-color:#FFF;
+	border:1px solid #aaa;
+	text-align:left;
+}
+table.dataintable tr {
+	background: #FFF;
+}
+table.dataintable td {
+	vertical-align:text-top;
+	padding:6px     15px 6px 6px;
+	// background-color:#efefef;
+	border:1px solid #aaa;
 }

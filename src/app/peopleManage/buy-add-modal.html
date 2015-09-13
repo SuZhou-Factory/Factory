@@ -3,6 +3,7 @@
     <table class="content-list" ng-click="clearError()">
         <thead>
             <tr>
+                <th></th>
                 <th>供应商</th>
                 <th>材料</th>
                 <th>数量</th>
@@ -15,6 +16,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="buy in addBuys">
+                <td style="text-align:center;font-weight:bold;">{{$index+1}}</td>
                 <td>
                     <select ng-model="buy.supplierid" ng-change="supplierChange(buy)" ng-class="buy.supplieridError?'error':''">
                         <option value="" ng-selected="''==buy.supplierid">-- 请选择 --</option>

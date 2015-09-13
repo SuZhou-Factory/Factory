@@ -76,7 +76,7 @@
             // $state.go('main.orderupdate', {orderid: order.id});
         };
         $scope.view = function(order) {
-            $scope.$parent.$parent.data.editOrderid = order.id;
+            // $scope.$parent.$parent.data.editOrderid = order.id;
             $scope.$parent.$parent.data.viewOrderid = order.id;
             $scope.$parent.$parent.updatePageShow = false;
             $scope.$parent.$parent.viewPageShow = true;

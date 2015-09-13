@@ -2,6 +2,8 @@
 	.table-content {
 		max-height: 200px;
 		overflow: auto;
+		border: 1px solid #aaa;
+		padding: 0.1rem 0;
 		table {
 			margin-bottom: 0.2rem;
 		}

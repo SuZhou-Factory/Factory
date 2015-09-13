@@ -1,8 +1,8 @@
 <section class="order">
     <div class="search">
         <div>
-            <label><span>名称</span><input type="text" ng-model="searchInfo.order.peoplename"></label>
-            <label><span>产品</span><input type="text" ng-model="searchInfo.order.ordername"></label>
+            <label><span>姓名</span><input type="text" ng-model="searchInfo.order.peoplename"></label>
+            <label><span>产品名称</span><input type="text" ng-model="searchInfo.order.ordername"></label>
             <label><span>起始时间</span>
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.startTime">
             </label>
@@ -34,6 +34,9 @@
                 </td>
                 <td>
                     <span ng-bind="item.totalmoney"></span>
+                </td>
+                <td width="100px">
+                    <div class="button tiny" ng-click="view()">查看详情</div>
                 </td>
                 <td width="150px">
                     <div class="button tiny" ng-click="edit()">修改</div>

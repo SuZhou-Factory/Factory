@@ -6,9 +6,8 @@
 </div>
 <section class="print">
     <div class="print-head">
-        <p>名称：<span ng-bind="data.order.peoplename"></span></p>
-        <p>产品：<span ng-bind="data.order.ordername"></span></p>
-        <p id="orderstatus">状态：<span ng-bind="data.order.orderstatus"></span></p>
+        <p>姓名：<span ng-bind="data.order.peoplename"></span></p>
+        <p>产品名称：<span ng-bind="data.order.ordername"></span></p>
         <p>日期：<span ng-bind="data.order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span></p>
     </div>
     <div class="print-content">
@@ -60,7 +59,7 @@
             <p class="note">备注：
             	<span ng-bind="data.order.note"></span>
             </p>
-            <p class="gather money">总价：¥ 
+            <p class="gather money">合计：¥ 
             	<span ng-bind="data.order.orderamount"></span>
             </p>
         </div>

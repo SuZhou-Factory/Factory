@@ -1,0 +1,34 @@
+<section class="statistics">
+    <div class="search">
+        <label><span>材料名称</span><input type="text" ng-model="searchInfo.orderItem.name"></label>
+        <label><span>起始时间</span>
+            <input type="text" ui-date="dateOptions" ng-model="searchInfo.orderItem.startTime">
+        </label>
+        <label><span>截止时间</span>
+            <input type="text" ui-date="dateOptions" ng-model="searchInfo.orderItem.endTime">
+        </label>
+        <div class="button tiny info" ng-click='search()'>查询</div>
+    </div>
+    <table class="content-list">
+        <thead>
+            <tr>
+            	<th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="good in data.goodsList">
+                <td>
+                    <span ng-bind="good.name"></span>
+                </td>
+                <td>
+                    <span ng-bind="good.count"></span>
+                </td>
+                <td>
+                    <span ng-bind="good.money"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <pagination total-items="totalItems" items-per-page="searchInfo.page.pageSize" page="searchInfo.page.pageNo" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" on-select-page="setPage(page)"></pagination>
+</section>

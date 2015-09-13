@@ -51,11 +51,11 @@
         };
         $scope.printMilt = function() {
         	$('.print-right').addClass('noPrint');
-            $('#orderstatus').addClass('noPrint');
+            // $('#orderstatus').addClass('noPrint');
         	var html = $('.print').html();
         	$scope.print('<div class="print">' + html + '</div>');
         	$('.print-right').removeClass('noPrint');
-            $('#orderstatus').removeClass('noPrint');
+            // $('#orderstatus').removeClass('noPrint');
         };
     }
 })();

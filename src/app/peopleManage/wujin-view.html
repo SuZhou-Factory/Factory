@@ -1,0 +1,35 @@
+<div class="print-buttons">
+    <div class="button tiny info" ng-click="printAll()">打印</div>
+    <div class="button tiny" ng-click="back()">返回</div>
+</div>
+<section class="print">
+    <div class="print-head">
+        <p>姓名：<span ng-bind="order.peoplename"></span></p>
+        <p style="text-align:center;">产品名称：<span ng-bind="data.orderItem.note"></span></p>
+        <p style="text-align:right;">日期：<span ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span></p>
+    </div>
+    <table class="dataintable">
+        <thead>
+            <tr>
+                <th>品名</th>
+                <th>数量</th>
+                <th>单位</th>
+                <th class="money">单价（元）</th>
+                <th class="money">总价（元）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="detail in data.orderItem.itemDetails">
+                <td ng-bind="detail.detaild"></td>
+                <td ng-bind="detail.detaila"></td>
+                <td ng-bind="detail.detaile"></td>
+                <td ng-bind="detail.detailb.toFixed(2)" class="money"></td>
+                <td ng-bind="detail.detailc.toFixed(2)" class="money"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="gather money">合计：¥ 
+        <span ng-bind="data.orderItem.totalmoney.toFixed(2)"></span>
+    </p>
+
+</section>

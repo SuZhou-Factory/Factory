@@ -77,7 +77,7 @@
             var modal = {
                 title: '添加供应商',
                 supplier: addSupplier,
-                // tree: Tools.clone($scope.data.goods)
+                tree: Tools.clone($scope.data.goods)
             };
 
             openModal(modal, function(data) {

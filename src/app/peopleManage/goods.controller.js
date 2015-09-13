@@ -40,7 +40,6 @@
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
-                // $scope.options = data.goods;
                 $scope.options = [{
                     id: '',
                     name: '全选'
@@ -106,7 +105,7 @@
             var modal = {
                 title: '添加材料',
                 goods: addgoods,
-                options: $scope.options,
+                options: $scope.options.slice(1,$scope.options.length),
             };
 
             openModal(modal, function(data) {
@@ -120,7 +119,7 @@
             var modal = {
                 title: '修改材料',
                 goods: Tools.clone(this.goods),
-                options: $scope.options,
+                options: $scope.options.slice(1,$scope.options.length),
             };
 
             openModal(modal, function(data) {

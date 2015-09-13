@@ -16,8 +16,8 @@
         	$scope.search();
         };
 
-        $scope.moneyInHead = ['时间', '名称', '金额', '进账方式', '用途', '备注', '操作'];
-        $scope.moneyOutHead = ['时间', '名称', '金额', '出账方式', '用途', '备注', '操作'];
+        $scope.moneyInHead = ['时间', '姓名', '金额', '进账方式', '用途', '备注', '操作'];
+        $scope.moneyOutHead = ['时间', '姓名', '金额', '出账方式', '用途', '备注', '操作'];
 
         $scope.searchInfo = {
             money: {

@@ -1,4 +1,5 @@
 <section>
-    <div ng-if="!updatePageShow" ng-include="'app/peopleManage/wujin-main.html'" ng-controller="WujinMainController"></div>
-    <div ng-if="updatePageShow" ng-include="'app/peopleManage/wujin-update.html'" ng-controller="WujinUpdateController"></div>
+    <div ng-if="!updatePageShow && !viewPageShow" ng-include="'app/peopleManage/wujin-main.html'" ng-controller="WujinMainController"></div>
+    <div ng-if="updatePageShow && !viewPageShow" ng-include="'app/peopleManage/wujin-update.html'" ng-controller="WujinUpdateController"></div>
+    <div ng-if="!updatePageShow && viewPageShow" ng-include="'app/peopleManage/wujin-view.html'" ng-controller="WujinViewController"></div>
 </section>

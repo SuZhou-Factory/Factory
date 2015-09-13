@@ -7,7 +7,7 @@
 
     /** @ngInject */
     function BillHistoryMainController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.tableHead = ['日期', '名称', '名称类型', '总计金额（元）', '实付金额（元）', '欠款金额（元）', '操作'];
+        $scope.tableHead = ['日期', '姓名', '类型', '总计金额（元）', '实付金额（元）', '欠款金额（元）', '操作'];
 
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {

@@ -310,6 +310,48 @@
                     active: true
                 },
             })
+            .state('main.tongji', { 
+                url: '',
+                templateUrl: 'app/peopleManage/statistics-debts.html',
+                controller: 'StatisticsDebtsController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '欠款情况',
+                            state: 'main.tongji',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '欠款情况',
+                    state: 'main.tongji',
+                    active: true
+                },
+            })
+            .state('main.tongjiGoods', { 
+                url: '',
+                templateUrl: 'app/peopleManage/statistics-goods.html',
+                controller: 'StatisticsGoodsController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '材料统计',
+                            state: 'main.tongjiGoods',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '材料统计',
+                    state: 'main.tongjiGoods',
+                    active: true
+                },
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.html',
