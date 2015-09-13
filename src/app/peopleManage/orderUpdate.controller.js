@@ -73,7 +73,7 @@
                 $scope.data.goods = data.goods; //////////
 
                 for (var i = 0; i < data.goods.length; i++) {
-                    if (data.goods[i].goodstype != -2 && data.goods[i].goodstype != -3) {
+                    if (data.goods[i].goodstype != -9 && data.goods[i].goodstype != -8) {
                         continue;
                     }
                     delete data.goods[i].id;
@@ -105,7 +105,7 @@
         getGoodsInfo();
 
         $scope.addGoods = function() {
-            $scope.data.order.orderItems.push({goodstype: -3});
+            $scope.data.order.orderItems.push({goodstype: -8});
         };
         $scope.change = function(good) {
             if (good.name == '') {
@@ -119,7 +119,7 @@
             }
             var goods = $scope.data.goods;
             for (var i = 0; i < goods.length; i++) {
-                if ((goods[i].goodstype == -1 || goods[i].goodstype == -3) && goods[i].name == good.name) {
+                if ((goods[i].goodstype == -6 || goods[i].goodstype == -8) && goods[i].name == good.name) {
                     good.price = goods[i].price;
                     good.note = goods[i].note;
                     good.unit = goods[i].unit;

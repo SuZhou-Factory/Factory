@@ -1,13 +1,12 @@
-<section class="order">
+<section class="bill">
     <div class="search">
         <div>
-            <label><span>名称</span><input type="text" ng-model="searchInfo.order.peoplename"></label>
-            <label><span>产品</span><input type="text" ng-model="searchInfo.order.ordername"></label>
+            <label><span>名称</span><input type="text" ng-model="searchInfo.bill.name"></label>
             <label><span>起始时间</span>
-                <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.startTime">
+                <input type="text" ui-date="dateOptions2" ng-model="searchInfo.bill.billstarttime">
             </label>
             <label><span>截止时间</span>
-                <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.endTime">
+                <input type="text" ui-date="dateOptions2" ng-model="searchInfo.bill.billendtime">
             </label>
             <div class="button-container">
                 <div class="button tiny info" ng-click='search()'>查询</div>
@@ -18,26 +17,31 @@
     <table class="content-list">
         <thead>
             <tr>
-            	<th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>
+                <th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>
             </tr>
         </thead>
-        <tbody ng-repeat="order in data.orders">
-            <tr ng-repeat="item in order.orderItems">
+        <tbody>
+            <tr ng-repeat="bill in data.bills">
                 <td>
-                	<span ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                    <span ng-bind="bill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
                 <td>
-                    <span ng-bind="order.peoplename"></span>
+                    <span ng-bind="bill.name"></span>
                 </td>
                 <td>
-                    <span ng-bind="item.note"></span>
+                    <span ng-bind="bill.peopletype==1?'客户':bill.peopletype==1?'供应商':''"></span>
                 </td>
                 <td>
-                    <span ng-bind="item.totalmoney"></span>
+                    <span ng-bind="bill.totlemoney"></span>
                 </td>
-                <td width="150px">
-                    <div class="button tiny" ng-click="edit()">修改</div>
-                    <div class="button tiny" ng-click="delete()">删除</div>
+                <td>
+                    <span ng-bind="bill.paidmoney"></span>
+                </td>
+                <td>
+                    <span ng-bind="bill.unpaidmoney"></span>
+                </td>
+                <td width="90px">
+                    <div class="button tiny" ng-click="view()">查看详情</div>
                 </td>
             </tr>
         </tbody>

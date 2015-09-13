@@ -1,0 +1,64 @@
+<div class="print-buttons">
+    <div class="button tiny" ng-click="back()">返回</div>
+</div>
+<section class="print">
+    <div class="print-head2">{{data.bill.name}} 对账清单
+        <p>日期：<span ng-bind="data.bill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span></p>
+    </div>
+    <div class="old-bill">
+        <p><span ng-bind="data.bill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span>前</p>
+        <p>合计总额：<span ng-bind="data.bill.lastBill.totlemoney.toFixed(2)"></span></p>
+        <p>实付总额：<span ng-bind="data.bill.lastBill.paidmoney.toFixed(2)"></span></p>
+        <p>欠款总额：<span ng-bind="data.bill.lastBill.unpaidmoney.toFixed(2)"></span></p>
+    </div>
+    <table class="dataintable">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>名称</th>
+                <th>明细</th>
+                <th>金额（元）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in data.bill.orders">
+                <td ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></td>
+                <td ng-bind="order.peoplename"></td>
+                <td ng-bind="order.ordername"></td>
+                <td ng-bind="order.orderamount.toFixed(2)"></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:right;">订单金额</td>
+                <td ng-bind="data.bill.ordersTotlemoney.toFixed(2)"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="dataintable">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>名称</th>
+                <th>付款方式</th>
+                <th>金额（元）</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="money in data.bill.moneys">
+                <td ng-bind="money.time | getDataFromStr | date:'yyyy-MM-dd'"></td>
+                <td ng-bind="money.name"></td>
+                <td ng-bind="money.paymethod"></td>
+                <td ng-bind="money.money.toFixed(2)"></td>
+                <td ng-bind="money.note"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="margin:0;">订单金额：<span ng-bind="data.bill.ordersTotlemoney.toFixed(2)"></span></p>
+    <p style="margin:0;color:red;">前欠总额：<span ng-bind="data.bill.lastBill.unpaidmoney.toFixed(2)"></span></p>
+    <div class="gather2">
+        <p><span>合计总额：</span><span ng-bind="data.bill.totlemoney.toFixed(2)"></span></p>
+        <p><span>实付总额：</span><span ng-bind="data.bill.paidmoney.toFixed(2)"></span></p>
+        <p><span>现欠总额：</span><span ng-bind="data.bill.unpaidmoney.toFixed(2)"></span></p>
+    </div>
+
+</section>

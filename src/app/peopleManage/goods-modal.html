@@ -6,10 +6,6 @@
         </label>
         <label><span><i>*</i>类型</span>
             <select name="goodstype" ng-model="modal.goods.goodstype">
-                <option value="-1" ng-selected="modal.goods.goodstype==-1">不显示</option>
-                <option value="-3" ng-selected="modal.goods.goodstype==-3">单规格</option>
-                <option value="-2" ng-selected="modal.goods.goodstype==-2">多规格</option>
-                <option value="-4" ng-selected="modal.goods.goodstype==-4">类型</option>
                 <option ng-repeat="op in modal.options" ng-value="op.id" ng-selected="modal.goods.goodstype==op.id" ng-bind="op.name"></option>
             </select>
         </label>

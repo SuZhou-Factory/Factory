@@ -1,0 +1,113 @@
+.note-update {
+	height: 100%;
+	overflow: auto;
+	padding: 0.5rem 0;
+	.button.tiny {
+		padding: 0.4rem 1rem;
+	}
+	table {
+		width: 100%;
+		background: #ccc;
+		margin: 0;
+		caption {
+			input {
+				text-align: center;
+				font-weight: bold;
+				margin-bottom: 0.5rem;
+			}
+			.note-time {
+				text-align: right;
+				input {
+					display: inline-block;
+					width: 10rem;
+				}
+			}
+		}
+		tr {
+			background: inherit;
+			border-left: 1px dashed #aaa;
+		}
+		th {
+			input {
+				font-weight: bold;
+			}
+		}
+		th, td {
+			padding: 0;
+		}
+		tbody {
+			background: #FFF;
+		}
+		input {
+			height: 1.8rem;
+			margin: 0;
+			border: none;
+			padding: 0.4rem;
+		}
+		input[disabled] {
+			background: #FFF;
+			color: $input-font-color;
+		}
+		span {
+			padding: 0.3rem;
+		}
+	}
+	.gather {
+		border-top: 1px dashed #aaa;
+		text-align: right;
+		font-size: 1.3em;
+		padding: 0.5rem 1rem;
+		span {
+			line-height: 2rem;
+			vertical-align: middle;
+			font-weight: bold;
+		}
+		input {
+		    display: inline-block;
+		    width: 10rem;
+		    height: 2rem;
+		    border: none;
+		    box-shadow: none;
+		    margin: 0;
+		    padding: 0;
+		    /* font-weight: bold; */
+		    font-size: 1.4rem;
+		}
+	}
+	.order-detail.row {
+		margin: 0;
+	}
+	.input-line {
+		display: flex;
+		i {
+			line-height: 1.8rem;
+		    margin: 0 0.5rem;
+		    color: #666;
+		}
+	}
+	.drop-check {
+		flex: 1;
+		.drop {
+			position: absolute;
+			z-index: 2;
+			list-style: none;
+			display: none;
+			background: #FFF;
+			margin: 0;
+			font-size: 0.9em;
+			border: 1px solid #eee;
+			li {
+				line-height: 1.8rem;
+				padding-right: 0.5rem;
+				input {
+					vertical-align: bottom;
+					margin: 0 0.5rem;
+				}
+			}
+		}
+		> span {
+			display: block;
+			height: 1.8rem;
+		}
+	}
+}

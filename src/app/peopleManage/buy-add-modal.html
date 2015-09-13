@@ -27,18 +27,6 @@
                         <option ng-repeat="goods in buy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-selected="goods.name==buy.goodsname"></option>
                     </select>
                 </td>
-<!--                 <td>
-                    <select ng-model="buy.supplierid" ng-change="supplierChange(buy)">
-                        <option value="">-- 请选择 --</option>
-                        <option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==buy.supplierid"></option>
-                    </select>
-                </td>
-                <td>
-                    <select ng-model="buy.goodsname">
-                        <option value="">-- 请选择 --</option>
-                        <option ng-repeat="goods in buy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-bind="supplier.name" ng-selected="goods.name==buy.supplierName"></option>
-                    </select>
-                </td> -->
                 <td width="60px">
                     <input type="number" min="0"  ng-model="buy.count">
                 </td>
@@ -60,42 +48,7 @@
                 <td width="80px">
                     <div class="button tiny" ng-click="delete()">删除</div>
                 </td>
-            </tr><!-- 
-            <tr>
-                <td>
-                    <select ng-model="addBuy.supplierid" ng-change="supplierChange(addBuy)" ng-class="addBuy.supplieridError?'error':''">
-                        <option value="" ng-selected="''==addBuy.supplierid">-- 请选择 --</option>
-                        <option ng-repeat="supplier in modal.supplierInfo.suppliers" ng-value="supplier.id" ng-bind="supplier.name" ng-selected="supplier.id==addBuy.supplierid"></option>
-                    </select>
-                </td>
-                <td>
-                    <select type="text" ng-model="addBuy.goodsname">
-                        <option value=""  ng-selected="''==addBuy.goodsname">-- 请选择 --</option>
-                        <option ng-repeat="goods in addBuy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-selected="goods.name==addBuy.goodsname"></option>
-                    </select>
-                </td>
-                <td width="60px">
-                    <input type="number" min="0"  ng-model="addBuy.count">
-                </td>
-                <td>
-                    <input type="number" min="0"  ng-model="addBuy.totalmoney">
-                </td>
-                <td width="80px">
-                    <select ng-model="addBuy.ispaid">
-                        <option ng-value="0" ng-selected="addBuy.ispaid==0">否</option>
-                        <option ng-value="1" ng-selected="addBuy.ispaid==1">是</option>
-                    </select>
-                </td>
-                <td>
-                    <input name="deadtime" type="text" ui-date="dateOptions" ng-model="addBuy.time">
-                </td>
-                <td>
-                    <input type="text" ng-model="addBuy.note">
-                </td>
-                <td width="80px">
-                    <div class="button tiny add" ng-click="add($event)">添加</div>
-                </td>
-            </tr> -->
+            </tr>
         </tbody>
     </table>
 </div>

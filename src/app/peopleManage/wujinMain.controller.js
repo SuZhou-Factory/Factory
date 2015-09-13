@@ -47,16 +47,19 @@
             $scope.$parent.$parent.data.updatePageShow = true;
             $scope.$parent.$parent.data.viewPageShow = false;
         };
-        $scope.edit = function(order, item) {
-            var editInfo = Tools.clone(order);
-            editInfo.orderItems = Tools.clone(item);
+        $scope.edit = function() {
+            var editInfo = Tools.clone(this.$parent.order);
+            editInfo.ordertime = Tools.fixJavaTime(editInfo.ordertime);
+            editInfo.orderItems = Tools.clone(this.item);
             $scope.$parent.$parent.data.editInfo = editInfo;
             $scope.$parent.$parent.updatePageShow = true;
             $scope.$parent.$parent.viewPageShow = false;
             $scope.$parent.$parent.data.updatePageShow = true;
             $scope.$parent.$parent.data.viewPageShow = false;
         };
-        $scope.delete = function(order, item) {
+        $scope.delete = function() {
+            console.log(this);
+            var that = this;
             Tools.alert({
                 data: {
                     // title: '提示',
@@ -65,8 +68,8 @@
                 success: function() {
                     var info = {
                         order: {
-                            orderId: order.id,
-                            itemId: item.id,
+                            // orderId: order.id,
+                            itemId: that.item.id,
                         }
                     };
                     $http.post(Setting.host + 'wujin/delete', info).success(function(data){
@@ -224,7 +227,7 @@
         function getSelectOption() {
             var info = {
                 goods: {
-                    goodstype: '-4',
+                    goodstype: '-7',
                 },
                 page: {
                     pageNo: 1,

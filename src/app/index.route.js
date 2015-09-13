@@ -20,9 +20,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '员工',
@@ -44,9 +41,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '客户',
@@ -68,9 +62,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function($state){
                         return {
                             name: '供应商',
@@ -92,9 +83,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '材料',
@@ -116,9 +104,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '进货清单',
@@ -140,9 +125,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '实收款项',
@@ -164,9 +146,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '实付款项',
@@ -188,9 +167,6 @@
                 onEnter: onEnter,
                 onExit: onExit,
                 resolve: {
-                    data: function() {
-                        return {};
-                    },
                     pageInfo: function(){
                         return {
                             name: '订单',
@@ -212,9 +188,6 @@
             //     // onEnter: onEnter,
             //     // onExit: onExit,
             //     resolve: {
-            //         data: function() {
-            //             return {};
-            //         },
             //         pageInfo: function(){
             //             return {
             //                 name: '添加订单',
@@ -252,6 +225,90 @@
                     state: 'main.wujin',
                     active: true
                 }
+            })
+            .state('main.bill', {
+                url: '',
+                templateUrl: 'app/peopleManage/bill.html',
+                controller: 'BillController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '账单查询',
+                            state: 'main.bill',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '账单查询',
+                    state: 'main.bill',
+                    active: true
+                }
+            })
+            .state('main.billFirst', {
+                url: '',
+                templateUrl: 'app/peopleManage/billFirst.html',
+                controller: 'BillFirstController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '首次账单',
+                            state: 'main.billFirst',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '首次账单',
+                    state: 'main.billFirst',
+                    active: true
+                },
+            })
+            .state('main.billHistory', { 
+                url: '',
+                templateUrl: 'app/peopleManage/BillHistory.html',
+                controller: 'BillHistoryController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '历史账单',
+                            state: 'main.billHistory',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '历史账单',
+                    state: 'main.billHistory',
+                    active: true
+                },
+            })
+            .state('main.note', { 
+                url: '',
+                templateUrl: 'app/peopleManage/note.html',
+                controller: 'NoteController',
+                onEnter: onEnter,
+                onExit: onExit,
+                resolve: {
+                    pageInfo: function(){
+                        return {
+                            name: '其他',
+                            state: 'main.note',
+                            active: true
+                        };
+                    }
+                },
+                data: {
+                    name: '其他',
+                    state: 'main.note',
+                    active: true
+                },
             })
             .state('login', {
                 url: '/login',

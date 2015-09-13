@@ -1,13 +1,12 @@
-<section class="order">
+<section class="note">
     <div class="search">
         <div>
-            <label><span>名称</span><input type="text" ng-model="searchInfo.order.peoplename"></label>
-            <label><span>产品</span><input type="text" ng-model="searchInfo.order.ordername"></label>
+            <label><span>名称</span><input type="text" ng-model="searchInfo.note.supplierName"></label>
             <label><span>起始时间</span>
-                <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.startTime">
+                <input type="text" ui-date="dateOptions" ng-model="searchInfo.note.startTime">
             </label>
             <label><span>截止时间</span>
-                <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.endTime">
+                <input type="text" ui-date="dateOptions" ng-model="searchInfo.note.endTime">
             </label>
             <div class="button-container">
                 <div class="button tiny info" ng-click='search()'>查询</div>
@@ -21,19 +20,16 @@
             	<th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>
             </tr>
         </thead>
-        <tbody ng-repeat="order in data.orders">
-            <tr ng-repeat="item in order.orderItems">
+        <tbody>
+            <tr ng-repeat="note in data.notes">
                 <td>
-                	<span ng-bind="order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                    <span ng-bind="note.name"></span>
                 </td>
                 <td>
-                    <span ng-bind="order.peoplename"></span>
+                	<span ng-bind="note.notetime | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
-                <td>
-                    <span ng-bind="item.note"></span>
-                </td>
-                <td>
-                    <span ng-bind="item.totalmoney"></span>
+                <td width="100px">
+                    <div class="button tiny" ng-click="view()">查看详情</div>
                 </td>
                 <td width="150px">
                     <div class="button tiny" ng-click="edit()">修改</div>

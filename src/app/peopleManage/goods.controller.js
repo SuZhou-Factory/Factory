@@ -29,7 +29,7 @@
         function getSelectOption() {
             var info = {
                 goods: {
-                    goodstype: '-4',
+                    goodstype: '-7',
                 },
                 page: {
                     pageNo: 1,
@@ -42,31 +42,31 @@
                 }
                 // $scope.options = data.goods;
                 $scope.options = [{
-                    key: '',
-                    value: '全选'
+                    id: '',
+                    name: '全选'
                 },{
-                    key: '-4',
-                    value: '类型'
+                    id: '-7',
+                    name: '类型'
                 },{
-                    key: '-3',
-                    value: '单规格'
+                    id: '-8',
+                    name: '单规格'
                 },{
-                    key: '-2',
-                    value: '多规格'
+                    id: '-9',
+                    name: '多规格'
                 },{
-                    key: '-1',
-                    value: '不显示'
+                    id: '-6',
+                    name: '不显示'
                 }];
 
                 $scope.typeList = {
-                    '-4': '类型',
-                    '-3': '单规格',
-                    '-2': '多规格',
-                    '-1': '不显示',
+                    '-7': '类型',
+                    '-8': '单规格',
+                    '-9': '多规格',
+                    '-6': '不显示',
                 };
                 for (var i = 0; i < data.goods.length; i++) {
                     $scope.typeList[data.goods[i].id] = data.goods[i].name;
-                    $scope.options.push({key: data.goods[i].id, value: data.goods[i].name});
+                    $scope.options.push({id: data.goods[i].id, name: data.goods[i].name});
                 };
             }).error(function(data) {
 

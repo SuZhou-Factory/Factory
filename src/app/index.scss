@@ -81,6 +81,9 @@
       
     }
   }
+  .ui-state-disabled {
+    color: #bbb;
+  }
 }
 .button.tiny {
   margin: 0;
@@ -121,6 +124,9 @@
   }
 }
 table.content-list {
+  tr:hover {
+    background: #AAD7FF;
+  }
   td {
     padding: 0;
     >span {
@@ -236,16 +242,6 @@ table.content-list {
   }
 }
 
-table {
-  tbody {
-    tr.active {
-      // background: 
-    }
-    tr:hover {
-      background: #AAD7FF;
-    }
-  }
-}
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

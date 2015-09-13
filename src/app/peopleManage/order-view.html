@@ -1,0 +1,69 @@
+<div class="print-buttons">
+    <div class="button tiny info" ng-click="printMilt()">打印多规格</div>
+    <div class="button tiny info" ng-click="printNoMoney()">打印不含价格</div>
+    <div class="button tiny info" ng-click="printAll()">打印全部</div>
+    <div class="button tiny" ng-click="back()">返回</div>
+</div>
+<section class="print">
+    <div class="print-head">
+        <p>名称：<span ng-bind="data.order.peoplename"></span></p>
+        <p>产品：<span ng-bind="data.order.ordername"></span></p>
+        <p id="orderstatus">状态：<span ng-bind="data.order.orderstatus"></span></p>
+        <p>日期：<span ng-bind="data.order.ordertime | getDataFromStr | date:'yyyy-MM-dd'"></span></p>
+    </div>
+    <div class="print-content">
+        <div class="print-left">
+            <table class="dataintable">
+                <thead>
+                    <tr>
+                        <th>规格</th>
+                        <th>数量</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in data.order.orderItems" ng-if="item.itemDetails&&item.itemDetails.length>0">
+                    <tr>
+                        <td colspan="2">
+                        	<div>
+                        		<span ng-bind="item.name"></span>
+                        		<span ng-if="item.note">(备注：{{item.note}})</span>
+                        	</div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="detail in item.itemDetails">
+                        <td ng-bind="detail.detaila"></td>
+                        <td ng-bind="detail.detailb"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="print-right">
+            <table class="dataintable">
+                <thead>
+                    <tr>
+                        <th>品名</th>
+                        <th>数量</th>
+                        <th>单位</th>
+                        <th class="money">单价（元）</th>
+                        <th class="money">总价（元）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data.order.orderItems">
+                        <td ng-bind="item.name"></td>
+                        <td ng-bind="item.count"></td>
+                        <td ng-bind="item.unit"></td>
+                        <td ng-bind="item.price" class="money"></td>
+                        <td ng-bind="item.totalmoney" class="money"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="note">备注：
+            	<span ng-bind="data.order.note"></span>
+            </p>
+            <p class="gather money">总价：¥ 
+            	<span ng-bind="data.order.orderamount"></span>
+            </p>
+        </div>
+    </div>
+
+</section>

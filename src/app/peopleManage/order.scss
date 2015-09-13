@@ -1,0 +1,280 @@
+.order-main {
+	.select-sp {
+		position: relative;
+		select {
+			position: relative;
+			height: 2rem;
+			border: none;
+			background: transparent;
+			z-index: 2;
+		}
+		i {
+			position: absolute;
+			right: 0.5rem;
+			top: 0.55rem;
+		}
+	}
+}
+
+.order-update {
+	height: 100%;
+	overflow: auto;
+	.order-head {
+		display: flex;
+		border-bottom: 1px dashed #aaa;
+		label {
+			flex: 1;
+			display: flex;
+			padding: 0.5rem;
+			input, select {
+				display: inline-block;
+				width: auto;
+				flex: 1;
+				height: 2rem;
+				box-sizing: border-box;
+				margin: 0;
+			}
+			span {
+				line-height: 2rem;
+				padding-right: 0.5rem;
+				i {
+					color: red;
+					padding-right: 0.2rem;
+				}
+			}
+		}
+		.button-container {
+			padding: 0.4rem 1rem;
+			.button.tiny {
+				font-size: 1rem;
+			}
+		}
+	}
+	.order-detail {
+		padding-bottom: 2rem;
+		.button.tiny {
+			padding: 0.4rem 1rem;
+		}
+		table {
+			width: 100%;
+			background: #ccc;
+			margin: 0;
+			tr {
+				background: inherit;
+				border-left: 1px dashed #aaa;
+			}
+			td {
+				padding: 0;
+			}
+			tbody {
+				background: #FFF;
+			}
+			input {
+				height: 1.8rem;
+				margin: 0;
+				border: none;
+				padding: 0.4rem;
+			}
+			input[disabled] {
+				background: #FFF;
+				color: $input-font-color;
+			}
+			span {
+				padding: 0.3rem;
+			}
+		}
+		.large-8 {
+			border-left: 1px dashed #aaa;
+		}
+		.columns {
+			padding: 0.5rem;
+		}
+		.note {
+			strong {
+				font-size: 0.9em;
+				margin: 0 0.5rem;
+			}
+		}
+		.gather {
+			border-top: 1px dashed #aaa;
+			text-align: right;
+			font-size: 1.3em;
+			padding: 0.5rem 1rem;
+			span {
+				line-height: 2rem;
+				vertical-align: middle;
+				font-weight: bold;
+			}
+			input {
+			    display: inline-block;
+			    width: 10rem;
+			    height: 2rem;
+			    border: none;
+			    box-shadow: none;
+			    margin: 0;
+			    padding: 0;
+			    /* font-weight: bold; */
+			    font-size: 1.4rem;
+			}
+		}
+	}
+	.order-detail.row {
+		margin: 0;
+	}
+	.input-line {
+		display: flex;
+		i {
+			line-height: 1.8rem;
+		    margin: 0 0.5rem;
+		    color: #666;
+		}
+	}
+	.drop-check {
+		flex: 1;
+		.drop {
+			position: absolute;
+			z-index: 2;
+			list-style: none;
+			display: none;
+			background: #FFF;
+			margin: 0;
+			font-size: 0.9em;
+			border: 1px solid #eee;
+			li {
+				line-height: 1.8rem;
+				padding-right: 0.5rem;
+				input {
+					vertical-align: bottom;
+					margin: 0 0.5rem;
+				}
+			}
+		}
+		> span {
+			display: block;
+			height: 1.8rem;
+		}
+	}
+}
+@media print, screen {
+	.print-buttons {
+		text-align: right;
+		margin-top: 0.2rem;
+	}
+	.print {
+		padding: 2rem;
+		caption {
+			input {
+				text-align: center;
+				font-weight: bold;
+				margin-bottom: 0.5rem;
+			}
+			.note-time {
+				text-align: right;
+				input {
+					display: inline-block;
+					width: 10rem;
+				}
+			}
+		}
+		.print-head {
+			display: flex;
+			border-bottom: 1px solid #aaa;
+			p {
+				flex: 1;
+				margin: 0;
+				font-size: 0.875rem;
+				span {
+					font-size: 1rem;
+				}
+			}
+		}
+		.print-head2 {
+			position: relative;
+			text-align: center;
+			border-bottom: 1px solid #aaa;
+			p {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+		}
+		.old-bill {
+			display: flex;
+			p {
+				margin: 0;
+				flex: 1;
+				color: red;
+			}
+		}
+		.print-content {
+			display: flex;
+			.print-left {
+				flex: 1;
+			}
+			.print-right {
+				flex: 2;
+				margin-left: 2rem;
+			}
+		}
+		.note {
+			min-height: 5rem;
+			padding: 0.5rem;
+			border: 1px solid #aaa;
+			font-size: 0.875rem;
+		}
+		.gather {
+			border-top: 1px solid #aaa;
+			text-align: right;
+			font-size: 0.875rem;
+			padding: 0.5rem;
+			span {
+				font-size: 1.1rem;
+			}
+		}
+		.gather2 {
+			border-top: 1px solid #aaa;
+			display: flex;
+			font-size: 1.2rem;
+			padding: 0.5rem 0;
+			p {
+				flex: 1;
+				display: flex;
+				margin: 0;
+				font-size: 1.2rem;
+				span:first-child {
+					// width: 5.5rem;
+				}
+			}
+			input {
+				font-size: 1.2rem;
+				flex: 1;
+			}
+
+		}
+	}
+
+	/* ----------------------------------- 表格 ----------------------------------- */
+	table.dataintable {
+		margin-top:10px;
+		border-collapse:collapse;
+		border:1px solid #aaa;
+		width:100%;
+	}
+
+	table.dataintable th {
+		vertical-align:baseline;
+		padding:5px 15px 5px 6px;
+		background-color:#FFF;
+		border:1px solid #aaa;
+		text-align:left;
+	}
+	table.dataintable tr {
+		background: #FFF;
+	}
+	table.dataintable td {
+		vertical-align:text-top;
+		padding:6px     15px 6px 6px;
+		// background-color:#efefef;
+		border:1px solid #aaa;
+	}
+}

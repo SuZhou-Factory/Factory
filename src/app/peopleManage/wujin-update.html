@@ -1,28 +1,35 @@
 <div class="wujin-update">
     <div class="order-head">
-        <label><span><i>*</i>名称</span>
-            <input type="text" ng-model="data.order.peoplename">   
-        </label>
-        <label><span><i>*</i>日期</span>
-            <input type="text" ui-date="dateOptions" ng-model="data.order.ordertime">
-        </label>
-        <label><span><i>*</i>产品</span>
-            <select ng-model="data.order.ordername">
-                <option value="0" ng-selected="data.order.ordername==0">待发货</option>
-                <option value="1" ng-selected="data.order.ordername==1">已发货</option>
-                <option value="3" ng-selected="data.order.ordername==2">推迟处理</option>
-            </select>
-        </label>
-        <div class="button-container">
-            <div class="button tiny info" ng-click="get()">获取产品</div>
+        <div>
+            <label><span><i>*</i>名称</span>
+                <input type="text" ng-model="data.order.peoplename" ng-disabled="isEdit">   
+            </label>
+            <label><span><i>*</i>日期</span>
+                <input type="text" ui-date="dateOptions" ng-model="data.order.ordertime" ng-disabled="isEdit">
+            </label>
+            <div class="associated"  ng-if="!isEdit">
+                <label><!-- <span><i>*</i>关联订单</span> -->
+                    <div class="button tiny info" ng-click="getAssociatedOrder()">关联订单</div>
+                    <select ng-model="data.associatedOrderIndex" ng-change="ChangeAssociatedOrder(as)" ng-if="data.associatedOrders.length>0">
+                        <option ng-repeat="as in data.associatedOrders" ng-value="$index" ng-bind="as.ordername" ng-selected="$first"></option>
+                    </select>
+                </label>
+                <!-- <div class="button tiny info" ng-click="get()">获取</div> -->
+            </div>
+            <label ng-if="!isEdit"><span>类型</span>
+                <select ng-model="data.goodsIndex" ng-change="ChangeDetailsT(option)">
+                    <option ng-repeat="option in data.options" ng-value="$index" ng-bind="option.name" ng-selected="$first"></option>
+                </select>
+            </label>
+            <div class="button-container">
+                <div class="button tiny info" ng-click="back()">返 回</div>
+                <div class="button tiny" ng-click="save()">保 存</div>
+            </div>
         </div>
-        <label ng-if="!data.isEdit"><span>类型</span>
-            <select ng-model="data.order.orderstatus" ng-change="ChangeDetailsT(option)">
-                <option ng-repeat="option in data.options" ng-value="option.key" ng-bind="option.value" ng-selected="searchInfo.items.itemstype==option.key"></option>
-            </select>
-        </label>
-        <div class="button-container">
-            <div class="button tiny" ng-click="back()">返回</div>
+        <div>
+            <label><span><i>*</i>产品</span>
+                <input type="text" ng-model="data.order.orderItems.note">
+            </label>
         </div>
     </div>
     <div class="order-detail">
@@ -38,11 +45,11 @@
             </thead>
             <tbody  ng-repeat="item in data.order.orderItems.itemDetails">
                 <tr>
-                    <td><input type="text" ng-model="item.editabld" ng-change="change(item)"></td>
-                    <td><input type="number" min="0" ng-model="item.editabla" ng-change="sum2(item);sum3(data.order)"></td>
-                    <td><input type="text" ng-model="item.editable"></td>
-                    <td><input type="number" min="0" ng-model="item.editablb" ng-change="sum2(item);sum3(data.order)"></td>
-                    <td><input type="number" min="0" ng-model="item.editablc" ng-change="sum3(data.order)"></td>
+                    <td><input type="text" ng-model="item.detaild" ng-change="change(item)"></td>
+                    <td><input type="number" min="0" ng-model="item.detaila" ng-change="sum(item);sum2(data.order)"></td>
+                    <td><input type="text" ng-model="item.detaile"></td>
+                    <td><input type="number" min="0" ng-model="item.detailb" ng-change="sum(item);sum2(data.order)"></td>
+                    <td><input type="number" min="0" ng-model="item.detailc" ng-change="sum3(data.order)"></td>
                 </tr>
             </tbody>
         </table>
@@ -50,7 +57,7 @@
             <div class="button tiny info" ng-click="addGoods()">+</div>
         </div>
         <div class="gather">
-            <span ng-click="sum3(data.order)">合计：¥ </span><input type="number" min="0" ng-model="data.order.totalmoney">
+            <span ng-click="sum3(data.order)">合计：¥ </span><input type="number" min="0" ng-model="data.order.orderItems.totalmoney">
         </div>
     </div>    
 </div>

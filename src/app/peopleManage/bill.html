@@ -1,0 +1,4 @@
+<section>
+    <div ng-if="!viewPageShow" ng-include="'app/peopleManage/bill-main.html'" ng-controller="BillMainController"></div>
+    <div ng-if="viewPageShow" ng-include="'app/peopleManage/bill-view.html'" ng-controller="BillViewController"></div>
+</section>

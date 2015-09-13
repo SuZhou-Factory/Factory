@@ -1,0 +1,5 @@
+<section>
+    <div ng-if="!updatePageShow && !viewPageShow" ng-include="'app/peopleManage/note-main.html'" ng-controller="NoteMainController"></div>
+    <div ng-if="updatePageShow && !viewPageShow" ng-include="'app/peopleManage/note-update.html'" ng-controller="NoteUpdateController"></div>
+    <div ng-if="!updatePageShow && viewPageShow" ng-include="'app/peopleManage/note-view.html'" ng-controller="NoteViewController"></div>
+</section>

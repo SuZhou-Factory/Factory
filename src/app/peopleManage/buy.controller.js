@@ -66,6 +66,12 @@
             });
         }
         function injectSupplierInfo() {
+            if (!$scope.data.buys 
+                || !$scope.data.buys.length 
+                || !$scope.supplierInfo.suppliers 
+                || !$scope.supplierInfo.suppliers.length) {
+                return;
+            }
             var sups = $scope.supplierInfo.suppliers;
             for (var i = 0; i < $scope.data.buys.length; i++) {
                 for (var j = 0; j < sups.length; j++) {
@@ -132,8 +138,6 @@
                     id: this.buy.id
                 }
             };
-
-
 
             Tools.alert({
                 data: {
@@ -306,6 +310,9 @@
                 return;
             }
             $scope.addBuys.push(Tools.clone($scope.modal.buy));
+            setTimeout(function() {
+                $(".table-content").scrollTop($(".buy-modal table").height());
+            }, 10);
         };
         $scope.delete = function() {
             $scope.addBuys = _.without($scope.addBuys, this.buy);

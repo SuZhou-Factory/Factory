@@ -1,0 +1,52 @@
+<div class="print-buttons">
+    <div class="button tiny info" ng-click="back()">返回</div>
+    <div class="button tiny" ng-click="save()">保存</div>
+</div>
+<div class="note-update">
+    <table bnote="0" cellspacing="1" cellpadding="0">
+        <caption>
+            <input type="text" ng-model="data.note.name" placeholder="标题">
+            <div class="note-time">记录日期：
+                <input type="text" ui-date="dateOptions" ng-model="data.note.notetime"  placeholder="时间">
+            </div>
+        </caption>
+        <thead>
+            <tr>
+                <th><input type="text" ng-model="data.note.head1"></th>
+                <th><input type="text" ng-model="data.note.head2"></th>
+                <th><input type="text" ng-model="data.note.head3"></th>
+                <th><input type="text" ng-model="data.note.head4"></th>
+                <th><input type="text" ng-model="data.note.head5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="content in data.note.contents">
+                <td>
+                    <input type="text" ng-model="content.contenttime">
+                </td>
+                <td>
+                    <input type="text" ng-model="content.contentname">
+                </td>
+                <td>
+                    <input type="number" min="0" ng-model="content.contentmoney" ng-change="change()">
+                </td>
+                <td>
+                    <input type="number" min="0" ng-model="content.contentpaid" ng-change="change()">
+                </td>
+                <td>
+                    <input type="text" ng-model="content.contentremark">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right;"><span>合计：</span></td>
+                <td><input type="text" ng-model="data.note.totlemoney"></td>
+                <td><input type="text" ng-model="data.note.totalpaid"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="note">
+        <strong>备注：</strong>
+        <textarea cols="30" rows="8" ng-model="data.note.noteremark"></textarea>
+    </div>
+</div>

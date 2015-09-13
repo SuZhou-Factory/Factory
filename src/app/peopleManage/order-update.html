@@ -30,7 +30,7 @@
                         <th>数量</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -2" ng-init="good.editable=true;good.itemDetails.length==0?good.itemDetails=[{},{},{}]:{};initNotes(good)">
+                <tbody ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -9" ng-init="good.editable=true;good.itemDetails.length==0?good.itemDetails=[{},{},{}]:{};initNotes(good)">
                     <tr>
                         <td colspan="2">
                             <div class="input-line">
@@ -63,17 +63,17 @@
                         <th>品名</th>
                         <th>数量</th>
                         <th>单位</th>
-                        <th>单价（元）</th>
-                        <th>总价（元）</th>
+                        <th ng-if="RIGHT.money">单价（元）</th>
+                        <th ng-if="RIGHT.money">总价（元）</th>
                     </tr>
                 </thead>
-                <tbody  ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -2 || good.goodstype == -3">
+                <tbody  ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -9 || good.goodstype == -8">
                     <tr>
                         <td><input type="text" ng-model="good.name" ng-disabled="good.editable" ng-change="change(good)"></td>
                         <td><input type="number" min="0" ng-model="good.count" ng-change="sum2(good);sum3(data.order)"></td>
                         <td><input type="text" ng-model="good.unit"></td>
-                        <td><input type="number" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)"></td>
-                        <td><input type="number" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)"></td>
+                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)"></td>
+                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)"></td>
                     </tr>
                 </tbody>
             </table>
@@ -84,7 +84,7 @@
             	<strong>备注：</strong>
             	<textarea cols="30" rows="10" ng-model="data.order.note"></textarea>
             </div>
-            <div class="gather">
+            <div class="gather" ng-if="RIGHT.money">
             	<span ng-click="sum3(data.order)">合计：¥ </span><input type="number" min="0" ng-model="data.order.orderamount">
             </div>
         </div>

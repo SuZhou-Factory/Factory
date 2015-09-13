@@ -1,0 +1,53 @@
+<div class="print-buttons">
+    <div class="button tiny info" ng-click="printAll()">打印</div>
+    <div class="button tiny" ng-click="back()">返回</div>
+    <div class="button tiny" ng-click="save()">保存</div>
+</div>
+<section class="print">
+    <table class="dataintable">
+        <caption>
+            <span ng-bind="data.note.name"></span>
+            <div class="note-time">记录日期：
+                <span ng-bind="data.note.notetime | getDataFromStr | date:'yyyy-MM-dd'">
+            </div>
+        </caption>
+        <thead>
+            <tr>
+                <th><span ng-bind="data.note.head1"></span></th>
+                <th><span ng-bind="data.note.head2"></span></th>
+                <th><span ng-bind="data.note.head3"></span></th>
+                <th><span ng-bind="data.note.head4"></span></th>
+                <th><span ng-bind="data.note.head5"></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="content in data.note.contents" ng-if="content.contenttime!='' || content.contentname!='' || content.contentmoney!=0 || content.contentpaid!=0 || content.contentremark!=''">
+                <td>
+                    <span ng-bind="content.contenttime"></span>
+                </td>
+                <td>
+                    <span ng-bind="content.contentname"></span>
+                </td>
+                <td>
+                    <span type="number" min="0" ng-bind="content.contentmoney"></span>
+                </td>
+                <td>
+                    <span type="number" min="0" ng-bind="content.contentpaid"></span>
+                </td>
+                <td>
+                    <span ng-bind="content.contentremark"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right;"><span>合计：</span></td>
+                <td><span ng-bind="data.note.totlemoney"></span></td>
+                <td><span ng-bind="data.note.totalpaid"></span></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="note">
+        <strong>备注：</strong>
+        <span ng-bind="data.note.noteremark"></span>
+    </div>
+</section>

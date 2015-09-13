@@ -30,7 +30,7 @@
         <tbody>
             <tr ng-repeat="buy in data.buys">
                 <td width="90px">
-                	<span ng-bind="buy.createtime | getDataFromStr | date:'yyyy-MM-dd'"></span>
+                	<span ng-bind="buy.time | getDataFromStr | date:'yyyy-MM-dd'"></span>
                 </td>
                 <td>
                     <span ng-bind="buy.supplierName"></span>

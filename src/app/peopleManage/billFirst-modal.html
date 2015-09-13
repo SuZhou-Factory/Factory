@@ -1,0 +1,32 @@
+<h4 ng-bind="modal.title"></h4>
+<form class="modal-content row" id="billFirstModalForm">
+    <div class="small-6">
+        <label><span><i>*</i>名称</span>
+            <input name="name" type="text" ng-model="modal.bill.name">
+        </label>
+        <label><span><i>*</i>时间</span>
+            <input name="time" type="text" ui-date="modal.dateOptions" ng-model="modal.bill.billendtime">
+        </label>
+        <label><span>实付金额</span>
+            <input name="paidmoney" type="number" min="0" ng-model="modal.bill.paidmoney">
+        </label>
+    </div>
+    <div class="small-6">
+        <label><span><i>*</i>名称类型</span>
+            <select name="" id="" ng-model="modal.bill.peopletype">
+                <option value="1" ng-selected="modal.bill.peopletype == 1">客户</option>
+                <option value="2" ng-selected="modal.bill.peopletype == 2">供应商</option>
+            </select>
+        </label>
+        <label><span>总计金额</span>
+            <input name="totlemoney" type="number" min="0" ng-model="modal.bill.totlemoney">
+        </label>
+        <label><span>欠款金额</span>
+            <input name="unpaidmoney" type="number" min="0" ng-model="modal.bill.unpaidmoney">
+        </label>
+    </div>
+</form>
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

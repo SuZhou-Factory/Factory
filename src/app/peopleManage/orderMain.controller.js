@@ -7,7 +7,6 @@
 
     /** @ngInject */
     function OrderMainController($scope, $http, $state, $modal, DataService, Tools) {
-        $scope.orderHead = ['时间', '名称', '产品', '金额', '状态', '最后修改', '明细', '操作'];
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
@@ -76,6 +75,14 @@
             $scope.$parent.$parent.data.viewPageShow = false;
             // $state.go('main.orderupdate', {orderid: order.id});
         };
+        $scope.view = function(order) {
+            $scope.$parent.$parent.data.editOrderid = order.id;
+            $scope.$parent.$parent.data.viewOrderid = order.id;
+            $scope.$parent.$parent.updatePageShow = false;
+            $scope.$parent.$parent.viewPageShow = true;
+            $scope.$parent.$parent.data.updatePageShow = false;
+            $scope.$parent.$parent.data.viewPageShow = true;
+        };
         $scope.delete = function(order) {
             Tools.alert({
                 data: {
@@ -109,7 +116,6 @@
             });
         }
         $scope.updateState = function(order) {
-
             if (order.orderstatus != order.orderstatus0) {
 
             }
@@ -138,29 +144,6 @@
             });
 
         };
-        // // -- 旧的 页面相关数据以及控制
-        // $scope.add = function() {
-        //     var addorder = {
-        //         id: '',
-        //         name: '',
-        //         price: '',
-        //         ordertype: '0'
-        //     };
-        //     var modal = {
-        //         title: '添加材料',
-        //         order: addorder,
-        //     };
-
-        //     openModal(modal, function(data) {
-        //         //刷新页面
-        //         $scope.search();
-        //     }, function(data) {
-
-        //     });
-        // };
-        // $scope.edit = function(order) {
-        //     $state.go('main.orderupdate', {orderid: order.id});
-        // };
     }
 
 })();

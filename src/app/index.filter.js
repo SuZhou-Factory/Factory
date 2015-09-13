@@ -14,7 +14,14 @@
                 if (parent == '.') {
                     out = '.' + input.substring(0,input.indexOf('/'));
                 } else {
-                    out = parent + '.' + input.substring(0,input.indexOf('/'));
+                    var inputs = input.split('/');
+                    out = parent + '.' + inputs[0];
+                    // if (inputs[inputs.length-1] == 'index') {
+                    //     out = parent + '.' + inputs[0];
+                    // } else {
+                    //     out = parent + '.' + inputs[0] + '.' + inputs[1];
+                    // }
+                    // out = parent + '.' + input.substring(0,input.indexOf('/'));
                 }
             } else {
                 out = input.substring(0,input.indexOf('/'));
@@ -33,8 +40,11 @@
     })
     .filter("getDataFromStr",function(){
         return function(input){
-            input = input.replace(/CST/, '(CST)');
-            return Date.parse(input);
+            if (input) {
+                return Date.parse(input.replace(/CST/, '(CST)'));
+            }
+            // input = input.replace(/CST/, '(CST)');
+            // return Date.parse(input);
         }
     });
 
