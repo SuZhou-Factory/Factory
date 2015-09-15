@@ -1,0 +1,16 @@
+<h4 ng-bind="modal.title"></h4>
+<form class="" id="passModalForm">
+        <label><span>原密码</span>
+            <input name="password" type="password" ng-model="user.password">
+        </label>
+        <label><span>新密码</span>
+            <input name="newpassword" type="password" ng-model="user.newpassword">
+        </label>
+        <label><span>确认密码</span>
+            <input name="newpassword2" type="password" ng-model="user.newpassword2" ng-blur="check()" ng-focus="focus()">
+        </label>
+</form>
+<p class="validate-msg"></p>
+<p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
+<button class="button" ng-click="ok()">保存</button>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

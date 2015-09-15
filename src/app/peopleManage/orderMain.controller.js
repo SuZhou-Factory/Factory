@@ -6,7 +6,7 @@
         .controller('OrderMainController', OrderMainController);
 
     /** @ngInject */
-    function OrderMainController($scope, $http, $state, $modal, DataService, Tools) {
+    function OrderMainController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
@@ -28,7 +28,7 @@
             }
         };
         $scope.search = function(callback) {
-            $http.post(Setting.host + 'order/index', $scope.searchInfo).success(function(data){
+            Http.post('order/index', $scope.searchInfo).success(function(data){
                 if (data.orders && !(data.orders instanceof Array)) {
                     data.orders = [data.orders];
                 }
@@ -37,28 +37,10 @@
                 if (callback) {
                     callback();
                 }
-            }).error(function(data) {
-
             });
         };
-        // $scope.search();
-        // // 将挂载在数据服务上的数据取回，若为空，则请求网络数据，并挂载.
-        // $scope.data = DataService.fetch($state.current.name);
-        // if (_.isEmpty($scope.data)) {
-        //     $scope.search(function() {
-        //         DataService.mount($state.current.name, $scope.data);
-        //     });
-        // }
 
-        // // 将挂载在数据服务上的数据取回，若为空，则请求网络数据，并挂载.
-        // $scope.data = $scope.$parent.$parent.data.mainPageData;
-        // if (!$scope.data && _.isEmpty($scope.data)) {
-        //     $scope.search(function() {
-        //         $scope.$parent.$parent.data.mainPageData = $scope.data;
-        //     });
-        // }
         $scope.search();
-
 
         // -- 页面相关数据以及控制
         $scope.add = function() {
@@ -104,10 +86,8 @@
                             pageSize: 15,
                         }
                     };
-                    $http.post(Setting.host + 'order/delete', info).success(function(data){
+                    Http.post('order/delete', info).success(function(data){
                         $scope.search();
-                    }).error(function(data) {
-
                     });
                 },
                 error: function() {
@@ -131,7 +111,7 @@
                             orderstatus: order.orderstatus,
                         }
                     };
-                    $http.post(Setting.host + 'order/updateStatus', info).success(function(data){
+                    Http.post('order/updateStatus', info).success(function(data){
                         order.orderstatus0 == order.orderstatus;
                         $scope.search();
                     }).error(function(data) {

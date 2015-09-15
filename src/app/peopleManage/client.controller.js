@@ -7,11 +7,9 @@
         .controller('ClientModalController', ClientModalController);
 
     /** @ngInject */
-    function ClientController($scope, $http, $state, $modal, DataService, Tools) {
+    function ClientController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.clientHead = ['姓名', '电话号码', '操作'];
-
         $scope.maxSize = 5;
-
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
@@ -28,14 +26,12 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'client/index', $scope.searchInfo).success(function(data){
+            Http.post('client/index', $scope.searchInfo).success(function(data){
                 if (data.clients && !(data.clients instanceof Array)) {
                     data.clients = [data.clients];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
 
@@ -104,21 +100,23 @@
         }
     }
 
-    function ClientModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function ClientModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
-            // $('#roleModalForm').validate({
-            //     rules: {
-            //         rightname: {
-            //             required: true,
-            //         }
-            //     },
-            //     messages: {
-            //         rightname: {
-            //             required: "请输入用户名",
-            //         }
-            //     }
-            // });
-
+            $('#clientModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    name: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "请输入用姓名",
+                    }
+                }
+            });
         }, 10);
 
         $scope.msg = {
@@ -128,24 +126,23 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#clientModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-            
-            update({client: modal.client}, function (data) {
+
+            Http.post('client/update', {client: modal.client}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -154,14 +151,5 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'client/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
-
     }
 })();

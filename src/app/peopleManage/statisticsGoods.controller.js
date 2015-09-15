@@ -6,7 +6,7 @@
         .controller('StatisticsGoodsController', StatisticsGoodsController);
 
     /** @ngInject */
-    function StatisticsGoodsController($scope, $http, $state, $modal, DataService, Tools) {
+    function StatisticsGoodsController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.tableHead = ['材料名称', '数量', '金额（元）'];
 
         $scope.maxSize = 5;
@@ -28,14 +28,12 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'tongjiGoods/index', $scope.searchInfo).success(function(data){
+            Http.post('tongjiGoods/index', $scope.searchInfo).success(function(data){
                 if (data.goodsList && !(data.goodsList instanceof Array)) {
                     data.goodsList = [data.goodsList];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
         $scope.search();

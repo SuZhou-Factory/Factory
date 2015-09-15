@@ -52,5 +52,55 @@
             dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
             dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         };
+
+        $scope.logOut = function() {
+            Tools.alert({
+                data: {
+                    message: '确认退出？',
+                },
+                success: function() {
+                    Http.get('user/loginOut').success(function(data) {
+                        sessionStorage[$state.current.data.userText] = '';
+                        $state.go('login');
+                    });
+                }
+            });
+        };
+        $scope.resetPass = function() {
+            var modal = {
+                title: '修改密码',
+                username: $scope.user.name,
+            };
+
+            openModal(modal, function(data) {
+                $scope.search(); // 刷新页面
+            }, function(data) {
+
+            });
+        };
+
+        function openModal(data, success, error) {
+            var modalInstance = $modal.open({
+                templateUrl: 'app/main/main-modal.html',
+                controller: 'MainModalController',
+                backdrop: 'static',
+                windowClass: 'pass-modal',
+                resolve: {
+                    modal: function() {
+                        return data;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(data) {
+                if (success) {
+                    success(data);
+                }
+            }, function(data) {
+                if (error) {
+                    error(data);
+                }
+            });
+        }
     }
 })();

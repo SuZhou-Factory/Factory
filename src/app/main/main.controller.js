@@ -3,9 +3,10 @@
 
     angular
         .module('suzhou')
-        .controller('MainController', MainController);
+        .controller('MainController', MainController)
+        .controller('MainModalController', MainModalController);
 
-    function MainController($rootScope, $scope, $http, $state, DataService, Tools) {
+    function MainController($rootScope, $scope, $state, $modal, Http, DataService, Tools) {
         $scope.statename = 'main';
 
         $scope.dateOptions = {
@@ -41,8 +42,8 @@
             $state.go('login');
             return;
         }
-        // $scope.menus = $scope.user.rights;
-        $scope.pages = DataService.main.pages.list || {};
+
+        $scope.pages = DataService.main.pages.list || [];
 
         $scope.closePage = function() {
             var addr = this.page.state.split('.');
@@ -65,18 +66,198 @@
         };
 
         function getMenu() {
-            $http.get(Setting.host + 'right/fetchRights').success(function(data) {
+            Http.get('right/fetchRights').success(function(data) {
                 if (data.rights && !(data.rights instanceof Array)) {
                     data.rights = [data.rights];
                 }
                 $scope.menus = Tools.transtoTree(data.rights);
-                $scope.menus[0].open = true
-            }).error(function(data) {
-                // Tools.transtoTree(
+                $scope.menus[0].open = true;
             });
         }
         getMenu();
 
+        $scope.logOut = function() {
+            Tools.alert({
+                data: {
+                    message: '确认退出？',
+                },
+                success: function() {
+                    Http.get('user/loginOut').success(function(data) {
+                        $scope.pages = DataService.main.pages.list = [];
+                        // clear user info
+                        sessionStorage.user = '';
+
+                        $state.go('login');
+                    });
+                }
+            });
+        };
+
+        $scope.resetPass = function() {
+            var modal = {
+                title: '修改密码',
+                username: $scope.user.name,
+            };
+
+            openModal(modal, function(data) {
+                $scope.search(); // 刷新页面
+            }, function(data) {
+
+            });
+        };
+
+        function openModal(data, success, error) {
+            var modalInstance = $modal.open({
+                templateUrl: 'app/main/main-modal.html',
+                controller: 'MainModalController',
+                backdrop: 'static',
+                windowClass: 'pass-modal',
+                resolve: {
+                    modal: function() {
+                        return data;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(data) {
+                if (success) {
+                    success(data);
+                }
+            }, function(data) {
+                if (error) {
+                    error(data);
+                }
+            });
+        }
     }
+
+    function MainModalController($scope, $state, $modalInstance, Http, $timeout, modal) {
+        $timeout(function() {
+            $('#passModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    password: {
+                        required: true,
+                    },
+                    newpassword: {
+                        required: true,
+                        minlength: 6
+                    },
+                    newpassword2: {
+                        required: true,
+                        minlength: 6
+                    },
+                },
+                messages: {
+                    password: {
+                        required: "请输入原密码",
+                    },
+                    newpassword: {
+                        required: "请输入新密码",
+                        minlength: "密码长度不能少于6位"
+                    },
+                    newpassword2: {
+                        required: "请再次输入新密码",
+                        minlength: "密码长度不能少于6位"
+                    },
+                }
+            });
+        }, 10);
+
+        $scope.msg = {
+            message: '',
+            success: true
+        };
+        $scope.modal = modal;
+
+        $scope.user = {
+            password: '',
+            newpassword: '',
+            newpassword2: ''
+        };
+
+        function getRandomCode() {
+            if ($scope.user.username != '') {
+                Http.post('prelogin', {user: {username: $scope.modal.username}})
+                    .success(function(data, status, headers, config){
+                        $scope.randomCode = data.randomCode;
+                    });
+            }
+        }
+        getRandomCode();
+
+        $scope.check = function() {
+            if ($scope.user.newpassword != $scope.user.newpassword2) {
+                $scope.msg.success = false;
+                $scope.msg.message = '两次输入密码不一致';
+            }
+        };
+        $scope.focus = function() {
+            $scope.msg.success = true;
+            $scope.msg.message = '';
+        };
+        $scope.ok = function() {
+            if (!$('#passModalForm').valid()) {
+                return;
+            }
+            if ($scope.user.newpassword2 != $scope.user.newpassword) {
+                return;
+            }
+            $scope.msg.success = true;
+            $scope.msg.message = '......';
+            // 验证
+            delete $scope.user.newpassword2;
+            $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
+            $scope.user.newpassword = encryptByDES($scope.user.newpassword, $scope.randomCode);
+            Http.post('user/resetPass', {user: $scope.user}).success(function(data) {
+                if (data.result.code == '000000') {
+                    $scope.msg.success = true;
+                    $scope.msg.message = $scope.modal.title + data.result.message;
+                    $modalInstance.close();
+                    if ($state.current.name == 'main') {
+                        sessionStorage.user = '';
+                        $state.go('login');
+                    } else {
+                        sessionStorage[$state.current.data.userText] = '';
+                        $state.go('adminlogin');
+                    }
+                } else {
+                    $scope.msg.success = false;
+                    $scope.msg.message = data.result.message;
+                }
+            }, true).error(function(data) {
+                $scope.msg.success = false;
+                $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
+            });
+        };
+        $scope.cancel = function() {
+            $modalInstance.dismiss();
+        };
+    }
+
+    function encryptByDES(message, key) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+        var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return encrypted.toString();
+    }
+     
+    function decryptByDES(ciphertext, key) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+     
+        var decrypted = CryptoJS.DES.decrypt({
+            ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+        }, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+
+
 
 })();

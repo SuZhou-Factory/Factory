@@ -6,10 +6,9 @@
         .controller('BillHistoryViewController', BillHistoryViewController);
 
     /** @ngInject */
-    function BillHistoryViewController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function BillHistoryViewController($scope, $rootScope, $timeout, Http, Tools, DataService) {
         if ($scope.$parent.$parent.data.viewBillid) {
 	        $scope.viewBillid = $scope.$parent.$parent.data.viewBillid;
-	        // getBillView(265);
         }
 
         $scope.back = function() {
@@ -43,14 +42,12 @@
         };
 
         $scope.getBillView = function() {
-            $http.post(Setting.host + 'billHistory/historyDetail', {bill: {id: $scope.viewBillid}}).success(function(data){
+            Http.post('billHistory/historyDetail', {bill: {id: $scope.viewBillid}}).success(function(data){
                 if (data.bills && !(data.bills instanceof Array)) {
                     data.bills = [data.bills];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
         $scope.getBillView();

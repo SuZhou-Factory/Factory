@@ -6,7 +6,7 @@
         .controller('WujinUpdateController', WujinUpdateController);
 
     /** @ngInject */
-    function WujinUpdateController($scope, $http, $state, DataService, Tools) {
+    function WujinUpdateController($scope, $state, Http, DataService, Tools) {
         var newOrder = {
             id: '',
             peoplename: '',
@@ -48,7 +48,7 @@
                     pageSize: 1000
                 }
             };
-            $http.post(Setting.host + 'goods/index', info).success(function(data){
+            Http.post('goods/index', info).success(function(data){
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
@@ -74,8 +74,6 @@
                     $scope.goodsIndex = 0;
                     ChangeDetailsT($scope.data.options[0]);
                 }
-            }).error(function(data) {
-
             });
         }
         getSelectOption();
@@ -85,7 +83,7 @@
             if (!$scope.data.order.peoplename || $scope.data.order.peoplename == '') {
                 Tools.alert({
                     data: {
-                        message: '请输入名称',
+                        message: '请输入姓名',
                     },
                     success: function() {
                     },
@@ -113,7 +111,7 @@
                 }
             };
             $scope.data.associatedOrders = [];
-            $http.post(Setting.host + 'order/search', info).success(function(data){
+            Http.post('order/search', info).success(function(data){
                 if (data.orders && !(data.orders instanceof Array)) {
                     data.orders = [data.orders];
                 }
@@ -136,8 +134,6 @@
                     $scope.data.associatedOrderIndex = 0;
                     $scope.ChangeAssociatedOrder();
                 }
-            }).error(function(data) {
-
             });
         }
 
@@ -190,15 +186,13 @@
         };
         $scope.save = function() {
             $scope.data.order.orderItems.detailSize = $scope.data.order.orderItems.itemDetails.length;
-            $http.post(Setting.host + 'wujin/update', {order: $scope.data.order}).success(function(data){
+            Http.post('wujin/update', {order: $scope.data.order}).success(function(data){
                 $scope.$parent.$parent.updatePageShow = false;
                 $scope.$parent.$parent.viewPageShow = false;
                 $scope.$parent.$parent.data.updatePageShow = false;
                 $scope.$parent.$parent.data.viewPageShow = false;
                 $scope.$parent.$parent.data.updatePageData = null;
                 $scope.$parent.$parent.data.editInfo = null;
-            }).error(function(data) {
-
             });
         };
         $scope.sum = function(item) {

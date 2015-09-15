@@ -7,7 +7,7 @@
         .controller('BillFirstModalController', BillFirstModalController);
 
     /** @ngInject */
-    function BillFirstController($scope, $http, $state, $modal, DataService, Tools) {
+    function BillFirstController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.tableHead = ['日期', '姓名', '类型', '总计金额（元）', '实付金额（元）', '欠款金额（元）', '操作'];
 
         $scope.maxSize = 5;
@@ -28,14 +28,12 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'billFirst/index', $scope.searchInfo).success(function(data){
+            Http.post('billFirst/index', $scope.searchInfo).success(function(data){
                 if (data.bills && !(data.bills instanceof Array)) {
                     data.bills = [data.bills];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
 
@@ -114,30 +112,35 @@
         }
     }
 
-    function BillFirstModalController($scope, $modalInstance, $http, $timeout, modal, Tools) {
+    function BillFirstModalController($scope, $modalInstance, Http, $timeout, modal, Tools) {
         $timeout(function() {
-            // $('#billFirstModalForm').validate({
-            //     errorLabelContainer: $(".validate-msg"),
-            //     focusCleanup: true,
-            //     errorClass: 'invalid',
-            //     rules: {
-            //         name: {
-            //             required: true,
-            //         },
-            //         billtype: {
-            //             required: true,
-            //         },
-            //     },
-            //     messages: {
-            //         name: {
-            //             required: "请输入材料名称",
-            //         },
-            //         billtype: {
-            //             required: "请选择材料类型",
-            //         },
-            //     }
-            // });
-
+            $('#billFirstModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    billendtime: {
+                        required: true,
+                    },
+                    peopletype: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "请输入材料名称",
+                    },
+                    billendtime: {
+                        required: "请选择时间",
+                    },
+                    peopletype: {
+                        required: "请选择材料类型",
+                    },
+                }
+            });
         }, 10);
 
         $scope.msg = {
@@ -147,24 +150,23 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#billModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#billFirstModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-            
-            update({bill: modal.bill}, function (data) {
+
+            Http.post('billFirst/update', {bill: modal.bill}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -173,15 +175,5 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'billFirst/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
-
-
     }
 })();

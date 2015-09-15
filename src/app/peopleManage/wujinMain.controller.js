@@ -6,7 +6,7 @@
         .controller('WujinMainController', WujinMainController);
 
     /** @ngInject */
-    function WujinMainController($scope, $http, $state, $modal, DataService, Tools) {
+    function WujinMainController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.tableHead = ['时间', '姓名', '产品名称', '金额', '详情', '操作'];
 
         $scope.maxSize = 5;
@@ -28,14 +28,12 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'wujin/index', $scope.searchInfo).success(function(data) {
+            Http.post('wujin/index', $scope.searchInfo).success(function(data) {
                 if (data.orders && !(data.orders instanceof Array)) {
                     data.orders = [data.orders];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
         $scope.search();
@@ -61,7 +59,6 @@
             var that = this;
             Tools.alert({
                 data: {
-                    // title: '提示',
                     message: '确认删除？',
                 },
                 success: function() {
@@ -71,14 +68,9 @@
                             itemId: that.item.id,
                         }
                     };
-                    $http.post(Setting.host + 'wujin/delete', info).success(function(data) {
+                    Http.post('wujin/delete', info).success(function(data) {
                         $scope.search();
-                    }).error(function(data) {
-
                     });
-                },
-                error: function() {
-
                 }
             });
         }
@@ -93,6 +85,5 @@
             $scope.$parent.$parent.data.updatePageShow = false;
             $scope.$parent.$parent.data.viewPageShow = true;
         };
-
     }
 })();

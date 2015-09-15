@@ -4,9 +4,26 @@
     var suzhou = angular.module('suzhou');
     suzhou.controller('LoginController', LoginController);
  
-
     /** @ngInject */
-    function LoginController($rootScope, $scope, $http, $state, Tools) {
+    function LoginController($rootScope, $scope, Http, $state, Tools) {
+        $scope.user = Setting.login.data || {
+            username: '',
+            password: '',
+        };
+        $('#username').blur(function() {
+            getRandomCode();
+        });
+
+        function getRandomCode() {
+            if ($scope.user.username != '') {
+                Http.post('prelogin', {user: {username: $scope.user.username}})
+                    .success(function(data, status, headers, config){
+                        $scope.randomCode = data.randomCode;
+                    });
+            }
+        }
+        getRandomCode();
+
         $('#loginForm').validate({
             rules: {
                 username: {
@@ -29,20 +46,17 @@
                 }
             }
         });
-        $scope.user = Setting.login.data || {
-            username: '',
-            password: '',
-        };
 
         $scope.Post = function() {
             if (!$('#loginForm').valid()) {
                 return;
             }
-            $http.post(Setting.host + Setting.login.url, {user: $scope.user})
-                .success(successCallback)
-                .error(errorCallback);
+            $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
+            Http.post('login', {user: $scope.user}).success(successCallback);
+            setTimeout(function() {
+                $scope.user.password = '';
+            }, 10);
         };
-
         return;
 
         function successCallback(data, status, headers, config) {
@@ -53,19 +67,29 @@
                 sessionStorage.user = JSON.stringify(data.user);
             }
             $state.go($state.current.data.mainPage);
-            // $httpProvider.defaults.headers.common.Cookie = getSessionId();
-            // console.log(getSessionId());
+            // HttpProvider.defaults.headers.common.Cookie = getSessionId();
         }
+    }
 
-        function errorCallback(data, status, headers, config) {
-            // if (TestData.debug) {
-            //     sessionStorage.user = JSON.stringify(TestData.login);
-            //     $state.go('main');
-            // }
-            // $scope.response = JSON.stringify(data);
-        }
-
-
+    function encryptByDES(message, key) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+        var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return encrypted.toString();
+    }
+     
+    function decryptByDES(ciphertext, key) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+     
+        var decrypted = CryptoJS.DES.decrypt({
+            ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+        }, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
     }
 
 })();

@@ -7,10 +7,9 @@
         .controller('SupplierModalController', SupplierModalController);
 
     /** @ngInject */
-    function SupplierController($scope, $http, $state, $modal, DataService, Tools) {
+    function SupplierController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.supplierHead = ['供应商', '材料', '操作'];
         $scope.maxSize = 5;
-
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
@@ -26,7 +25,7 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'supplier/index', $scope.searchInfo).success(function(data){
+            Http.post('supplier/index', $scope.searchInfo).success(function(data){
                 if (data.suppliers && !(data.suppliers instanceof Array)) {
                     data.suppliers = [data.suppliers];
                 }
@@ -36,8 +35,6 @@
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
                 buildGoodsText(data);
-            }).error(function(data) {
-
             });
         };
 
@@ -127,21 +124,20 @@
         }
     }
 
-    function SupplierModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function SupplierModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
-            // $('#roleModalForm').validate({
-            //     rules: {
-            //         rightname: {
-            //             required: true,
-            //         }
-            //     },
-            //     messages: {
-            //         rightname: {
-            //             required: "请输入用户名",
-            //         }
-            //     }
-            // });
-
+            $('#supplierModalForm').validate({
+                rules: {
+                    name: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "请输入名称",
+                    }
+                }
+            });
         }, 10);
 
         $scope.msg = {
@@ -151,27 +147,26 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#supplierModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
             modal.supplier.supplierGoods = '';
             $scope.getRightListStr(modal.tree, modal.supplier);
             modal.supplier.supplierGoods = modal.supplier.supplierGoods.substr(0, modal.supplier.supplierGoods.length-1);
-            
-            update({supplier: modal.supplier}, function (data) {
+
+            Http.post('supplier/update', {supplier: modal.supplier}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -180,14 +175,6 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'supplier/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
 
         this.fillBackRight = function(goods, arr) {
             for (var index in goods) {
@@ -199,7 +186,6 @@
         if (modal.supplier.supplierGoods) {
             this.fillBackRight(modal.tree, modal.supplier.supplierGoods.split('-'));
         }
-
 
         $scope.getRightListStr = function(nodes, obj) {
             if (nodes === undefined) {

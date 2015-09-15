@@ -12,6 +12,22 @@
 			margin-right: 0.5rem;
 		}
 	}
+	.search2 {
+		display: flex;
+		padding: 0.5rem;
+		label {
+			flex: 1;
+			display: flex;
+			span {
+				line-height: 2rem;
+			}
+			input {
+				flex: 1;
+				margin: 0 0.5rem;
+				height: 2rem;
+			}
+		}
+	}
 	table {
 		td {
 			padding: 0.4rem 0;

@@ -7,7 +7,7 @@
         .controller('UserModalController', UserModalController);
 
     /** @ngInject */
-    function UserController($scope, $http, $state, $modal, DataService, Tools) {
+    function UserController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.userHead = ['用户名', '姓名', '操作'];
 
         // -- 网络请求相关定义
@@ -17,15 +17,11 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'user/index', $scope.searchInfo).success(function(data){
+            Http.post('user/index', $scope.searchInfo).success(function(data){
                 if (data.users && !(data.users instanceof Array)) {
                     data.users = [data.users];
                 }
                 $scope.data = data;
-            }).error(function(data) {
-                if (TestData.debug) {
-                    $scope.data = TestData.right.index;
-                }
             });
         };
 
@@ -83,27 +79,14 @@
             };
             Tools.alert({
                 data: {
-                    // title: '提示',
                     message: '确认删除用户名为 '+this.user.username+' 的人员?'
                 },
                 success: function() {
-                    $http.post(Setting.host + 'user/delete', deleteInfo).success(function(data) {
-                        if (data.result.code = "000000") {
-                            $scope.msg.success = true;
-                            $scope.msg.message = data.result.message;
-                            //刷新页面
-                            $scope.search();
-                        } else {
-                            $scope.msg.success = false;
-                            $scope.msg.message = data.result.message;
-                        }
-                    }).error(function(data) {
-                        $scope.msg.success = false;
-                        $scope.msg.message = "网络异常，修改失败";
+                    Http.post('user/delete', deleteInfo).success(function(data) {
+                        $scope.search(); //刷新页面
                     });
                 }
             });
-
  		};
 
         function openModal(data, success, error) {
@@ -131,21 +114,23 @@
         }
     }
 
-    function UserModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function UserModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
-            // $('#roleModalForm').validate({
-            //     rules: {
-            //         rightname: {
-            //             required: true,
-            //         }
-            //     },
-            //     messages: {
-            //         rightname: {
-            //             required: "请输入用户名",
-            //         }
-            //     }
-            // });
-
+            $('#userModalForm').validate({
+                errorLabelContainer: $(".validate-msg"),
+                focusCleanup: true,
+                errorClass: 'invalid',
+                rules: {
+                    username: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    username: {
+                        required: "请输入用户名",
+                    },
+                }
+            });
         }, 10);
 
         $scope.msg = {
@@ -155,27 +140,26 @@
         $scope.modal = modal;
 
         $scope.ok = function() {
-            // if (!$('#roleModalForm').valid()) {
-            //     return;
-            // }
+            if (!$('#userModalForm').valid()) {
+                return;
+            }
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
             modal.user.userRight = '';
             $scope.getRightListStr(modal.tree, modal.user);
             modal.user.userRight = modal.user.userRight.substr(0, modal.user.userRight.length-1);
-            
-            update({user: modal.user}, function (data) {
+
+            Http.post('user/update', {user: modal.user}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -184,14 +168,6 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'user/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
 
         // -------------------------------------------------
         this.addParent = function(nodes) {

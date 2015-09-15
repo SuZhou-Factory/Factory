@@ -6,22 +6,10 @@
         .controller('NoteViewController', NoteViewController);
 
     /** @ngInject */
-    function NoteViewController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function NoteViewController($scope, $rootScope, $timeout, Tools, DataService) {
         if ($scope.$parent.$parent.data.viewNote) {
             $scope.data.note = $scope.$parent.$parent.data.viewNote;
         }
-        // function getNoteView(id) {
-        //     $http.post(Setting.host + 'order/detail', {order: {id: id}}).success(function(data) {
-        //         if (data.result.code == '000000') {
-        //             var stateList = ['待发货', '已发货', '推迟处理'];
-        //             data.order.orderstatus = stateList[data.order.orderstatus];
-        //             $scope.data = {order: data.order};
-        //         } else {
-        //         }
-        //     }).error(function(data) {
-        //     });
-        // }
-
         $scope.back = function() {
             $scope.$parent.$parent.updatePageShow = false;
             $scope.$parent.$parent.viewPageShow = false;

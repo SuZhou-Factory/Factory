@@ -7,7 +7,7 @@
         .controller('BuyModalController', BuyModalController);
 
     /** @ngInject */
-    function BuyController($scope, $http, $state, $modal, DataService, Tools) {
+    function BuyController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.buyHead = ['时间', '供应商', '材料', '数量', '金额（元）', '是否付款', '备注', '操作'];
 
         $scope.maxSize = 5;
@@ -30,15 +30,13 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'buy/index', $scope.searchInfo).success(function(data){
+            Http.post('buy/index', $scope.searchInfo).success(function(data){
                 if (data.buys && !(data.buys instanceof Array)) {
                     data.buys = [data.buys];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
                 getSupplierInfo();
-            }).error(function(data) {
-
             });
         };
 
@@ -52,7 +50,7 @@
                     pageSize: 100000,
                 }
             };
-            $http.post(Setting.host + 'supplier/index', info).success(function(data){
+            Http.post('supplier/index', info).success(function(data){
                 if (data.suppliers && !(data.suppliers instanceof Array)) {
                     data.suppliers = [data.suppliers];
                 }
@@ -145,7 +143,7 @@
                     message: '确认删除?'
                 },
                 success: function() {
-                    $http.post(Setting.host + 'buy/delete', deleteInfo).success(function(data) {
+                    Http.post('buy/delete', deleteInfo).success(function(data) {
                         if (data.result.code = "000000") {
                             // Tools.alert({
                             //     data: {
@@ -193,7 +191,7 @@
         }
     }
 
-    function BuyModalController($scope, $modalInstance, $http, $timeout, modal, Tools) {
+    function BuyModalController($scope, $modalInstance, Http, $timeout, modal, Tools) {
         $scope.msg = {
             message: '',
             success: true
@@ -220,17 +218,16 @@
             delete editInfo.editable;
             delete editInfo.supplier;
 
-            update('buy/edit', {buy: editInfo}, function (data) {
+            Http.post('buy/edit', {buy: editInfo}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -280,17 +277,17 @@
                 delete $scope.addBuys[i].supplieridError;
                 delete $scope.addBuys[i].totalmoneyError;
             }
-            update('buy/new', {buy: $scope.addBuys, total: {totalNum: $scope.addBuys.length}}, function (data) {
+
+            Http.post('buy/new', {buy: $scope.addBuys, total: {totalNum: $scope.addBuys.length}}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -326,15 +323,5 @@
                 }
             }
         };
-
-        function update(url, updateInfo, success, error) {
-            $http.post(Setting.host + url, updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
-
-
     }
 })();

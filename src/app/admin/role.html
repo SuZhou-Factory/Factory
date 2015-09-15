@@ -5,13 +5,12 @@
                 <input type="text" ng-model="searchInfo.role.name">
             </label>
             <div class="button-container">
-                <div class="button tiny" ng-click='search()'>查询</div>
-                <div class="button tiny add" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click='search()'>查询</div>
+                <div class="button tiny" ng-click='add()'>添加</div>
             </div>
         </div>
     </div>
     <table class="content-list">
-        <!--caption>Most Expensive Sandwiches by City</caption-->
         <thead>
             <tr>
                 <th ng-repeat="tableH in tableHead" ng-bind="tableH"></th>

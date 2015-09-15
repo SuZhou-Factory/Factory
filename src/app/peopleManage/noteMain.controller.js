@@ -6,7 +6,7 @@
         .controller('NoteMainController', NoteMainController);
 
     /** @ngInject */
-    function NoteMainController($scope, $http, $state, $modal, DataService, Tools) {
+    function NoteMainController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.tableHead = ['名称', '日期', '详情', '操作'];
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {
@@ -25,24 +25,15 @@
             }
         };
         $scope.search = function() {
-            $http.post(Setting.host + 'note/index', $scope.searchInfo).success(function(data){
+            Http.post('note/index', $scope.searchInfo).success(function(data){
                 if (data.notes && !(data.notes instanceof Array)) {
                     data.notes = [data.notes];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-
             });
         };
 
-        // // 将挂载在数据服务上的数据取回，若为空，则请求网络数据，并挂载.
-        // $scope.data = DataService.fetch($state.current.name);
-        // if (_.isEmpty($scope.data)) {
-        //     $scope.search(function() {
-        //         DataService.mount($state.current.name, $scope.data);
-        //     });
-        // }
         $scope.search();
 
         // -- 页面相关数据以及控制
@@ -103,15 +94,11 @@
                     message: '确认删除？',
                 },
                 success: function() {
-                    $http.post(Setting.host + 'note/delete', {note: {id: that.note.id}}).success(function(data) {
+                    Http.post('note/delete', {note: {id: that.note.id}}).success(function(data) {
                         if (data.result.code == '000000') {
                             
                         }
-                    }).error(function(data) {
                     });
-                },
-                error: function() {
-
                 }
             });
         };

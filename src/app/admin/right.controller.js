@@ -7,9 +7,8 @@
         .controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
     /** @ngInject */
-    function RightController($scope, $http, $modal, Tools) {
+    function RightController($scope, $modal, Http, Tools) {
         $scope.maxSize = 5;
-
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;
         	$scope.search();
@@ -28,11 +27,7 @@
         };
 
         $scope.search = function() {
-            $scope.msg = {
-                message: '',
-                success: true
-            };
-            $http.post(Setting.host + 'right/index', $scope.searchInfo).success(function(data) {
+            Http.post('right/index', $scope.searchInfo).success(function(data) {
                 if (data.rights && !(data.rights instanceof Array)) {
                     data.rights = [data.rights];
                 }
@@ -43,11 +38,6 @@
                 $scope.totalItems = $scope.data.totalNum;
                 $scope.tree = Tools.clone($scope.data.allRights);
                 $scope.tree = Tools.transtoTree($scope.tree);
-
-            }).error(function(data) {
-                if (TestData.debug) {
-                    $scope.data = TestData.right.index;
-                }
             });
         };
 
@@ -92,7 +82,6 @@
         //刷新页面
         $scope.search();
 
-
         $scope.delete = function() {
             var deleteInfo = {
                 right: {
@@ -100,19 +89,15 @@
                 }
             };
 
-            $http.post(Setting.host + 'right/delete', deleteInfo).success(function(data) {
-                if (data.result.code = "000000") {
-                    $scope.msg.success = true;
-                    $scope.msg.message = data.result.message;
-                    //刷新页面
-                    $scope.search();
-                } else {
-                    $scope.msg.success = false;
-                    $scope.msg.message = data.result.message;
+            Tools.alert({
+                data: {
+                    message: '确认删除?'
+                },
+                success: function() {
+                    Http.post('right/delete', deleteInfo).success(function(data) {
+                        $scope.search(); //刷新页面
+                    });
                 }
-            }).error(function(data) {
-                $scope.msg.success = false;
-                $scope.msg.message = "网络异常，修改失败";
             });
         };
 
@@ -140,7 +125,7 @@
         }
     }
 
-    function ModalInstanceCtrl($scope, $modalInstance, $http, $timeout, modal) {
+    function ModalInstanceCtrl($scope, $modalInstance, $timeout, Http, modal) {
         $timeout(function() {
             $('#modalForm').validate({
                 rules: {
@@ -168,23 +153,17 @@
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-            
-            update({right: modal.right}, function (data) {
+
+            Http.post('right/update', {right: modal.right}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-                    setTimeout((function(){
-                        var instance = $modalInstance;
-                        return function() {
-                            instance.close();
-                        };
-                    })(), 100);
-                    // $modalInstance.close();
+                    $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -193,14 +172,6 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'right/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
     }
 
 })();

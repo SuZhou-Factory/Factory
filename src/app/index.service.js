@@ -68,6 +68,117 @@
 
         };
     })
+    .factory('Http', function($http, $state, Tools){
+        return {
+            post: function(url, data) {
+                var that = this;
+                $http.post(Setting.host + url, data)
+                    .success(function(data, status, headers, config){
+                        if (that._success) {
+                            if (data.result.code == '111111') {
+                                Tools.alert({
+                                    data: {
+                                        message: data.result.message,
+                                    },
+                                    success: function() {
+                                        $state.go('login');
+                                    },
+                                    error: function() {
+                                        $state.go('login');
+                                    },
+                                });
+                                return;
+                            }
+                            if (!that._noAuto) {
+                                if (data.result.code != '000000') {
+                                    Tools.alert({
+                                        data: {
+                                            message: data.result.message,
+                                        },
+                                    });
+                                } else {
+                                    that._success(data, status, headers, config);
+                                }
+                            } else {
+                                that._success(data, status, headers, config);
+                            }
+                        }
+                    })
+                    .error(function(data, status, headers, config){
+                        if (!that._error && !that._noAuto) {
+                            Tools.alert({
+                                data: {
+                                    message: '网络连接异常！',
+                                },
+                            });
+                        } else if (that._error) {
+                            that._error(data, status, headers, config);
+                        }
+                    });
+                return that;
+            },
+            get: function(url) {
+                var that = this;
+                $http.get(Setting.host + url)
+                    .success(function(data, status, headers, config){
+                        if (that._success) {
+                            if (data.result.code == '111111') {
+                                Tools.alert({
+                                    data: {
+                                        message: data.result.message,
+                                    },
+                                    success: function() {
+                                        $state.go('login');
+                                    },
+                                    error: function() {
+                                        $state.go('login');
+                                    },
+                                });
+                                return;
+                            }
+                            if (!that._noAuto) {
+                                if (data.result.code != '000000') {
+                                    Tools.alert({
+                                        data: {
+                                            message: data.result.message,
+                                        },
+                                    });
+                                } else {
+                                    that._success(data, status, headers, config);
+                                }
+                            } else {
+                                that._success(data, status, headers, config);
+                            }
+                        }
+                    })
+                    .error(function(data, status, headers, config){
+                        if (!that._error && !that._noAuto) {
+                            Tools.alert({
+                                data: {
+                                    message: '网络连接异常！',
+                                },
+                            });
+                        } else if (that._error) {
+                            that._error(data, status, headers, config);
+                        }
+                    });
+                return that;
+            },
+            _noAuto: false,
+            _success: function() {},
+            success: function(_success, _noAuto) {
+                this._success = _success;
+                this._noAuto = _noAuto;
+                return this;
+            },
+            _error: function() {},
+            error: function(_error, _noAuto) {
+                this._error = _error;
+                this._noAuto = _noAuto;
+                return this;
+            }
+        };
+    })
     .factory('Tools', function($modal){
         return {
             clone: function(obj) {

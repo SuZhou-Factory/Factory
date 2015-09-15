@@ -7,16 +7,14 @@
         .controller('BackendModalController', BackendModalController);
 
     /** @ngInject */
-    function BackendController($scope, $http, $modal, Tools) {
+    function BackendController($scope, $modal, Http, Tools) {
         $scope.maxSize = 5;
-
         $scope.setPage = function(pageNo) {
         	$scope.searchInfo.page.pageNo = pageNo;
         	$scope.search();
         };
 
         $scope.tableHead = ['姓名', '用户名', '工厂名', '截止时间', '操作'];
-
         $scope.searchInfo = {
             user: {
             	username: '',
@@ -32,23 +30,14 @@
         };
 
         $scope.search = function() {
-            $scope.msg = {
-                message: '',
-                success: true
-            };
-            $http.post(Setting.host + 'backend/index', $scope.searchInfo).success(function(data) {
+            Http.post('backend/index', $scope.searchInfo).success(function(data) {
                 if (data.users && !(data.users instanceof Array)) {
                     data.users = [data.users];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-                if (TestData.debug) {
-                    $scope.data = TestData.right.index;
-                }
             });
         };
-
 
         $scope.edit = function() {
             this.user.deadtime = Tools.fixJavaTime(this.user.deadtime);
@@ -95,10 +84,6 @@
             });
         };
 
-        //刷新页面
-        $scope.search();
-
-
         $scope.delete = function() {
             var deleteInfo = {
                 user: {
@@ -107,38 +92,24 @@
             };
             Tools.alert({
                 data: {
-                    // title: '提示',
                     message: '确认删除用户名为 '+this.user.username+' 的人员?'
                 },
                 success: function() {
-                    $http.post(Setting.host + 'backend/delete', deleteInfo).success(function(data) {
-                        if (data.result.code = "000000") {
-                            $scope.msg.success = true;
-                            $scope.msg.message = data.result.message;
-                            //刷新页面
-                            $scope.search();
-                        } else {
-                            $scope.msg.success = false;
-                            $scope.msg.message = data.result.message;
-                        }
-                    }).error(function(data) {
-                        $scope.msg.success = false;
-                        $scope.msg.message = "网络异常，修改失败";
+                    Http.post('backend/delete', deleteInfo).success(function(data) {
+                        $scope.search(); //刷新页面
                     });
                 }
             });
-
-
         };
 
         function getRolesName() {
-            $http.get(Setting.host + 'backend/listRoles').success(function(data) {
+            Http.get('backend/listRoles').success(function(data) {
                 if (data.roles && !(data.roles instanceof Array)) {
                     data.roles = [data.roles];
                 }
                 $scope.roles = data.roles;
-            }).error(function(data) {
-
+                //刷新页面
+                $scope.search();
             });
         }
 		getRolesName();
@@ -165,13 +136,11 @@
                 }
             });
         }
-
     }
 
-    function BackendModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function BackendModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
             $('#backendModalForm').validate({
-                debug: true,
                 errorLabelContainer: $(".validate-msg"),
                 focusCleanup: true,
                 errorClass: 'invalid',
@@ -201,12 +170,6 @@
                     },
                 },
                 messages: {
-                    usernamde: {
-                        required: '请输入用户名',
-                        minlength: '长度必须超过两位',
-                    },
-
-
                     username: {
                         required: '请输入用户名',
                     },
@@ -245,22 +208,17 @@
            	if (!_.isString($scope.modal.user.deadtime)) {
            		$scope.modal.user.deadtime = $scope.modal.user.deadtime.toString();
            	}
-            update({user: modal.user}, function (data) {
+
+            Http.post('backend/update', {user: modal.user}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-                    setTimeout((function(){
-                        var instance = $modalInstance;
-                        return function() {
-                            instance.close();
-                        };
-                    })(), 100);
-                    // $modalInstance.close();
+                    $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -269,13 +227,5 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'backend/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
     }
 })();

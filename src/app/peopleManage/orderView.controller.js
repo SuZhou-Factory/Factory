@@ -6,21 +6,16 @@
         .controller('OrderViewController', OrderViewController);
 
     /** @ngInject */
-    function OrderViewController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function OrderViewController($scope, $rootScope, $timeout, Http, Tools, DataService) {
         if ($scope.$parent.$parent.data.viewOrderid) {
 	        getOrderView($scope.$parent.$parent.data.viewOrderid);
-	        // getOrderView(265);
         }
 
         function getOrderView(id) {
-            $http.post(Setting.host + 'order/detail', {order: {id: id}}).success(function(data) {
-                if (data.result.code == '000000') {
-                    var stateList = ['待发货', '已发货', '推迟处理'];
-                    data.order.orderstatus = stateList[data.order.orderstatus];
-                    $scope.data = {order: data.order};
-                } else {
-                }
-            }).error(function(data) {
+            Http.post('order/detail', {order: {id: id}}).success(function(data) {
+                var stateList = ['待发货', '已发货', '推迟处理'];
+                data.order.orderstatus = stateList[data.order.orderstatus];
+                $scope.data = {order: data.order};
             });
         }
 

@@ -6,7 +6,7 @@
         .controller('OrderUpdateController', OrderUpdateController);
 
     /** @ngInject */
-    function OrderUpdateController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function OrderUpdateController($scope, $rootScope, $timeout, Http, Tools, DataService) {
         var newOrder = {
             id: '',
             peoplename: '',
@@ -47,11 +47,9 @@
                     pageSize: 15,
                 }
             };
-            $http.post(Setting.host + 'order/index', info).success(function(data){
+            Http.post('order/index', info).success(function(data){
                 data.orders.ordertime = Tools.fixJavaTime(data.orders.ordertime);
                 $scope.data.order = data.orders;
-            }).error(function(data) {
-
             });
         }
 
@@ -66,11 +64,11 @@
                     pageSize: 10000,
                 }
             };
-            $http.post(Setting.host + 'goods/index', info).success(function(data){
+            Http.post('goods/index', info).success(function(data){
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
-                $scope.data.goods = data.goods; //////////
+                $scope.data.goods = data.goods; 
 
                 for (var i = 0; i < data.goods.length; i++) {
                     if (data.goods[i].goodstype != -9 && data.goods[i].goodstype != -8) {
@@ -98,8 +96,6 @@
                     }
                     newOrder.orderItems.push(good);
                 }
-            }).error(function(data) {
-
             });
         }
         getGoodsInfo();
@@ -204,8 +200,7 @@
             $timeout(function() {
                 saveButtonClickable = true;
             }, 3000);
-            $http.post(Setting.host + 'order/update', {order: $scope.data.order}).success(function(data){
-                // console.log('OK');
+            Http.post('order/update', {order: $scope.data.order}).success(function(data){
                 $scope.$parent.$parent.updatePageShow = false;
                 $scope.$parent.$parent.viewPageShow = false;
                 $scope.$parent.$parent.data.updatePageShow = false;
@@ -237,11 +232,6 @@
                 //         $scope.$parent.$parent.data.editOrderid = null;
                 //     }
                 // });
-
-
-
-            }).error(function(data) {
-                console.log('FAIL');
             });
         };
         $scope.back = function() {

@@ -6,21 +6,15 @@
         .controller('WujinViewController', WujinViewController);
 
     /** @ngInject */
-    function WujinViewController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function WujinViewController($scope, $rootScope, $timeout, Http, Tools, DataService) {
         if ($scope.$parent.$parent.data.viewOrder) {
             $scope.order = $scope.$parent.$parent.data.viewOrder;
 	        getWujinView($scope.order.id);
         }
 
         function getWujinView(id) {
-            $http.post(Setting.host + 'wujin/detail', {orderItem: {id: id}}).success(function(data) {
-                if (data.result.code == '000000') {
-                    // var stateList = ['待发货', '已发货', '推迟处理'];
-                    // data.order.orderstatus = stateList[data.order.orderstatus];
-                    $scope.data = {orderItem: data.orderItem};
-                } else {
-                }
-            }).error(function(data) {
+            Http.post('wujin/detail', {orderItem: {id: id}}).success(function(data) {
+                $scope.data = {orderItem: data.orderItem};
             });
         }
 

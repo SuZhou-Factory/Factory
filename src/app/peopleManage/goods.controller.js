@@ -7,7 +7,7 @@
         .controller('GoodsModalController', GoodsModalController);
 
     /** @ngInject */
-    function GoodsController($scope, $http, $state, $modal, DataService, Tools) {
+    function GoodsController($scope, $state, $modal, Http, DataService, Tools) {
         $scope.goodsHead = ['名称', '价格', '单位', '类型', '默认行数', '操作'];
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {
@@ -36,7 +36,7 @@
                     pageSize: 1000
                 }
             };
-            $http.post(Setting.host + 'goods/index', info).success(function(data){
+            Http.post('goods/index', info).success(function(data){
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
@@ -67,20 +67,16 @@
                     $scope.typeList[data.goods[i].id] = data.goods[i].name;
                     $scope.options.push({id: data.goods[i].id, name: data.goods[i].name});
                 };
-            }).error(function(data) {
-
             });
         }
         $scope.search = function() {
-            $http.post(Setting.host + 'goods/index', $scope.searchInfo).success(function(data){
+            Http.post('goods/index', $scope.searchInfo).success(function(data){
                 if (data.goods && !(data.goods instanceof Array)) {
                     data.goods = [data.goods];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
                 getSelectOption();
-            }).error(function(data) {
-
             });
         };
 
@@ -154,7 +150,7 @@
         }
     }
 
-    function GoodsModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function GoodsModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
             $('#goodsModalForm').validate({
                 errorLabelContainer: $(".validate-msg"),
@@ -199,20 +195,17 @@
             $scope.msg.success = true;
             $scope.msg.message = '......';
             // 验证
-            
-            update({goods: modal.goods}, function (data) {
+
+            Http.post('goods/update', {goods: modal.goods}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
-                    modal.goods.note = modal.goods.note.split('&');
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
-                modal.goods.note = modal.goods.note.split('&');
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -221,14 +214,5 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'goods/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
-
     }
 })();

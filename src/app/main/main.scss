@@ -74,3 +74,23 @@
         overflow-x: auto;
     }
 }
+.pass-modal {
+    width: 30rem;
+    form {
+        border: 1px solid #aaa;
+        padding: 1rem;
+    }
+    label {
+        margin: 0.2rem 0;
+        display: flex;
+        span {
+            display: inline-block;
+            width: 4.5rem;
+            line-height: 2rem;
+        }
+        input {
+            height: 2rem;
+            flex: 1;
+        }
+    }
+}

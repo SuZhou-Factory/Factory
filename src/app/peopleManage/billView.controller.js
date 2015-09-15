@@ -6,7 +6,7 @@
         .controller('BillViewController', BillViewController);
 
     /** @ngInject */
-    function BillViewController($scope, $rootScope, $http, $timeout, Tools, DataService) {
+    function BillViewController($scope, $rootScope, $timeout, Http, Tools, DataService) {
         if ($scope.$parent.$parent.data.viewBill) {
 	        $scope.data = {bill: $scope.$parent.$parent.data.viewBill};
             $scope.data.bill.ordersTotlemoney = 0;
@@ -40,7 +40,6 @@
             $('input[name="unpay"]').removeClass('noPrint');
         };
         $scope.save = function() {
-
             var info = {
                 bill:{
                     name: $scope.data.bill.name,
@@ -50,11 +49,10 @@
                 }
             }
 
-            $http.post(Setting.host + 'bill/save', info).success(function(data){
+            Http.post('bill/save', info).success(function(data){
                 if (data.result.code == '000000') {
                     Tools.alert({
                         data: {
-                            // title: '提示',
                             message: '保存成功'
                         },
                         success: function() {
@@ -67,7 +65,6 @@
                 } else {
                     Tools.alert({
                         data: {
-                            // title: '提示',
                             message: '保存失败'
                         },
                         success: function() {
@@ -78,8 +75,6 @@
                         }
                     });
                 }
-            }).error(function(data) {
-
             });
         };
     }

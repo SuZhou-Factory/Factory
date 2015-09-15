@@ -1,5 +1,5 @@
 <h4 ng-bind="modal.title"></h4>
-<from class="modal-content" id="roleModalForm">
+<form class="modal-content" id="userModalForm">
     <div class="modal-content-left">
         <label>用户名：
             <input name="username" type="text" ng-model="modal.user.username">
@@ -40,7 +40,8 @@
             </ul>
         </div>
     </div>
-</from>
+</form>
+<p class="validate-msg"></p>
 <p ng-class="msg.success?'successmsg':'errormsg'" ng-bind="msg.message"></p>
 <button class="button" ng-click="ok()">保存</button>
 <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>

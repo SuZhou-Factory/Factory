@@ -5,7 +5,7 @@
             <input name="name" type="text" ng-model="modal.bill.name">
         </label>
         <label><span><i>*</i>时间</span>
-            <input name="time" type="text" ui-date="modal.dateOptions" ng-model="modal.bill.billendtime">
+            <input name="billendtime" type="text" ui-date="modal.dateOptions" ng-model="modal.bill.billendtime">
         </label>
         <label><span>实付金额</span>
             <input name="paidmoney" type="number" min="0" ng-model="modal.bill.paidmoney">
@@ -13,7 +13,7 @@
     </div>
     <div class="small-6">
         <label><span><i>*</i>类型</span>
-            <select name="" id="" ng-model="modal.bill.peopletype">
+            <select name="peopletype" ng-model="modal.bill.peopletype">
                 <option value="1" ng-selected="modal.bill.peopletype == 1">客户</option>
                 <option value="2" ng-selected="modal.bill.peopletype == 2">供应商</option>
             </select>

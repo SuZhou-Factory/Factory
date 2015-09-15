@@ -7,7 +7,7 @@
         .controller('MoneyModalController', MoneyModalController);
 
     /** @ngInject */
-    function MoneyController($scope, $http, $state, $modal, Tools) {
+    function MoneyController($scope, $state, $modal, Http, Tools) {
         var route = $state.current.name.split('.')[1];
 
         $scope.maxSize = 5;
@@ -37,16 +37,12 @@
                 message: '',
                 success: true
             };
-            $http.post(Setting.host + route + '/index', $scope.searchInfo).success(function(data) {
+            Http.post(route + '/index', $scope.searchInfo).success(function(data) {
                 if (data.moneys && !(data.moneys instanceof Array)) {
                     data.moneys = [data.moneys];
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
-            }).error(function(data) {
-                if (TestData.debug) {
-                    $scope.data = TestData.right.index;
-                }
             });
         };
 
@@ -113,7 +109,7 @@
                     message: '确认删除?'
                 },
                 success: function() {
-                    $http.post(Setting.host + route + '/delete', deleteInfo).success(function(data) {
+                    Http.post(route + '/delete', deleteInfo).success(function(data) {
                         if (data.result.code = "000000") {
                             $scope.msg.success = true;
                             $scope.msg.message = data.result.message;
@@ -134,13 +130,11 @@
         };
 
         function getRolesName() {
-            $http.get(Setting.host + 'backend/listRoles').success(function(data) {
+            Http.get('backend/listRoles').success(function(data) {
                 if (data.roles && !(data.roles instanceof Array)) {
                     data.roles = [data.roles];
                 }
                 $scope.roles = data.roles;
-            }).error(function(data) {
-
             });
         }
 		getRolesName();
@@ -170,7 +164,7 @@
 
     }
 
-    function MoneyModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function MoneyModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
             $('#moneyModalForm').validate({
                 errorLabelContainer: $(".validate-msg"),
@@ -192,7 +186,7 @@
                 },
                 messages: {
                     name: {
-                        required: '请输入用名称',
+                        required: '请输入姓名',
                     },
                     money: {
                         required: '请输入用金额',
@@ -220,22 +214,17 @@
            	if (!_.isString($scope.modal.money.time)) {
            		$scope.modal.money.time = $scope.modal.money.time.toString();
            	}
-            update({money: modal.money}, function (data) {
+
+            Http.post(modal.route + '/update', {money: modal.money}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-                    // setTimeout((function(){
-                    //     var instance = $modalInstance;
-                    //     return function() {
-                    //         instance.close();
-                    //     };
-                    // })(), 100);
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -244,13 +233,5 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + modal.route + '/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
     }
 })();

@@ -8,16 +8,14 @@
         
 
     /** @ngInject */
-    function RoleController($scope, $http, $modal, $log, Tools) {
+    function RoleController($scope, $modal, $log, Http, Tools) {
         $scope.maxSize = 5;
-
         $scope.setPage = function(pageNo) {
             $scope.searchInfo.page.pageNo = pageNo;
             $scope.search();
         };
-            
-        $scope.tableHead = ['角色名', '操作'];
 
+        $scope.tableHead = ['角色名', '操作'];
 		$scope.searchInfo = {
             role: {
                 name: ''
@@ -33,7 +31,7 @@
                 message: '',
                 success: true
             };
-            $http.post(Setting.host + 'role/index', $scope.searchInfo).success(function(data) {
+            Http.post('role/index', $scope.searchInfo).success(function(data) {
                 if (data.roles && !(data.roles instanceof Array)) {
                     data.roles = [data.roles];
                 }
@@ -44,9 +42,8 @@
                 $scope.totalItems = $scope.data.totalNum;
                 $scope.tree = Tools.clone($scope.data.allRights);
                 $scope.tree = Tools.transtoTree($scope.tree);
-            }).error(function(data) {});
+            });
         };
-        
         
         //刷新页面
         $scope.search();
@@ -90,7 +87,6 @@
             });
         };
         
-        
         $scope.add = function() {
             var addRole = {
                 id: '',
@@ -111,11 +107,9 @@
 
             });
         };
-        
     }
 
-
-    function RoleModalController($scope, $modalInstance, $http, $timeout, modal) {
+    function RoleModalController($scope, $modalInstance, Http, $timeout, modal) {
         $timeout(function() {
             $('#roleModalForm').validate({
                 rules: {
@@ -129,7 +123,6 @@
                     }
                 }
             });
-
         }, 10);
 
         $scope.msg = {
@@ -148,18 +141,17 @@
             modal.role.roleRight = '';
             $scope.getRightListStr(modal.tree, modal.role);
             modal.role.roleRight = modal.role.roleRight.substr(0, modal.role.roleRight.length-1);
-            
-            update({role: modal.role}, function (data) {
+
+            Http.post('role/update', {user: modal.user}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;
-
                     $modalInstance.close();
                 } else {
                     $scope.msg.success = false;
                     $scope.msg.message = data.result.message;
                 }
-            }, function (data) {
+            }, true).error(function(data) {
                 $scope.msg.success = false;
                 $scope.msg.message = '网络异常，' + $scope.modal.title + '失败';
             });
@@ -168,14 +160,6 @@
         $scope.cancel = function() {
             $modalInstance.dismiss();
         };
-
-        function update(updateInfo, success, error) {
-            $http.post(Setting.host + 'role/update', updateInfo).success(function(data) {
-                if (success) success(data);
-            }).error(function(data) {
-                if (error) error(data);
-            });
-        }
 
         // -------------------------------------------------
         this.addParent = function(nodes) {
