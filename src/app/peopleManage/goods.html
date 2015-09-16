@@ -6,8 +6,8 @@
                 <option ng-repeat="option in options" ng-value="option.id" ng-bind="option.name" ng-selected="searchInfo.goods.goodstype==option.id"></option>
             </select></label>   
             <div class="button-container">
-                <div class="button tiny info" ng-click='search()'>查询</div>
-                <div class="button tiny" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click='search()' ng-if="checkRight('goods/index')">查询</div>
+                <div class="button tiny" ng-click='add()' ng-if="checkRight('goods/update')">添加</div>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                     <span ng-bind="goods.number"></span>
                 </td>
                 <td >
-                	<div class="button tiny" ng-click="edit()">修改</div>
+                	<div class="button tiny" ng-click="edit()" ng-if="checkRight('goods/update')">修改</div>
                 </td>
             </tr>
         </tbody>

@@ -70,12 +70,22 @@
                 if (data.rights && !(data.rights instanceof Array)) {
                     data.rights = [data.rights];
                 }
+                $scope.rights = Tools.clone(data.rights);
                 $scope.menus = Tools.transtoTree(data.rights);
                 $scope.menus[0].open = true;
             });
         }
         getMenu();
 
+		$scope.checkRight = function(right) {
+			for (var i=0; i<$scope.rights.length; i++) {
+				if ($scope.rights[i].value == right) {
+                    return true;
+                }
+			}
+            return false;
+		};
+        //[{"id":23,"name":"人员管理","value":null,"parentid":0,"parentname":null,"hasRight":false},
         $scope.logOut = function() {
             Tools.alert({
                 data: {

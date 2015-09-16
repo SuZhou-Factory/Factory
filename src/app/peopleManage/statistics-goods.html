@@ -7,7 +7,7 @@
         <label><span>截止时间</span>
             <input type="text" ui-date="dateOptions" ng-model="searchInfo.orderItem.endTime">
         </label>
-        <div class="button tiny info" ng-click='search()'>查询</div>
+        <div class="button tiny info" ng-click='search()'  ng-if="checkRight('tongjiGoods/index')">查询</div>
     </div>
     <table class="content-list">
         <thead>

@@ -25,8 +25,8 @@
                 <span ng-bind="data.allMoney"></span>
             </label>
             <div class="button-container">
-                <div class="button tiny info" ng-click="search()">查询</div>
-                <div class="button tiny" ng-click="add()">添加</div>
+                <div class="button tiny info" ng-click="search()"  ng-if="checkRight('order/index')">查询</div>
+                <div class="button tiny" ng-click="add()"  ng-if="checkRight('order/update')">添加</div>
             </div>
         </div>
     </div>
@@ -72,12 +72,12 @@
                     <span ng-bind="order.edittime | getDataFromStr | date:'MM-dd HH:mm'"></span>
                 </td>
                 <td class="td-button-container" style="width:6rem;" ng-if="RIGHT.detail">
-                    <div class="button tiny" ng-click="view(order)">查看明细</div>
+                    <div class="button tiny" ng-click="view(order)"   ng-if="checkRight('order/detail')">查看明细</div>
                     <!-- <input type="text" ng-model="order.note" ng-disabled="order.editable"> -->
                 </td>
                 <td style="width:8rem;">
-                    <div class="button tiny" ng-click="edit(order)">修改</div>
-                    <div class="button tiny" ng-click="delete(order)">删除</div>
+                    <div class="button tiny" ng-click="edit(order)"  ng-if="checkRight('order/edit')">修改</div>
+                    <div class="button tiny" ng-click="delete(order)" ng-if="checkRight('order/delete')">删除</div>
                 </td>
             </tr>
         </tbody>

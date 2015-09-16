@@ -4,7 +4,7 @@
         <label><span>至</span>
             <input type="text" ng-model="searchInfo.order.endMoney">
         </label>
-        <div class="button tiny info" ng-click='search()'>查询</div>
+        <div class="button tiny info" ng-click='search()'  ng-if="checkRight('tongji/index')">查询</div>
     </div>
     <table class="content-list">
         <thead>

@@ -4,8 +4,8 @@
             <label>姓名<input type="text" ng-model="searchInfo.client.name"></label>   
             <label>电话<input type="text" ng-model="searchInfo.client.mobile"></label>
             <div class="button-container">
-                <div class="button tiny info" ng-click='search()'>查询</div>
-                <div class="button tiny" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click='search()' ng-if="checkRight('client/index')">查询</div>
+                <div class="button tiny" ng-click='add()' ng-if="checkRight('client/update')">添加</div>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
                 	<span ng-bind="client.mobile"></span>
                 </td>
                 <td >
-                	<div class="button tiny" ng-click="edit()">修改</div>
+                	<div class="button tiny" ng-click="edit()" ng-if="checkRight('client/update')">修改</div>
                 </td>
             </tr>
         </tbody>

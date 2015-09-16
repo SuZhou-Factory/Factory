@@ -10,8 +10,8 @@
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.order.endTime">
             </label>
             <div class="button-container">
-                <div class="button tiny info" ng-click='search()'>查询</div>
-                <div class="button tiny" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click='search()'    ng-if="checkRight('wujin/index')">查询</div>
+                <div class="button tiny" ng-click='add()'   ng-if="checkRight('wujin/update')">添加</div>
             </div>
         </div>
     </div>
@@ -36,11 +36,11 @@
                     <span ng-bind="item.totalmoney"></span>
                 </td>
                 <td width="100px">
-                    <div class="button tiny" ng-click="view()">查看详情</div>
+                    <div class="button tiny" ng-click="view()"   ng-if="checkRight('wujin/detail')">查看详情</div>
                 </td>
                 <td width="150px">
-                    <div class="button tiny" ng-click="edit()">修改</div>
-                    <div class="button tiny" ng-click="delete()">删除</div>
+                    <div class="button tiny" ng-click="edit()"   ng-if="checkRight('wujin/edit')">修改</div>
+                    <div class="button tiny" ng-click="delete()"   ng-if="checkRight('wujin/delete')">删除</div>
                 </td>
             </tr>
         </tbody>

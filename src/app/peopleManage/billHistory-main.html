@@ -9,7 +9,7 @@
                 <input type="text" ui-date="dateOptions2" ng-model="searchInfo.bill.billendtime">
             </label>
             <div class="button-container">
-                <div class="button tiny" ng-click='search()'>查询</div>
+                <div class="button tiny" ng-click='search()'  ng-if="checkRight('billHistory/index')">查询</div>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                     <span ng-bind="bill.unpaidmoney"></span>
                 </td>
                 <td width="90px">
-                    <div class="button tiny" ng-click="view()">查看详情</div>
+                    <div class="button tiny" ng-click="view()"  ng-if="checkRight('billHistory/historyDetail')">查看详情</div>
                 </td>
             </tr>
         </tbody>

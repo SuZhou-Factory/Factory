@@ -6,7 +6,7 @@
                 <input type="text" ui-date="dateOptions2" ng-model="searchInfo.bill.billendtime">
             </label>
             <div class="button-container">
-                <div class="button tiny info" ng-click='search()'>查询</div>
+                <div class="button tiny info" ng-click='search()'   ng-if="checkRight('bill/index')">查询</div>
             </div>
         </div>
     </div>

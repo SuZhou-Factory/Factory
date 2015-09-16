@@ -6,8 +6,8 @@
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.bill.billendtime">
             </label>
             <div class="button-container">
-                <div class="button tiny info" ng-click='search()'>查询</div>
-                <div class="button tiny" ng-click='add()'>添加</div>
+                <div class="button tiny info" ng-click='search()'   ng-if="checkRight('billFirst/index')">查询</div>
+                <div class="button tiny" ng-click='add()'   ng-if="checkRight('billFirst/update')">添加</div>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
                     <span ng-bind="bill.unpaidmoney"></span>
                 </td>
                 <td width="80px">
-                    <div class="button tiny" ng-click="edit()">修改</div>
+                    <div class="button tiny" ng-click="edit()"   ng-if="checkRight('billFirst/update')">修改</div>
                 </td>
             </tr>
         </tbody>
