@@ -43,6 +43,7 @@
                 }
                 $scope.data = data;
                 $scope.totalItems = $scope.data.totalNum;
+                getRolesName();
             });
         };
 
@@ -137,7 +138,6 @@
                 $scope.roles = data.roles;
             });
         }
-		getRolesName();
         function openModal(data, success, error) {
             var modalInstance = $modal.open({
                 templateUrl: 'app/peopleManage/money-modal.html',

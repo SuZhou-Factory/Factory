@@ -6,7 +6,7 @@
         .controller('AdminController', AdminController);
 
     /** @ngInject */
-    function AdminController($scope, $state) {
+    function AdminController($scope, $state, $modal) {
         $scope.statename = 'admin';
         if (sessionStorage.adminuser) {
             $scope.user = JSON.parse(sessionStorage.adminuser);

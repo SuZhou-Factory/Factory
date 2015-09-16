@@ -142,7 +142,7 @@
             $scope.getRightListStr(modal.tree, modal.role);
             modal.role.roleRight = modal.role.roleRight.substr(0, modal.role.roleRight.length-1);
 
-            Http.post('role/update', {user: modal.user}).success(function(data) {
+            Http.post('role/update', {role: modal.role}).success(function(data) {
                 if (data.result.code == '000000') {
                     $scope.msg.success = true;
                     $scope.msg.message = $scope.modal.title + data.result.message;

@@ -51,3 +51,14 @@ gulp.task('styles', function () {
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
     .pipe(browserSync.reload({ stream: true }));
 });
+
+
+// /*==================================
+// =            Copy fonts            =
+// ==================================*/
+
+// gulp.task('fonts', function() {
+//   return gulp.src(conf.paths.fonts)
+//   .pipe(gulp.dest(path.join(conf.paths.dist, 'fonts')));
+// });
+

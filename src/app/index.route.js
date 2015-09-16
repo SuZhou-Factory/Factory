@@ -270,7 +270,7 @@
             })
             .state('main.billHistory', { 
                 url: '',
-                templateUrl: 'app/peopleManage/BillHistory.html',
+                templateUrl: 'app/peopleManage/billHistory.html',
                 controller: 'BillHistoryController',
                 onEnter: onEnter,
                 onExit: onExit,
@@ -399,6 +399,11 @@
                 url: '/shipment',
                 templateUrl: 'app/shipment/shipment.html',
                 controller: 'ShipmentController',
+            })
+            .state('phone', {
+                url: '/phone',
+                templateUrl: 'app/phone/phone.html',
+                controller: 'PhoneController',
             });
 
         $urlRouterProvider.otherwise('/');
