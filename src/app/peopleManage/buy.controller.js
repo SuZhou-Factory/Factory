@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function BuyController($scope, $state, $modal, Http, DataService, Tools) {
-        $scope.buyHead = ['时间', '供应商', '材料', '数量', '金额（元）', '是否付款', '备注', '操作'];
+        $scope.buyHead = ['时间', '供应商', '材料', '数量', '金额（元）', '备注', '操作'];
 
         $scope.maxSize = 5;
         $scope.setPage = function(pageNo) {

@@ -8,13 +8,13 @@
             <label><span>截止时间</span>
                 <input type="text" ui-date="dateOptions" ng-model="searchInfo.buy.endTime">
             </label>
-            <label><span>是否付款</span>
+            <!-- <label><span>是否付款</span>
                 <select type="text" ng-model="searchInfo.buy.ispaid">
                     <option value="">全部</option>
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
-            </label>
+            </label> -->
             <div class="button-container">
                 <div class="button tiny info" ng-click='search()' ng-if="checkRight('buy/index')">查询</div>
                 <div class="button tiny" ng-click='add()' ng-if="checkRight('buy/new')">添加</div>
@@ -44,9 +44,9 @@
                 <td>
                     <span ng-bind="buy.totalmoney"></span>
                 </td>
-                <td width="80px">
+                <!-- <td width="80px">
                     <span ng-bind="buy.ispaid?'是':'否'"></span>
-                </td>
+                </td> -->
                 <td>
                     <span ng-bind="buy.note" popover="{{buy.note}}" popover-trigger="mouseenter" popover-placement="left"></span>
                 </td>

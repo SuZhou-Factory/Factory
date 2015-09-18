@@ -7,7 +7,7 @@
                 <th>材料</th>
                 <th>数量</th>
                 <th>金额（元）</th>
-                <th>是否付款</th>
+                <!-- <th>是否付款</th> -->
                 <th>时间</th>
                 <th>备注</th>
             </tr>
@@ -26,18 +26,18 @@
                         <option ng-repeat="goods in modal.buy.supplier.list" ng-value="goods.name" ng-bind="goods.name" ng-selected="goods.name==modal.buy.goodsname"></option>
                     </select>
                 </td>
-                <td width="60px">
+                <td width="100px">
                     <input type="number" min="0"  ng-model="modal.buy.count">
                 </td>
                 <td>
                     <input type="number" min="0"  ng-model="modal.buy.totalmoney" ng-class="modal.buy.totalmoneyError?'error':''">
                 </td>
-                <td width="80px">
+                <!-- <td width="80px">
                     <select ng-model="modal.buy.ispaid">
                         <option ng-value="0" ng-selected="modal.buy.ispaid==0">否</option>
                         <option ng-value="1" ng-selected="modal.buy.ispaid==1">是</option>
                     </select>
-                </td>
+                </td> -->
                 <td>
                     <input name="deadtime" type="text" ui-date="modal.dateOptions" ng-model="modal.buy.time">
                 </td>
