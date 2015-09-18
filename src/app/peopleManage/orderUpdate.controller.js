@@ -191,7 +191,7 @@
                 return;
             }
             for (var i = 0; i < $scope.data.order.orderItems.length; i++) {
-                if ($scope.data.order.orderItems[i].itemDetails.length) {
+                if ($scope.data.order.orderItems[i].itemDetails && $scope.data.order.orderItems[i].itemDetails.length) {
                     $scope.data.order.orderItems[i].detailSize = $scope.data.order.orderItems[i].itemDetails.length;
                 }
             };

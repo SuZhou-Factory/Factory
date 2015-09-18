@@ -39,7 +39,8 @@
         };
 
         function buildGoodsText(data) {
-            for (var i = 0; i < data.suppliers.length; i++) {
+            if (data.suppliers) {
+                for (var i = 0; i < data.suppliers.length; i++) {
                 var sup = data.suppliers[i];
                 var list = sup.supplierGoods.split('-');
                 sup.goods = '';
@@ -50,6 +51,8 @@
                 }
                 sup.goods = sup.goods.substr(0, sup.goods.length-1);
             }
+            };
+            
         }
 
         // 将挂载在数据服务上的数据取回，若为空，则请求网络数据，并挂载.
