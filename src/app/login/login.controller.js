@@ -15,6 +15,10 @@
         });
 
         function getRandomCode() {
+            if ($scope.user.username == '' && $('#loginForm input[name="username"]').val()) {
+                $scope.user.username = $('#loginForm input[name="username"]').val();
+                $scope.user.password = $('#loginForm input[name="password"]').val();
+            }
             if ($scope.user.username != '') {
                 Http.post('prelogin', {user: {username: $scope.user.username}})
                     .success(function(data, status, headers, config){
@@ -51,7 +55,7 @@
             if (!$('#loginForm').valid()) {
                 return;
             }
-            $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
+            // $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
             Http.post('login', {user: $scope.user}).success(successCallback);
             setTimeout(function() {
                 $scope.user.password = '';

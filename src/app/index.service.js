@@ -1,8 +1,8 @@
 /* global filter */
 (function() {
   'use strict';
-  // var URL = window.Setting ? Setting.host : '/factorys/';
-  var URL = '/factorys/';
+  var URL = window.Setting ? Setting.host : '/factorys/';
+  // var URL = '/factorys/';
   angular
     .module('suzhou')
     .factory("DataService", function(){

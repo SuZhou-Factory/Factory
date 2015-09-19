@@ -9,7 +9,9 @@
     function MainController($rootScope, $scope, $state, $modal, Http, DataService, Tools) {
         $scope.statename = 'main';
         $scope.facotyName = sessionStorage.facotyName;
-        $scope.warning = JSON.parse(sessionStorage.warning);
+        if (sessionStorage.warning) {
+            $scope.warning = JSON.parse(sessionStorage.warning);
+        }
 
         $scope.dateOptions = {
             changeYear: true,
