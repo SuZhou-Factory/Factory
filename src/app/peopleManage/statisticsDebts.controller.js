@@ -28,15 +28,33 @@
             },
         };
         $scope.search = function() {
+
             Http.post('tongji/index', $scope.searchInfo).success(function(data){
                 if (data.resultList && !(data.resultList instanceof Array)) {
                     data.resultList = [data.resultList];
                 }
                 $scope.alldata = data;
-                $scope.data = {
-                	resultList: data.resultList.slice(0, $scope.page.pageSize),
-                };
-                $scope.totalItems = $scope.data.totalNum;
+                if (data.resultList) {
+                    if (data.resultList.length < $scope.page.pageSize) {
+                        $scope.data = {
+                            resultList: data.resultList.slice(0, data.resultList.length),
+                        };
+                    }else{
+                        $scope.data = {
+                            resultList: data.resultList.slice(0, $scope.page.pageSize),
+                        };
+                    };
+                    /*$scope.data = {
+                        resultList: data.resultList.slice(0, $scope.page.pageSize),
+                    };*/
+                    $scope.totalItems = $scope.data.totalNum;
+                } else {
+                    $scope.data = {
+                        resultList: [],
+                    };
+                }
+                
+               
             });
         };
         $scope.search();

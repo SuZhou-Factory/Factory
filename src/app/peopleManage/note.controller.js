@@ -21,7 +21,10 @@
             DataService.mount($state.current.name, $scope.data);
         } else {
             $scope.updatePageShow = $scope.data.updatePageShow;
-        }
+        };
+
+
+
     }
 
 })();

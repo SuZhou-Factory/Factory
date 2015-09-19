@@ -38,5 +38,55 @@
             $scope.$parent.$parent.data.viewPageShow = false;
             $scope.$parent.$parent.data.updateNote = null;
         };
+
+        $scope.cal = function(){
+            var sumMon = 0, sumPaid = 0;
+            for (var i = 0; i < $scope.data.note.contents.length; i++) {
+                if (angular.isNumber($scope.data.note.contents[i].totlemoney)) {
+                    sumMon += $scope.data.note.contents[i].totlemoney;
+                }
+                if (angular.isNumber($scope.data.note.contents[i].totalpaid)) {
+                    sumPaid += $scope.data.note.contents[i].totalpaid;
+                }
+            } 
+            $scope.data.note.totlemoney = sumMon;
+            $scope.data.note.totalpaid = sumPaid;
+        }
+
+
+/*
+            var addNote = {
+                id: '',
+                name: '',
+                notetime: new Date(),
+                totlemoney: '',
+                totalpaid: '',
+                noteremark: '',
+                head1: '日期',
+                head2: '名称',
+                head3: '金额',
+                head4: '付款',
+                head5: '备注',
+                contents: []
+            };
+            for (var i = 0; i < 31; i++) {
+                var content = {
+                    id: '',
+                    noteid: '',
+                    contentorder: i,
+                    contenttime: '',
+                    contentname: '',
+                    contentmoney: '',
+                    contentpaid: '',
+                    contentremark: ''
+                };
+                addNote.contents.push(content);
+            }
+
+*/
+
+
+
+
     }
 })();
