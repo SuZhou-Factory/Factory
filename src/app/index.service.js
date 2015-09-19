@@ -1,7 +1,8 @@
 /* global filter */
 (function() {
   'use strict';
-
+  // var URL = window.Setting ? Setting.host : '/factorys/';
+  var URL = '/factorys/';
   angular
     .module('suzhou')
     .factory("DataService", function(){
@@ -72,7 +73,7 @@
         return {
             post: function(url, data) {
                 var that = this;
-                $http.post(Setting.host + url, data)
+                $http.post(URL + url, data)
                     .success(function(data, status, headers, config){
                         if (that._success) {
                             if (data.result.code == '111111') {
@@ -119,7 +120,7 @@
             },
             get: function(url) {
                 var that = this;
-                $http.get(Setting.host + url)
+                $http.get(URL + url)
                     .success(function(data, status, headers, config){
                         if (that._success) {
                             if (data.result.code == '111111') {
@@ -165,13 +166,13 @@
                 return that;
             },
             _noAuto: false,
-            _success: function() {},
+            _success: null,
             success: function(_success, _noAuto) {
                 this._success = _success;
                 this._noAuto = _noAuto;
                 return this;
             },
-            _error: function() {},
+            _error: null,
             error: function(_error, _noAuto) {
                 this._error = _error;
                 this._noAuto = _noAuto;

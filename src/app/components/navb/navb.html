@@ -1,18 +1,19 @@
 <nav class="top-bar e-nav row">
-  <ul class="title-area small-3 large-2 columns">
+  <ul class="title-area small-5 large-4 columns">
     <li class="name">
       <h1><a href="javascript:void(0)">
-        <big>苏园创业</big> 办公平台
+        <big ng-bind="facotyName"></big>
       </a></h1>
     </li>
   </ul>
 
-  <section class="top-bar-section">
+  <section class="top-bar-section" style="text-align:right;">
     <!-- <ul class="left">
       <li class="active"><a href="javascript:void(0)">首页</a></li>
       <li><a href="javascript:void(0)">关于</a></li>
       <li><a href="javascript:void(0)">联系我们</a></li>
     </ul> -->
+    <span ng-if="warning.code == '077777'" ng-bind="warning.message" style="color:red;"></span>
     <ul class="right">
       <li><a ng-bind="user.name"></a></li>
       <li><a ng-click="resetPass()">修改密码</a></li>

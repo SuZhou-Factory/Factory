@@ -38,5 +38,18 @@
             $scope.$parent.$parent.data.viewPageShow = false;
             $scope.$parent.$parent.data.updateNote = null;
         };
+        $scope.cal = function(){
+            var sumMon = 0, sumPaid = 0;
+            for (var i = 0; i < $scope.data.note.contents.length; i++) {
+                if (angular.isNumber($scope.data.note.contents[i].totlemoney)) {
+                    sumMon += $scope.data.note.contents[i].totlemoney;
+                }
+                if (angular.isNumber($scope.data.note.contents[i].totalpaid)) {
+                    sumPaid += $scope.data.note.contents[i].totalpaid;
+                }
+            } 
+            $scope.data.note.totlemoney = sumMon;
+            $scope.data.note.totalpaid = sumPaid;
+        }
     }
 })();

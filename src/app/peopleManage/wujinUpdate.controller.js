@@ -112,27 +112,22 @@
             };
             $scope.data.associatedOrders = [];
             Http.post('order/search', info).success(function(data){
-                if (data.orders && !(data.orders instanceof Array)) {
-                    data.orders = [data.orders];
-                }
-                $scope.data.associatedOrders = data.orders;
-                // $scope.data.associatedOrders = [{
-                //     id: '11',
-                //     ordername: '1111'
-                // },{
-                //     id: '22',
-                //     ordername: '2222'
-                // },{
-                //     id: '33',
-                //     ordername: '3333'
-                // },{
-                //     id: '44',
-                //     ordername: '4444'
-                // }];
+                if (data.orders){
+                    if (!(data.orders instanceof Array)) {
+                        data.orders = [data.orders];
+                    }
+                    $scope.data.associatedOrders = data.orders;
 
-                if ($scope.data.associatedOrders.length > 0) {
-                    $scope.data.associatedOrderIndex = 0;
-                    $scope.ChangeAssociatedOrder();
+                    if ($scope.data.associatedOrders.length > 0) {
+                        $scope.data.associatedOrderIndex = 0;
+                        $scope.ChangeAssociatedOrder();
+                    }
+                } else {
+                    Tools.alert({
+                        data: {
+                            message: '未查找到关联订单',
+                        }
+                    });
                 }
             });
         }

@@ -8,6 +8,8 @@
 
     function MainController($rootScope, $scope, $state, $modal, Http, DataService, Tools) {
         $scope.statename = 'main';
+        $scope.facotyName = sessionStorage.facotyName;
+        $scope.warning = JSON.parse(sessionStorage.warning);
 
         $scope.dateOptions = {
             changeYear: true,
@@ -85,7 +87,6 @@
 			}
             return false;
 		};
-        //[{"id":23,"name":"人员管理","value":null,"parentid":0,"parentname":null,"hasRight":false},
         $scope.logOut = function() {
             Tools.alert({
                 data: {

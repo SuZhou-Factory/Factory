@@ -6,7 +6,7 @@
  
     /** @ngInject */
     function LoginController($rootScope, $scope, Http, $state, Tools) {
-        $scope.user = Setting.login.data || {
+        $scope.user = {
             username: '',
             password: '',
         };
@@ -60,14 +60,15 @@
         return;
 
         function successCallback(data, status, headers, config) {
-            // data.user.rights = Tools.transtoTree(data.user.rights);
             if ($state.current.data.userText) {
                 sessionStorage[$state.current.data.userText] = JSON.stringify(data.user);
             } else {
                 sessionStorage.user = JSON.stringify(data.user);
             }
             $state.go($state.current.data.mainPage);
-            // HttpProvider.defaults.headers.common.Cookie = getSessionId();
+
+            sessionStorage.facotyName = data.facotyName;
+            sessionStorage.warning = JSON.stringify(data.warning);
         }
     }
 

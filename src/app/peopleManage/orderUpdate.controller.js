@@ -25,7 +25,7 @@
             $scope.data = {};
             if ($scope.$parent.$parent.data.editOrderid) {
                 $scope.isEdit = true;
-                getEditOrder($scope.$parent.$parent.data.editOrderid);
+                // getEditOrder($scope.$parent.$parent.data.editOrderid);
             } else {
                 $scope.data.order = newOrder;
             }
@@ -96,6 +96,10 @@
                     }
                     newOrder.orderItems.push(good);
                 }
+
+                if ($scope.isEdit) {
+                    getEditOrder($scope.$parent.$parent.data.editOrderid);
+                }
             });
         }
         getGoodsInfo();
@@ -157,7 +161,7 @@
             good.note = notes.join('、');
         };
         $scope.initNotes = function(good) {
-            if (good.allnotes) {
+            if (good.allnote) {
                 var notes = good.allnote.split('&');
                 if (notes != '' && notes != null) {
                     good.allnotes = [];
@@ -260,9 +264,5 @@
         $scope.print = function() {
             $('.order-update').printArea();
         };
-        // $scope.fixJavaTime = function(timeStr) {
-        //     console.log(this);
-        //     return timeStr.replace(/CST/, '(CST)');
-        // };
     }
 })();
