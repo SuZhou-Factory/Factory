@@ -1,8 +1,8 @@
 /* global filter */
 (function() {
   'use strict';
-  var URL = window.Setting ? Setting.host : '/factorys/';
-  // var URL = '/factorys/';
+  // var URL = 'http://192.168.1.100/factorys/';
+  var URL = '/factorys/';
   angular
     .module('suzhou')
     .factory("DataService", function(){

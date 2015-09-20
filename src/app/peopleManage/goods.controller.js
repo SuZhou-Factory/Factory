@@ -67,6 +67,11 @@
                     $scope.typeList[data.goods[i].id] = data.goods[i].name;
                     $scope.options.push({id: data.goods[i].id, name: data.goods[i].name});
                 };
+                $scope.searchInfo.goods.goodstype = undefined;
+                // console.log($scope.searchInfo.goods.goodstype);
+                // if ($scope.searchInfo.goods.goodstype == '') {
+                //     $scope.searchInfo.goods.goodstype = '';
+                // }
             });
         }
         $scope.search = function() {
@@ -184,6 +189,8 @@
 
         if (modal.goods.note && modal.goods.note.length && modal.goods.note.length > 0) {
             modal.goods.note = modal.goods.note.split('&');
+        } else {
+            modal.goods.note = [];
         }
         $scope.ok = function() {
             if (!$('#goodsModalForm').valid()) {

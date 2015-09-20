@@ -6,7 +6,7 @@
         .controller('AdminController', AdminController);
 
     /** @ngInject */
-    function AdminController($scope, $state, $modal) {
+    function AdminController($scope, $state, $modal, Tools, Http) {
         $scope.statename = 'admin';
         if (sessionStorage.adminuser) {
             $scope.user = JSON.parse(sessionStorage.adminuser);
@@ -60,8 +60,10 @@
                 },
                 success: function() {
                     Http.get('user/loginOut').success(function(data) {
-                        sessionStorage[$state.current.data.userText] = '';
-                        $state.go('login');
+                        if (sessionStorage.adminuser) {
+                            sessionStorage.adminuser = '';
+                        }
+                        $state.go('adminlogin');
                     });
                 }
             });

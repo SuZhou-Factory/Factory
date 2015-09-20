@@ -9,7 +9,7 @@
     function MainController($rootScope, $scope, $state, $modal, Http, DataService, Tools) {
         $scope.statename = 'main';
         $scope.facotyName = sessionStorage.facotyName;
-        if (sessionStorage.warning) {
+        if (sessionStorage.warning && sessionStorage.warning != 'undefined') {
             $scope.warning = JSON.parse(sessionStorage.warning);
         }
 
@@ -40,7 +40,7 @@
             dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
             dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         };
-        if (sessionStorage.user) {
+        if (sessionStorage.user && sessionStorage.user != 'undefined') {
             $scope.user = JSON.parse(sessionStorage.user);
         } else {
             $state.go('login');
@@ -109,7 +109,7 @@
         $scope.resetPass = function() {
             var modal = {
                 title: '修改密码',
-                username: $scope.user.name,
+                username: $scope.user.username,
             };
 
             openModal(modal, function(data) {

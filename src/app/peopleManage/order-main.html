@@ -39,7 +39,7 @@
                 <th ng-if="RIGHT.money">金额</th>
                 <th>状态</th>
                 <th>最后修改</th>
-                <th ng-if="RIGHT.detail">明细</th>
+                <th ng-if="checkRight('order/detail')">明细</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -60,7 +60,7 @@
                 <td>
                     <div class="select-sp">
                         <i class="fa fa-caret-down"></i>
-                        <select ng-init="order.orderstatus0 = order.orderstatus" ng-model="order.orderstatus" ng-change="updateState(order)" ng-style="order.orderstatus == 0?{color: 'red'}:{}">
+                        <select ng-init="order.orderstatus0 = order.orderstatus" ng-model="order.orderstatus" ng-change="updateState(order)" ng-style="order.orderstatus == 0?{color: 'red'}:{}" ng-disabled="!checkRight('order/updateStatus')">
                             <option value="0" ng-selected="order.orderstatus == 0">待发货</option>
                             <option value="1" ng-selected="order.orderstatus == 1">已发货</option>
                             <option value="2" ng-selected="order.orderstatus == 2">推迟处理</option>
@@ -71,8 +71,8 @@
                 <td>
                     <span ng-bind="order.edittime | getDataFromStr | date:'MM-dd HH:mm'"></span>
                 </td>
-                <td class="td-button-container" style="width:6rem;" ng-if="RIGHT.detail">
-                    <div class="button tiny" ng-click="view(order)"   ng-if="checkRight('order/detail')">查看明细</div>
+                <td class="td-button-container" style="width:6rem;">
+                    <div class="button tiny" ng-click="view(order)" ng-if="checkRight('order/detail')">查看明细</div>
                     <!-- <input type="text" ng-model="order.note" ng-disabled="order.editable"> -->
                 </td>
                 <td style="width:8rem;">

@@ -8,8 +8,8 @@
         <p>日期：<span ng-bind="data.bill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span></p>
     </div>
     <div class="old-bill">
-        <p><span ng-bind="data.bill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span>前</p>
-        <p style="color:#900;">合计总额：<span ng-bind="data.bill.lastBill.totlemoney.toFixed(2)"></span></p>
+        <p><span ng-bind="data.bill.lastBill.billendtime | getDataFromStr | date:'yyyy-MM-dd'"></span>前</p>
+        <p>合计总额：<span ng-bind="data.bill.lastBill.totlemoney.toFixed(2)"></span></p>
         <p>实付总额：<span ng-bind="data.bill.lastBill.paidmoney.toFixed(2)"></span></p>
         <p>欠款总额：<span ng-bind="data.bill.lastBill.unpaidmoney.toFixed(2)"></span></p>
     </div>

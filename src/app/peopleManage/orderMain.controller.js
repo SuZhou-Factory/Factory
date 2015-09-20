@@ -116,10 +116,12 @@
                         $scope.search();
                     }).error(function(data) {
                         order.orderstatus == order.orderstatus0;
+                        $scope.search();
                     });
                 },
                 error: function() {
                     order.orderstatus == order.orderstatus0;
+                    $scope.search();
                 }
             });
 

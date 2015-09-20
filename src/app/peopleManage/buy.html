@@ -42,13 +42,14 @@
                     <span ng-bind="buy.count"></span>
                 </td>
                 <td>
-                    <span ng-bind="buy.totalmoney"></span>
+                    <span ng-bind="buy.totalmoney.toFixed(2)"></span>
                 </td>
                 <!-- <td width="80px">
                     <span ng-bind="buy.ispaid?'是':'否'"></span>
                 </td> -->
-                <td>
-                    <span ng-bind="buy.note" popover="{{buy.note}}" popover-trigger="mouseenter" popover-placement="left"></span>
+                <td width="300px">
+                    <span ng-bind="buy.note"></span>
+                    <!-- <span ng-bind="buy.note" popover="{{buy.note}}" popover-trigger="mouseenter" popover-placement="left"></span> -->
                 </td>
                 <td width="150px">
                     <div class="button tiny" ng-click="edit()" ng-if="checkRight('buy/edit')">修改</div>

@@ -1,7 +1,7 @@
 <div class="print-buttons">
     <div class="button tiny info" ng-click="printMilt()">打印多规格</div>
-    <div class="button tiny info" ng-click="printNoMoney()">打印不含价格</div>
-    <div class="button tiny info" ng-click="printAll()">打印全部</div>
+    <div class="button tiny info" ng-click="printNoMoney()" ng-if="RIGHT.money">打印不含价格</div>
+    <div class="button tiny info" ng-click="printAll()" >打印全部</div>
     <div class="button tiny" ng-click="back()">返回</div>
 </div>
 <section class="print">
@@ -42,25 +42,25 @@
                         <th>品名</th>
                         <th>数量</th>
                         <th>单位</th>
-                        <th class="money">单价（元）</th>
-                        <th class="money">总价（元）</th>
+                        <th class="money" ng-if="RIGHT.money">单价（元）</th>
+                        <th class="money" ng-if="RIGHT.money">总价（元）</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in data.order.orderItems">
                         <td ng-bind="item.name"></td>
-                        <td ng-bind="item.count"></td>
+                        <td ng-bind="item.count==0?'':item.count"></td>
                         <td ng-bind="item.unit"></td>
-                        <td ng-bind="item.price" class="money"></td>
-                        <td ng-bind="item.totalmoney" class="money"></td>
+                        <td ng-bind="item.price==0?'':item.price.toFixed(2)" class="money" ng-if="RIGHT.money"></td>
+                        <td ng-bind="item.totalmoney==0?'':item.totalmoney.toFixed(2)" class="money" ng-if="RIGHT.money"></td>
                     </tr>
                 </tbody>
             </table>
             <p class="note">备注：
             	<span ng-bind="data.order.note"></span>
             </p>
-            <p class="gather money">合计：¥ 
-            	<span ng-bind="data.order.orderamount"></span>
+            <p class="gather money" ng-if="RIGHT.money">合计：¥ 
+            	<span ng-bind="data.order.orderamount.toFixed(2)"></span>
             </p>
         </div>
     </div>
