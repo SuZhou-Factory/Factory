@@ -31,7 +31,6 @@
             if ($scope.$parent.$parent.data.editInfo) {
                 $scope.isEdit = true;
                 $scope.data.order = $scope.$parent.$parent.data.editInfo;
-                // getEditOrder($scope.$parent.$parent.data.editInfo);
             } else {
                 $scope.data.order = newOrder;
             }
@@ -194,6 +193,8 @@
             if(angular.isNumber(item.detaila) && angular.isNumber(item.detailb)) {
                 item.detailc = item.detaila * item.detailb;
                 item.detailc = item.detailc.toFixed(2) - 0;
+            } else if (!item.detaila || !item.detailb) {
+                item.detailc = '';
             }
         };
         $scope.sum2 = function(order) {

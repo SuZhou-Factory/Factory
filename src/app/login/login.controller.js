@@ -66,7 +66,7 @@
             if (!$('#loginForm').valid()) {
                 return;
             }
-            $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
+            // $scope.user.password = encryptByDES($scope.user.password, $scope.randomCode);
             Http.post('login', {user: $scope.user}).success(successCallback);
             setTimeout(function() {
                 $scope.user.password = '';

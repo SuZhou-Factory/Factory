@@ -8,7 +8,7 @@
             <input name="billendtime" type="text" ui-date="modal.dateOptions" ng-model="modal.bill.billendtime">
         </label>
         <label><span>实付金额</span>
-            <input name="paidmoney" type="number" min="0" ng-model="modal.bill.paidmoney">
+            <input name="paidmoney" type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="modal.bill.paidmoney">
         </label>
     </div>
     <div class="small-6">

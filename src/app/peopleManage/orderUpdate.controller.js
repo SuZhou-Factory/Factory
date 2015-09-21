@@ -140,6 +140,8 @@
             if(angular.isNumber(good.count) && angular.isNumber(good.price)) {
                 good.totalmoney = good.count * good.price;
                 good.totalmoney = good.totalmoney.toFixed(2) - 0;
+            } else if (!good.count || !good.price) {
+                good.totalmoney = '';
             }
         };
         $scope.sum3 = function(order) {
