@@ -67,13 +67,13 @@
                         <th ng-if="RIGHT.money">总价（元）</th>
                     </tr>
                 </thead>
-                <tbody  ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -9 || good.goodstype == -8">
-                    <tr>
+                <tbody  ng-repeat="good in data.order.orderItems" ng-if="good.goodstype == -9 || good.goodstype == -8 || good.goodstype == -7">
+                    <tr ng-init="good.goodstype == -7?good.editable=true:{}">
                         <td><input type="text" ng-model="good.name" ng-disabled="good.editable" ng-change="change(good)"></td>
-                        <td><input type="number" min="0" ng-model="good.count" ng-change="sum2(good);sum3(data.order)"></td>
-                        <td><input type="text" ng-model="good.unit"></td>
-                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)"></td>
-                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)"></td>
+                        <td ng-init="good.goodstype == -7?good.count='':{}"><input type="number" min="0" ng-model="good.count" ng-change="sum2(good);sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
+                        <td><input type="text" ng-model="good.unit" ng-disabled="good.goodstype == -7"></td>
+                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
+                        <td ng-if="RIGHT.money"><input type="number" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
                     </tr>
                 </tbody>
             </table>

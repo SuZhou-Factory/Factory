@@ -189,6 +189,15 @@
                 $scope.$parent.$parent.data.editInfo = null;
             });
         };
+        $scope.change = function(item) {
+            if (item.detaild == '') {
+                item.detaila = '';
+                item.detaile = '';
+                item.detailb = '';
+                item.detailc = '';
+            }
+            $scope.sum2($scope.data.order);
+        };
         $scope.sum = function(item) {
             if(angular.isNumber(item.detaila) && angular.isNumber(item.detailb)) {
                 item.detailc = item.detaila * item.detailb;

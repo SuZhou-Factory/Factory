@@ -19,7 +19,7 @@
                         <th>数量</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="item in data.order.orderItems" ng-if="item.itemDetails&&item.itemDetails.length>0">
+                <tbody ng-repeat="item in data.order.orderItems" ng-if="item.goodstype == -9">
                     <tr>
                         <td colspan="2">
                         	<div>

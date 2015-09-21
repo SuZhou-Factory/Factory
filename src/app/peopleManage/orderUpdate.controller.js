@@ -110,11 +110,12 @@
         $scope.change = function(good) {
             if (good.name == '') {
                 // $scope.data.order.orderItems = _.without($scope.data.order.orderItems, good);
-                good.count = '   ';
+                good.count = '';
                 good.price = '';
                 good.note = '';
                 good.unit = '';
                 good.totalmoney = '';
+                $scope.sum3($scope.data.order);
                 return;
             }
             var goods = $scope.data.goods;

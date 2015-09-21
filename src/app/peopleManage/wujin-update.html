@@ -49,12 +49,12 @@
                     <td><input type="number" min="0" ng-model="item.detaila" ng-keyup="sum(item);sum2(data.order)"></td>
                     <td><input type="text" ng-model="item.detaile"></td>
                     <td><input type="number" min="0" ng-model="item.detailb" ng-change="sum(item);sum2(data.order)"></td>
-                    <td><input type="number" min="0" ng-model="item.detailc" ng-change="sum3(data.order)"></td>
+                    <td><input type="number" min="0" ng-model="item.detailc" ng-change="sum2(data.order)"></td>
                 </tr>
             </tbody>
         </table>
         <div style="text-align:right">
-            <div class="button tiny info" ng-click="addGoods()">+</div>
+            <div class="button tiny info" ng-click="data.order.orderItems.itemDetails.push({})">+</div>
         </div>
         <div class="gather">
             <span ng-click="sum3(data.order)">合计：¥ </span><input type="number" min="0" ng-model="data.order.orderItems.totalmoney">
