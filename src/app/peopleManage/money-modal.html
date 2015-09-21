@@ -5,7 +5,7 @@
             <input name="name" type="text" ng-model="modal.money.name">
         </label>
         <label><span><i>*</i>金额</span>
-            <input name="money" type="number" min="0" ng-model="modal.money.money">
+            <input name="money" type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="modal.money.money">
         </label>
         <label><span>支付方式</span>
             <div class="select">
