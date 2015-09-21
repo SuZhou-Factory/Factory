@@ -46,10 +46,10 @@
             <tbody  ng-repeat="item in data.order.orderItems.itemDetails">
                 <tr>
                     <td><input type="text" ng-model="item.detaild" ng-change="change(item)"></td>
-                    <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="item.detaila" ng-keyup="sum(item);sum2(data.order)"></td>
+                    <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="item.detaila" ng-change="sum(item);sum2(data.order)"></td>
                     <td><input type="text" ng-model="item.detaile"></td>
                     <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="item.detailb" ng-change="sum(item);sum2(data.order)"></td>
-                    <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="item.detailc" ng-change="sum2(data.order)"></td>
+                    <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="item.detailc" ng-change="sum2(data.order, item)"></td>
                 </tr>
             </tbody>
         </table>

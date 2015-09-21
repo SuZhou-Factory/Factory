@@ -28,10 +28,10 @@
                     <input type="text" ng-model="content.contentname">
                 </td>
                 <td>
-                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="content.contentmoney" ng-change="cal()">
+                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="content.contentmoney" ng-change="cal(content)">
                 </td>
                 <td>
-                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="content.contentpaid" ng-change="cal()">
+                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="content.contentpaid" ng-change="cal(content)">
                 </td>
                 <td>
                     <input type="text" ng-model="content.contentremark">

@@ -39,13 +39,16 @@
             $scope.$parent.$parent.data.updateNote = null;
         };
 
-        $scope.cal = function(){
+        $scope.cal = function(content){
+            if (content && (isNaN(content.contentmoney) || isNaN(content.contentpaid))) {
+                return;
+            }
             var sumMon = 0, sumPaid = 0;
             for (var i = 0; i < $scope.data.note.contents.length; i++) {
-                if (angular.isNumber($scope.data.note.contents[i].contentmoney)) {
+                if ($scope.data.note.contents[i].contentmoney && !isNaN($scope.data.note.contents[i].contentmoney)) {
                     sumMon += $scope.data.note.contents[i].contentmoney;
                 }
-                if (angular.isNumber($scope.data.note.contents[i].contentpaid)) {
+                if ($scope.data.note.contents[i].contentpaid && !isNaN($scope.data.note.contents[i].contentpaid)) {
                     sumPaid += $scope.data.note.contents[i].contentpaid;
                 }
             } 

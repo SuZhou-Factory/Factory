@@ -128,31 +128,37 @@
                 }
             }
         };
-        $scope.sum = function(good) {
+        $scope.sum = function(good, detail) {
+            if (detail && (isNaN(detail.detaila) || isNaN(detail.detailb))) {
+                return;
+            }
             var sum = 0;
             for (var i = 0; i < good.itemDetails.length; i++) {
-                if(angular.isNumber(good.itemDetails[i].detaila) && angular.isNumber(good.itemDetails[i].detailb)) {
+                if(good.itemDetails[i].detaila && !isNaN(good.itemDetails[i].detaila) && good.itemDetails[i].detailb && !isNaN(good.itemDetails[i].detailb)) {
                     sum += good.itemDetails[i].detaila * good.itemDetails[i].detailb;
                 }
             }
-            good.count = sum.toFixed(2) - 0;
+            good.count = sum;
         };
         $scope.sum2 = function(good) {
-            if(angular.isNumber(good.count) && angular.isNumber(good.price)) {
+            if(good.count && !isNaN(good.count) && good.price && !isNaN(good.price)) {
                 good.totalmoney = good.count * good.price;
-                good.totalmoney = good.totalmoney.toFixed(2) - 0;
+                good.totalmoney = good.totalmoney;
             } else if (!good.count || !good.price) {
                 good.totalmoney = '';
             }
         };
-        $scope.sum3 = function(order) {
+        $scope.sum3 = function(order, good) {
+            if (good && isNaN(good.totalmoney)) {
+                return;
+            }
             var sum = 0;
             for (var i = 0; i < order.orderItems.length; i++) {
-                if (angular.isNumber(order.orderItems[i].totalmoney)) {
-                    sum += order.orderItems[i].totalmoney;
+                if (order.orderItems[i].totalmoney && !isNaN(order.orderItems[i].totalmoney)) {
+                    sum += order.orderItems[i].totalmoney-0;
                 }
             }
-            order.orderamount = sum.toFixed(2) - 0;
+            order.orderamount = sum;
         };
         $scope.checkbox = function(good,selected) {
             var notes = [];

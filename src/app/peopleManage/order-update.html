@@ -50,8 +50,8 @@
                         </td>
                     </tr>
                     <tr ng-repeat="detail in good.itemDetails">
-                        <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="detail.detaila" ng-change="sum(good);sum2(good);sum3(data.order)"></td>
-                        <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="detail.detailb" ng-change="sum(good);sum2(good);sum3(data.order)"></td>
+                        <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="detail.detaila" ng-change="sum(good, detail);sum2(good);sum3(data.order)"></td>
+                        <td><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="detail.detailb" ng-change="sum(good, detail);sum2(good);sum3(data.order)"></td>
                     </tr>
                 </tbody>
             </table>
@@ -73,7 +73,7 @@
                         <td ng-init="good.goodstype == -7?good.count='':{}"><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="good.count" ng-change="sum2(good);sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
                         <td><input type="text" ng-model="good.unit" ng-disabled="good.goodstype == -7"></td>
                         <td ng-if="RIGHT.money"><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="good.price" ng-change="sum2(good);sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
-                        <td ng-if="RIGHT.money"><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order)" ng-disabled="good.goodstype == -7"></td>
+                        <td ng-if="RIGHT.money"><input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="good.totalmoney" ng-change="sum3(data.order, good)" ng-disabled="good.goodstype == -7"></td>
                     </tr>
                 </tbody>
             </table>

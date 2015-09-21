@@ -199,24 +199,43 @@
             $scope.sum2($scope.data.order);
         };
         $scope.sum = function(item) {
-            if(angular.isNumber(item.detaila) && angular.isNumber(item.detailb)) {
+            if (!item.detaild) {
+                item.detailc = '';
+                return;
+            }
+            if(item.detaila && !isNaN(item.detaila) && item.detailb && !isNaN(item.detailb)) {
                 item.detailc = item.detaila * item.detailb;
-                item.detailc = item.detailc.toFixed(2) - 0;
+                item.detailc = item.detailc;
             } else if (!item.detaila || !item.detailb) {
                 item.detailc = '';
             }
         };
-        $scope.sum2 = function(order) {
+        $scope.sum2 = function(order, item) {
+            if (item) {
+                if (isNaN(item.detailc)) {
+                    return;
+                }
+                // if (!item.detaild) {
+                //     item.detailc = '';
+                //     return;
+                // }
+            }
             var list = order.orderItems.itemDetails;
             var sum = 0;
             for (var i = 0; i < list.length; i++) {
-                if (angular.isNumber(list[i].detailc)) {
-                    sum += list[i].detailc;
+                if (list[i].detailc && !isNaN(list[i].detailc)) {
+                    sum += list[i].detailc-0;
                 }
             }
-            // order.orderamount = sum.toFixed(2) - 0;
-            order.orderItems.totalmoney = sum.toFixed(2) - 0;
+            // order.orderamount = sum;
+            order.orderItems.totalmoney = sum;
         };
+        function IsNum(s) {
+            if (s!=null && s!="") {
+                return !isNaN(s);
+            }
+            return false;
+        }
     }
 
 })();
