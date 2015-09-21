@@ -30,10 +30,10 @@
                     </select>
                 </td>
                 <td width="100px">
-                    <input type="number" min="0"  ng-model="buy.count">
+                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0"  ng-model="buy.count">
                 </td>
                 <td>
-                    <input type="number" min="0"  ng-model="buy.totalmoney" ng-class="buy.totalmoneyError?'error':''">
+                    <input type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0"  ng-model="buy.totalmoney" ng-class="buy.totalmoneyError?'error':''">
                 </td>
                 <!-- <td width="80px">
                     <select ng-model="buy.ispaid">

@@ -19,10 +19,10 @@
             </select>
         </label>
         <label><span>总计金额</span>
-            <input name="totlemoney" type="number" min="0" ng-model="modal.bill.totlemoney">
+            <input name="totlemoney" type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="modal.bill.totlemoney">
         </label>
         <label><span>欠款金额</span>
-            <input name="unpaidmoney" type="number" min="0" ng-model="modal.bill.unpaidmoney">
+            <input name="unpaidmoney" type="tel" onkeyup="value=value.replace(/[^\-?\d.]/g,'')" min="0" ng-model="modal.bill.unpaidmoney">
         </label>
     </div>
 </form>
